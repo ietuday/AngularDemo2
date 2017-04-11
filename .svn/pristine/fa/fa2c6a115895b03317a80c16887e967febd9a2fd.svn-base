@@ -1,0 +1,322 @@
+@import '../../styles.scss';
+
+//standard classes
+
+.schedulerTablePaginator .ui-paginator{
+  height: 28px;
+}
+
+.ui-selectbutton .ui-button.ui-state-active {
+  font-size: 11px;
+}
+.ui-selectbutton .ui-button.ui-state-default {
+  font-size: 11px;
+}
+
+.schedulerBtnStyle .ui-widget-header .ui-button, .ui-widget-content .ui-button{
+  background: $ewhite;
+  // transition: none !important;
+}
+
+// Applying active color to selectButton
+.ui-selectbutton .ui-button.ui-state-active {
+  border: 1px solid $emaroon;
+  background: $emaroon;
+  color: #FFFFFF;
+}
+
+// Changing hover color for buttons.
+.applySchedulerButtonStyle .ui-button:enabled:hover, .applySchedulerButtonStyle .ui-widget-content .ui-button:enabled:hover {
+  border: 1px solid $emaroon;
+  background: $emaroon;
+  outline: 0 none;
+  color: #fff;
+}
+
+.applySchedulerButtonStyle .ui-button, .applySchedulerButtonStyle button.ui-button.ui-state-default, .applySchedulerButtonStyle .ui-button.ui-state-default{
+  background: $ewhite;
+  color: $emaroon;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  padding: 2px !important;
+}
+
+.schedulerBody {
+  margin-left: 55px;
+}
+
+.schedulerMainBlock {
+  margin: 2%;
+  width: 96%;
+  font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.schedulerSubmitTitle {
+  color: $emaroon;
+  height: 30px;
+  border-bottom: 1px solid $egraybottomborder;
+  margin-top: 30px;
+}
+
+.schedulerSubmitBlock {
+  margin-top: 15px;
+  border-bottom: 1px solid $egraybottomborder;
+}
+
+.schedulerDataRow {
+  height: 68px;
+}
+
+.schedulerDataBlock {
+  float: left;
+  width: 20%;
+}
+
+.schedulerInputLabel {
+  color: $egrayfieldlabel;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.schedulerInputText {
+  width: 94%;
+}
+
+.schedulerExtraSpace {
+  float: left;
+  width:6.66%;
+}
+
+.schedulerCalendarIcon {
+  float: right;
+  margin-right: -2px;
+  margin-top: -19px;
+  position: relative;
+  font-size: 13px;
+}
+
+.schedulerLeftBtnBlock {
+  float: left;
+  height: 30px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+// .applySchedulerButtonStyle:hover{
+//   background: $emaroon;
+//   color: $ewhite;
+// }
+
+// .schedulerLeftBtnBlock{
+//   background: $emaroon;
+//   color: $ewhite;
+// }
+.schedulerBtnStyle {
+  float: left;
+  border-radius: 25px;
+  padding: 5px;
+  background: $ewhite;
+  border: 1px solid $emaroon;
+  height: 30px;
+  font-size: 13px;
+  color: #921b31;
+}
+
+.schedulerBtnStyle:hover{
+  color: $ewhite;
+  background: $emaroon;
+}
+.schedulerHeading{
+  margin-left: 81px;
+  height: 25px;
+  color: $emaroon;
+  margin-right: 30px;
+  margin-top: 31px;
+  border-bottom: 1px solid $egraybottomborder;
+  font-family: sans-serif;
+}
+
+.schedulerMainPart{
+  margin-left: 132px;
+  margin-top: 15px;
+  font-family: sans-serif;
+}
+
+.schedulerButtonBlock{
+  height: 50px;
+  border-bottom: 1px solid $egraybottomborder;
+  margin-left: 84px;
+  margin-right: 30px;
+}
+
+.schedulerButtonDiv{
+  float: left;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  height: 27px;
+  margin-left: 1px;
+}
+
+.schedulerSubmit:hover{
+  color: $ewhite;
+}
+
+.schedulerButtonDiv:hover{
+  background: $emaroon;
+  color: $ewhite;
+}
+
+.schedulerSubmit{
+  float: left;
+  padding: 5px;
+  margin-top: 0px;
+  color: $emaroon;
+  width: 76px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.schedulerTableMainBlock {
+  margin-top: 30px;
+}
+
+.schedulerTableBlock {
+  width: 100%;
+}
+
+.schedulerTableRowBlock {
+  float: left;
+  width: 24.7%;
+  height: 40px;
+  background: #f9f9f9;
+  border-top: 1px solid $egraybottomborder;
+  border-bottom: 1px solid $egraybottomborder;
+  border-left: 1px solid $egraybottomborder;
+}
+
+.schedulerTableRowBlock2{
+  float: left;
+  width: 24.75%;
+  height: 40px;
+  background: white;
+  border-top: 1px solid $egraybottomborder;
+  border-bottom: 1px solid $egraybottomborder;
+  border-left: 1px solid $egraybottomborder;
+}
+
+.schedulerTableHeaderContent {
+  margin-top: 16px;
+  text-align: center;
+  color: black;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.schedulerTableMainContent{
+  margin-top: 16px;
+  color: $egraymenulabel;
+  font-size: 11px;
+  text-align:center;
+}
+
+.schedulerTablePaginator{
+  float: right;
+  margin-top: 3px;
+  margin-right: 17px;
+}
+
+.schedulerTableRowBlockpaginator{
+  float: left;
+  width: 49.8%;
+  height: 40px;
+  background: #f5f5f5;
+  border-top: 1px solid $egraybottomborder;
+  border-bottom: 1px solid $egraybottomborder;
+  border-left: 1px solid $egraybottomborder;
+}
+
+.schedulerPaginator .ui-paginator .ui-paginator-page.ui-state-active{
+  background: $emaroon;
+  border: 1px solid $emaroon;
+}
+
+.schedulerRightBtnBlock {
+  float: left;;
+  height: 30px;
+  font-size: 13px;
+  margin-left:75px;
+  margin-top: 15px;
+}
+
+.schedulerBtnSubBlock {
+  float: left;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+// .applyButtonStyle .ui-button, .applyButtonStyle button.ui-button.ui-state-default, .applyButtonStyle .ui-button.ui-state-default{
+//   background: $ewhite;
+//   color: $emaroon;
+//   border: 1px solid $emaroon;
+//   border-radius: 25px;
+//   padding: 2px !important;
+// }
+
+
+.schedulerTable{
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 99.5%;
+  background: $ewhite;
+}
+.schedulerTableRow{
+  border-left: 1px solid $egrayborder;
+  border-right:  1px solid $egrayborder;
+}
+.schedulerTableData{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  color: $egraymenulabel;
+  font-size: 14px;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    // border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    font-size: 13px;
+    visibility: hidden;
+    width: 260px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 50%;
+    margin-left: -130px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

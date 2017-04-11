@@ -1,0 +1,116 @@
+import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/primeng';
+import { Router } from '@angular/router';
+import { WebSocketService } from '../services/web-socket.service';
+import { CustomerData } from '../data-models/customer-data';
+
+declare var $: any;
+
+@Component({
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    providers: [WebSocketService]
+})
+
+export class LoginComponent implements OnInit {
+
+  private customerName: string = '';
+    private displayMenu: boolean = false;
+    private windowWidth: number;
+    private customers: SelectItem[];
+    private userName: string = '';
+    private password: string = '';
+    private selectCustomer: any = 'Customer Name';
+    private selectCustomerObj: any = { customerId: "", customerName: "Customer Name", deptId: "" };
+    private loginStatus: string = "";
+    private display: boolean = false;
+    private displaySignInBtn: boolean = true;
+    private mainLoginBlock = 'mainBlockBefore';
+
+    constructor(private router: Router) {
+        console.log("LoginComponent: constructor");
+        this.windowWidth = window.innerWidth;
+        //    window.addEventListener("resize", (e) => {
+        //      this.windowWidth = window.innerWidth;
+        //      if (this.windowWidth >= 768) {
+        //        this.displayMenu = false
+        //      }
+        //    });
+        WebSocketService.getInstance().customerDataBehaviorSubject.subscribe(data => this.customerDataBehaviorSubjectSubscribe(data));
+        WebSocketService.getInstance().loginBehaviorSubject.subscribe(data => this.loginBehaviorSubjectSubscribe(data));
+    }
+
+    focusLogin() {
+        $('input').blur(function() {
+            var $this = $(this);
+            if ($this.val())
+                $this.addClass('used');
+            else
+                $this.removeClass('used');
+        });
+    }
+
+    ngOnInit() {
+        this.focusLogin();
+    }
+
+    loginBehaviorSubjectSubscribe(data) {
+        console.log("LoginComponent: loginBehaviorSubjectSubscribe: ", data);
+        if (data === '') {
+            console.log("Ignore");
+        } else if (data === 'ERROR') {
+            //      alert("Login failed.");
+            this.loginStatus = "Login failed.";
+        } else {
+            this.loginStatus = "Success.";
+            sessionStorage.setItem("userName", this.userName);
+            //      sessionStorage.setItem("selectCustomer", this.selectCustomer);
+            //      let custId = parseInt(this.selectCustomer);
+            WebSocketService.getInstance().customerIdBehaviorSubject.next(this.selectCustomer);
+            this.router.navigate(['/dashboard']);
+        }
+    }
+
+    toggleMenu() {
+        this.displayMenu = !this.displayMenu;
+    }
+
+    customerDataBehaviorSubjectSubscribe(data) {
+        //    console.log("LoginComponent: customerDataBehaviorSubjectSubscribe: ", data);
+        this.customers = [];
+        this.customers.push({ label: 'Select Customer', value: null });
+        for (let i in data) {
+            this.customers.push({ label: data[i].customerName, value: { customerId: data[i].customerId, customerName: data[i].customerName, deptId: data[i].deptId } });
+        }
+    }
+
+    login() {
+        console.log("Sending login ws message", this.selectCustomer);
+        if (this.selectCustomer != 'Customer Name') {
+            WebSocketService.getInstance().sendMessage({
+                'action': 'login',
+                'message': {
+                    "userName": this.userName,
+                    "password": this.password
+                }
+            });
+        } else if (this.selectCustomer == 'Customer Name' || this.selectCustomer == null) {
+            this.loginStatus = "Please select the customer.";
+        }
+    }
+
+    signUp() {
+        console.log("Inside Signup");
+        this.router.navigate(['/dashboard']);
+    }
+
+    customerChange(e) {
+        console.log(e);
+    }
+
+    clickedSignIn() {
+        this.displaySignInBtn = false;
+        this.mainLoginBlock = this.mainLoginBlock == 'mainBlockBefore' ? 'mainBlockAfter' : 'mainBlockBefore';
+    }
+}

@@ -1,0 +1,25 @@
+@import '../../styles.scss';
+
+// Applying background color if input is disabled
+input[type="text"]:disabled {
+  // background-color: $egrayfield;
+  background-color: $egraydisabledfield;
+  // border: 1px solid $egrayborder;
+  border: 1px solid $egraydisabledborder;
+  color: black;
+}
+
+
+
+// .testClass {
+//     color: red;
+// }
+//
+// .ui-dialog .ui-dialog-content {
+//     position: relative;
+//     border: 0;
+//     padding: .5em .75em;
+//     background: 0;
+//     overflow: auto;
+//     zoom: 1;
+// }

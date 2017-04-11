@@ -1,0 +1,146 @@
+import {Component, OnInit, AfterViewInit, Input, ViewEncapsulation} from '@angular/core';
+//import {Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
+import {CustomerData} from '../data-models/customer-data';
+import {WebSocketService} from '../services/web-socket.service';
+import {SelectItem} from 'primeng/primeng';
+
+declare var $: any;
+
+@Component({
+    selector: 'app-dashboard',
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss']
+})
+export class DashboardComponent implements OnInit, AfterViewInit  {
+    // @Input() salesOrderNumber: number;
+
+    private displayMenu: boolean = false;
+    private displayNCReport: boolean = false;
+    private windowWidth: number;
+    private userInfo: any;
+    private userName: any;
+    private selectedCustomerId: any;
+    private customersData: CustomerData[] = [];
+    private customer: CustomerData = new CustomerData();
+    private salesOrderNo: number = -1;
+    private showFindSO: boolean = false;
+    private selectedSalesOrderNo:any;
+    private soNumbers = [];
+    private displayMarkingDialog: boolean = false;
+    private displayNcDialog: boolean = false;
+    private cities: SelectItem[];
+    private displayExportRef: boolean = true;
+
+     selectedCity: string;
+
+//    constructor(private router: Router, private route: ActivatedRoute) {
+    constructor() {
+        console.log("HomePageComponent: displayExportRef", this.displayExportRef);
+           setTimeout(() => {
+              let elm1: any = $('.ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-dialog-draggable');
+                 elm1[0]['style']['overflow'] = 'auto';
+                },100);
+        this.windowWidth = window.innerWidth;
+
+        window.addEventListener("resize", (e) => {
+            this.windowWidth = window.innerWidth;
+            if (this.windowWidth >= 768) {
+                this.displayMenu = false
+            }
+        });
+
+         WebSocketService.getInstance().showExportRefBehaviorSubject.subscribe(data => {this.displayExportRef = data});
+        // WebSocketService.getInstance().customerDataBehaviorSubject.subscribe(data => this.customerDataBehaviorSubjectSubscribe(data));
+        // WebSocketService.getInstance().salesOrderNumbersBehaviorSubject.subscribe(data => this.setSONumbers(data));
+        // this.getSOnumbers();
+
+        this.cities = [];
+        this.cities.push({label:'', value:null});
+        this.cities.push({label:'New York', value:{id:1, name: 'New York', code: 'NY'}});
+        
+//        router.events.subscribe(x => {
+//            if (x instanceof NavigationEnd) {
+//                console.log(x.urlAfterRedirects);
+//                if(x.urlAfterRedirects == '/dashboard/2') {
+//                    this.displayExportRef = false;
+//                } else {
+//                    this.displayExportRef = true;
+//                }
+//            }
+//        });
+    }
+
+    ngOnInit() {
+         this.userName = sessionStorage.getItem("userName");
+//         let id = +this.route.snapshot.params['id'];
+//         console.log("id", id);
+//         if (id == 1) {
+//           this.displayExportRef = true;
+//         } else if (id == 2) {
+//           this.displayExportRef = false;
+//         }
+//        //  id == 1  || id == NaN ? this.displayExportRef = true : this.displayExportRef = false;
+//         console.log(this.displayExportRef);
+    }
+
+    ngAfterViewInit() {
+      //  console.log(" Dashboard AfterViewInit", $(document).height());
+    }
+
+    setSONumbers(data) {
+        console.log("DashboardComponent: setSONumbers", data);
+        this.soNumbers = data;
+    }
+
+    selectSO() {
+        this.salesOrderNo = this.selectedSalesOrderNo.salesOrderNo;
+        this.showFindSO = false;
+        console.log("Dashboard: selectSO()", this.salesOrderNo);
+        this.getSalesOrderData();
+    }
+
+    toggleMenu() {
+        this.displayMenu = !this.displayMenu;
+    }
+
+    showNC() {
+        this.displayNCReport = true;
+    }
+
+    customerDataBehaviorSubjectSubscribe(data) {
+        this.customersData = data;
+        for (let i in this.customersData) {
+            if (this.customersData[i].customerId == this.selectedCustomerId) {
+                this.customer = this.customersData[i];
+            }
+        }
+        console.log("Dashboard: customerDataBehaviorSubjectSubscribe() Customer Selected: ", this.customer);
+    }
+
+    getSOnumbers() {
+        let wsm = {
+            'action': 'getSOnumbers',
+            'message': {
+                "customerId": sessionStorage.getItem("selectCustomer")
+            }
+        };
+        console.log('wsm', wsm);
+        WebSocketService.getInstance().sendMessage(wsm);
+    }
+
+    salesOrderNoChanged($event) {
+      console.log("salesOrderNoChanged: ", $event);
+      this.salesOrderNo = $event;
+    }
+
+    getSalesOrderData() {
+      console.log("Dashboard: getSalesOrder()", this.salesOrderNo);
+        WebSocketService.getInstance().sendMessage({
+            'action': 'getSalesOrder',
+            'message': {
+                "salesOrderNo": this.salesOrderNo
+            }
+        });
+    }
+}

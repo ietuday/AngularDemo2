@@ -1,0 +1,47 @@
+<div class="loginMainBlock">
+  <div class="loginLogo"><img src="assets/logo.png" width="101"></div>
+  <div class="loginHeader">
+    <span style="color:rgb(146, 27, 49)">ELITE's&nbsp;</span> <span style="color: white"> History & Corporate Vision & Mission </span>
+  </div>
+  <div class="loginInfo">
+    Elite stands at the leading edge of the logistics process outsourcing and freight management industry, a position gained through a
+    <br />
+    combination of dynamic technology tools, close involvement with the clients and uncompromising dedication to serve our customers. As
+    <br />
+    a Global Logistics Provider, our core businesses involves providing key supply chain services to our customers.
+  </div>
+  <div class="loginButton" *ngIf="displaySignInBtn">
+    <button type="button" class="signInButton" (click)="clickedSignIn()">SIGN IN</button>
+  </div>
+
+  <div [class]='mainLoginBlock'>
+    <div class="loginMain">
+      <div class="loginUserName">
+        <div class="group">
+          <input class="loginInput" type="text" [(ngModel)]="userName" name="userName"><span class="highlight"></span><span class="bar"></span>
+          <label class="loginLabel">User ID</label>
+        </div>
+      </div>
+      <div class="loginPassword" >
+        <div class="group">
+          <input class="loginInput" type="password" [(ngModel)]="password" name="password"><span class="highlight"></span><span class="bar"></span>
+          <label  class="loginLabel">Password</label>
+        </div>
+      </div>
+      <div class="loginDatabase">
+        <div class="group">
+          <p-dropdown [options]="customers" [(ngModel)]="selectCustomer" name="selectCustomer" [style]="{'width': '82%','font-size':'12px','margin-top':'9.5px','border':'1px solid #ffffff','color':'$egrayfieldlabel'}"></p-dropdown>
+        </div>
+      </div>
+      <div  class="loginSignIn">
+        <button type="button" class="buttonLogin buttonRed" (click)="login()">SIGN IN
+        </button>
+      </div>
+    </div>
+    <div style="height:40px"></div>
+    <div class="loginStatus">
+      &nbsp;
+      {{loginStatus}}
+    </div>
+  </div>
+</div>

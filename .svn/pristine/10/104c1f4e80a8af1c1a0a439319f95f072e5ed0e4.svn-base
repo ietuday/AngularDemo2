@@ -1,0 +1,115 @@
+<div style="height: 20px;"></div>
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Shipper Ref No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="customerName" [disabled]="disabled"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Export Job No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="customerName" [disabled]="disabled"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">System</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="customerName" [disabled]="disabled"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Last Web Release</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="customerName" [disabled]="disabled"/></div>
+  </div>
+</div>
+
+<div style="height: 50px; border-bottom: 1px solid rgb(216, 216, 216);">
+  <div class="blBottomSubBlock1" style="margin-right: 10px;">
+    <div class="blBottomBtnBlock">View Web Doc. Set</div>
+  </div>
+  <div class="blBottomSubBlock1" style="margin-right: 10px;">
+    <div class="blBottomBtnBlock">Save Doc. Settings</div>
+  </div>
+  <div class="blBottomSubBlock1" style="margin-right: 10px;">
+    <div class="blBottomBtnBlock">Upload Add Doc.</div>
+  </div>
+  <div class="blBottomSubBlock1" style="margin-right: 10px;">
+    <div class="blBottomBtnBlock">More&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+  </div>
+  <div class="blBottomSubBlock2">
+    <div class="blBottomBtnMainBlock">
+      <div class="blBottomBtnBlock">Save</div>
+    </div>
+    <div class="blBottomBtnMainBlock">
+      <div class="blBottomBtnBlock">Print</div>
+    </div>
+  </div>
+</div>
+
+<div class="blDataRow" style="margin-top: 18px;">
+  <div class="blDataBlock">
+    <div class="blInputLabel">CSP Email</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="property"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">CC Email</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="property"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Email Remarks</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="property"/></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Previous Code -->
+
+<!-- <div *ngIf="salesOrderNo != -1">
+    <div class="contentHeader">
+        <br/>
+        Shipment Ref Number: 4236483    Export Job Number: {{salesOrderNo}}  System: SINGAPORE
+    </div>
+    <p-dataTable [value]="docs">
+        <p-column field="docName" header="Doc Name"></p-column>
+        <p-column field="webFlag" header="WEB">
+            <template let-car="rowData" pTemplate="body">
+                <p-checkbox name="webFlag" value="true" [(ngModel)]="webFlag"></p-checkbox>
+            </template>
+        </p-column>
+        <p-column field="inDocSetFlag" header="In Doc. Set">
+            <template let-car="rowData" pTemplate="body">
+                <p-checkbox name="inDocSetFlag" value="true" [(ngModel)]="inDocSetFlag"></p-checkbox>
+            </template>
+        </p-column>
+        <p-column field="user" header="User"></p-column>
+        <p-column field="dateUploaded" header="Date Uploaded"></p-column>
+        <p-column field="" header="Upload Overwrite">
+            <template let-car="rowData" pTemplate="body">
+                <button type="button" pButton (click)="selectCar(car)" icon="fa-upload"></button>
+            </template>
+        </p-column>
+    </p-dataTable>
+
+    <button type="button" pButton (click)="showUploadDialog=true;" label="Upload Add. Doc"></button>
+
+    <p-dialog header="Upload Doc" [(visible)]="showUploadDialog" [width]="400" [height]="350" [modal]=true>
+        <div>Document Name</div>
+        <p-dropdown [options]="docNames" [(ngModel)]="selectedDocName" [autoWidth]="false"></p-dropdown>
+        <div>
+            File Name:
+            <input type="file" *ngIf="selectedDocName != 'Please Select'" (change)="fileChange($event)" placeholder="Select file to be uploaded" name="BLDoc" accept=".pptx,.ppt,.doc,.docx,.xls,.xlsx,.xml,.txt,.pdf"/>
+
+                   <button (click)="save()" *ngIf="fileToUpload">Save</button>
+        </div>
+    </p-dialog>
+</div>
+<div *ngIf="salesOrderNo == -1">
+    <div>Search or create new order for the Docs repo</div>
+</div> -->

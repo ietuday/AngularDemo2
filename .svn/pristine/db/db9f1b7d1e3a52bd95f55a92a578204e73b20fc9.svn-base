@@ -1,0 +1,569 @@
+@import '../../styles.scss';
+
+// input[type="text"]:disabled {
+//   background-color: $egrayfield;
+//   border: 1px solid $egrayborder;
+// }
+
+//Standard Classes
+.markingSelect .ui-button-text-only .ui-button-text{
+  font-size: 9px;
+  margin-top: 0px;
+}
+
+input[type="text"]:disabled {
+  // background-color: $egrayfield;
+  background-color: rgb(215, 215, 215);
+  border: 1px solid $egrayborder;
+}
+
+.markingSelect .ui-selectbutton .ui-button.ui-state-default{
+  height: 20px;
+}
+.markingContent .ui-dialog-content{
+    margin-left: 6px;
+}
+
+.markingUpperLine{
+  width: 100%;
+}
+.markingMainHeader {
+  height: 50px;
+  // background: $emaroon;
+  color: $ewhite;
+}
+.markingCurrencyDropDown{
+  float: left;
+  width: 50%;
+}
+.markingCurrencyButton{
+  font-size: 10px;
+  float: right;
+  height: 26px;
+  border: 1px solid #d6d6d6;
+  color:  $edarkgray;
+  margin-left: 0px;
+  background: #ebedf0;
+  width: 50%;
+}
+.markingSearchIcon {
+  float: right;
+  margin-right: 10px;
+  margin-top: -21px;
+  position: relative;
+  font-size: 9px;
+}
+
+.markingCurrencySelect{
+  padding-top: 8px;
+  width: 91%;
+  margin-left: 4px
+}
+.markingContInput{
+  width: 60%;
+  float: left;
+}
+
+.markingBottomHeader{
+  width: 100%;
+  // border: 1px solid gray;
+  height: 18px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.markingInputTextHd1{
+  margin-top: -7px;
+  float: right;
+  margin-right: 8px;
+}
+
+.markingBottomHeader1{
+  width: 45%;
+  // border: 1px solid gray;
+  height: 18px;
+  float: left;
+  margin-left: 5px;
+}
+
+.markingBottomHeader2{
+  width: 48%;
+  // border: 1px solid gray;
+  height: 18px;
+  margin-right: 12px;
+  float: right;
+  margin-right: 12px;
+}
+
+.markingBottomHeader2SubBlock{
+  width: 50%;
+  float: right;
+  margin-right: 1px;
+  height: 18px;
+  // border: 1px solid blue;
+}
+
+
+.markingSumAllProd {
+  width: 50%;
+  height: 15px;
+  float: right;
+  border-radius: 0 15px 15px 0;
+  margin-top: -15px;
+  border: 1px solid #d6d6d6;
+
+}
+
+.markingLubsHi {
+  width: 50%;
+  border: 1px solid #d6d6d6;
+  border-radius: 15px 0 0 15px;
+  height: 15px;
+}
+
+
+.markingBottomLongTextbox{
+  width: 100%;
+  border: 1px solid gray;
+  height: 29px;
+}
+
+.markingBottomLongTextbox1 {
+  width: 48.8%;
+  background-color: $egrayfield;
+  float: left;
+  border: 1px solid #d6d6d6;
+  height: 36px;
+  margin-left: 11px;
+}
+
+.markingBottomLongTextbox2 {
+  width: 48%;
+  float: right;
+  background-color: $egrayfield;
+  margin-top: -36px;
+  margin-right: 14px;
+  border: 1px solid #d6d6d6;
+  height: 36px;
+}
+
+.markingBottomInput1{
+  width: 93%;
+  /* height: 8px; */
+  margin-top: 4px;
+  margin-left: 13px;
+}
+
+.markingBottomInput2{
+  width: 93%;
+  /* height: 8px; */
+  margin-top: 4px;
+  margin-left: 13px;
+}
+.markingBottomHeaderIcon{
+  width: 5%;
+  float: left;
+}
+
+.markingContSelect{
+  padding-top: 9px;
+  width: 87%;
+  margin-left: 8px;
+}
+.markingContFind{
+  padding-top: 8px;
+  width: 87%;
+  margin-left:18px;
+}
+
+.markingContButton{
+  font-size: 10px;
+  float: right;
+  height: 26px;
+  border: 1px solid #d6d6d6;
+  color:  $edarkgray;
+  margin-left: 0px;
+  background: #ebedf0;
+  width: 40%;
+}
+
+.markingManufactureInput{
+  width: 50%;
+  float: left;
+  border: 1px solid white;
+}
+.markingManufactureIcon{
+  width: 15%;
+  float: right;
+  height: 27px;
+  // border-bottom: 1px solid #ebedf0;
+}
+//
+.markingManufactureButton{
+  font-size: 10px;
+  float: right;
+  height: 28px;
+  color:  $egraymenulabel;
+  margin-left: 0px;
+  background-color:#ebedf0;
+  width: 50%;
+}
+
+.markingManufactureInput input{
+  border: 1px solid white;
+}
+
+.markingheaderBlock2 {
+  border: 1px solid #c8c8c8;
+  border-radius: 25px 25px;
+  float: left;
+  height: 34px;
+  margin-top: 8px;
+  width: 50%;
+  background: #ebedf0;
+}
+
+.markingheaderSubBlock1 {
+  // background: $egrayfield;
+  color: #5f5f5f;
+  float: left;
+  width: 10%;
+  margin-top: 5px;
+  height: 67%;
+  border-radius: 25px 0px 0px 25px;
+  text-align: center;
+}
+
+.markingheaderSubBlock2 {
+  float: left;
+  width: 15%;
+  // border: 1px solid $egraymenulabel;
+}
+
+.markingheaderSubBlock2 input{
+  height: 32px;
+  border: 1px white;
+  font-size: 12px;
+  background-color: #ebedf0;
+}
+
+.markingheaderSubBlock3 {
+  float: right;
+  height: 101%;
+  margin-top: 0px;
+  margin-right: 2px;
+  font-size: 11px;
+  border: 5px solid #ebedf0;
+  border-radius: 25px;
+  width: 22%;
+  // background: $emaroon;
+  // text-align: center;
+}
+
+.markingheaderRetireveBtn {
+  // float: right;
+  height: 100%;
+  border: none;
+  border-radius: 25px;
+  width: 100%;
+  background: $emaroon;
+  text-align: center;
+  color: $ewhite;
+  cursor: pointer;
+}
+
+.markingBody{
+  margin-left: -11px;
+  margin-right: -11px;
+}
+
+.markingText{
+  margin-top: -11px;
+}
+.markingBodyPart{
+  // border: 1px solid black;
+  overflow: auto;
+  margin-left: 0px;
+  margin-top: 23px;
+  margin-right: -15px;
+}
+
+.markingMainBlock{
+  margin-top: -42px;
+  width: 60%;
+  // border: 1px solid gray;
+}
+
+.markingDataRow {
+  // border: 1px solid black;
+  height: 68px;
+  margin-left: 5px;
+  margin-right: 1px;
+}
+
+.markingDataBlock {
+  float: left;
+  width: 22%;
+}
+
+.markingInputLabel {
+  color: $egrayfieldlabel;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.markingInputText {
+  width: 103%;
+}
+
+.markingInputText1 {
+  width: 103%;
+  border: 1px solid #ebedf0;
+  border-bottom: 1px solid #ebedf0;
+}
+
+.markingInputTextcolor{
+  width: 100%;
+  // background-color: #e6e6e6;
+}
+
+.markingFindButton{
+  border: 1px solid gray;
+  border-radius: 17px 17px;
+  float: right;
+  height: 27px;
+  width: 59px;
+  font-size: 11px;
+  color: white;
+  background: #921b31;
+  position: relative;
+  text-align: center;
+  right: 9px;
+  top: 33px;
+  z-index: 999;
+}
+
+.markingIcon{
+  position: relative;
+  width: 10%;
+  z-index: 999;
+}
+
+
+.markingFind{
+  width: 20%;
+  float: left;
+  background-color: red;
+  border-radius: 17px 17px;
+}
+
+
+.markingExtraSpace {
+  float: left;
+  width:3%;
+}
+
+.markingButtonSaveIcon{
+  position:relative;
+  left: 27px;
+  top: 4px;
+}
+
+
+.markingButtonAddIcon{
+  left: 20px;
+}
+
+.markingContNbutton{
+  float: right;
+  margin-right: 38px;
+  height: 27px;
+  font-size: 9px;
+  width: 47px;
+}
+
+
+.markingLastDiv{
+  margin-top: 65px;
+}
+
+.markingBottomBlock {
+  margin-top: 18px;
+  height: 30px;
+  font-size: 12px;
+  margin-left: -9px;
+
+}
+
+.markingBottomSubBlock1 {
+  float: left;
+  margin-left: 31px;
+  // border: 1px solid $emaroon;
+  // border-radius: 25px;
+  height: 30px;
+}
+.markingBottomSubBlock1spell{
+  float: left;
+  margin-top: 23px;
+  // border: 1px solid $emaroon;
+  // border-radius: 25px;
+  height: 30px;
+}
+
+//
+.markingBottomSubBlock2 {
+  float: right;
+  height: 30px;
+  // margin-top: 23px;
+  margin-right: 24px;
+}
+.markingBottomSubBlock2save{
+  float: right;
+  height: 30px;
+  margin-top: 23px;
+  margin-right: 24px;
+}
+.markingBottomBtnBlock {
+  float: left;
+  padding: 5px;
+  color: $emaroon;
+}
+
+.markingBottomBtnBlockBatch{
+  float: left;
+  padding: 5px;
+  margin-top: 2px;
+  color: $emaroon;
+  width: 95px;
+  margin-left: 5px;
+}
+
+.markingBottomBtnBlockSpell{
+  float: left;
+  padding: 5px;
+  margin-top: 2px;
+  color:  $emaroon;
+  width: 108px;
+  margin-left: 5px;
+}
+
+.markingBottomBtnBlockMore{
+  float: left;
+  padding: 5px;
+  margin-top: 2px;
+  color:  $emaroon;
+  width: 65px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.markingMoreIcon{
+  margin-left: 4px;
+}
+.markingBottomBtnBlockPopulate{
+  float: left;
+  padding: 5px;
+  margin-top: 2px;
+  color: $egraymenulabel;
+  width: 171px;
+  margin-left: 5px;
+}
+
+.markingBottomBtnBlockPreset{
+  float: left;
+  padding: 5px;
+  margin-top: 2px;
+  color: $egraymenulabel;
+  width: 219px;
+  margin-left: 5px;
+}
+.markingBottomBtnBlockAdd{
+  float: left;
+  padding: 5px;
+  margin-top: 2px;
+  color: $egraymenulabel;
+  width: 70px;
+  margin-left: 5px;
+}
+
+.markingBottomBtnBlockDel{
+  float: left;
+  padding: 5px;
+  margin-top: 2px;
+  color: $egraymenulabel;
+  width: 70px;
+  margin-left: 5px;
+}
+
+.markingBottomBtnBlockSave{
+  float: left;
+  margin-top: 2px;
+  padding: 5px;
+  color: $emaroon;
+  width: 70px;
+  // margin-left: 1px;
+  margin-left: 5px;
+}
+
+.markingBottomBtnBlockCancel{
+  float: left;
+  margin-top: 2px;
+  padding: 5px;
+  color:  $emaroon;
+  width: 70px;
+  margin-left: 5px;
+}
+.markingBottomBtnMainBlock1{
+  float: right;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  height: 30px;
+  margin-left: 10px;
+}
+.markingBottomBtnMainBlockpop{
+  float: right;
+  border: 1px solid $egraymenulabel;
+  border-radius: 25px;
+  height: 30px;
+  margin-left: 10px;
+}
+.markingBottomBtnMainBlock2{
+  float: left;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.markingBottomBtnMainBlock2pre{
+  float: left;
+  border: 1px solid $egraymenulabel;
+  border-radius: 25px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.markingButtonLabel{
+  margin-top: 1px;
+  color: $egraymenulabel;
+}
+
+.markingBottomBlock1{
+  margin-top: 30px;
+  padding-top: 18px;
+  font-size: 12px;
+  margin-left: -9px;
+}
+
+.markingFooter{
+  background-color: #e6e6e6;
+  height: 62px;
+  /* margin-right: -17px; */
+  width: 107%;
+  margin-bottom: -16px;
+  margin-left: -29px;
+}
+
+
+/*Media Queries*/

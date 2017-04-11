@@ -1,0 +1,12 @@
+var mongo = require('./mongo.js');
+
+exports.getExternalMapping = function (req, res) {
+    console.log("getExternalMapping", req.params.clientName)
+    mongo.findDocument("ExternalInterfaceMapping", {"clientName": req.params.clientName}, function (result) {
+    console.log("result :",result[0])
+    res.send(result[0]);
+    res.end();
+    })
+    
+}
+

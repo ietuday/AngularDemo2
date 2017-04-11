@@ -1,0 +1,37 @@
+export class MarkingDetailsData { 
+  prodId: string;
+  prodName:string;
+  prodDescription : string;
+  hsCode : number;
+  pkgType : string;
+  unitPrice : number;
+  unitPriceUOM : string;
+  markingCurrency : string;
+  markingCountryOrigin : string;
+  manufactureCode:boolean;
+  plantCode : string;
+  noOfPallets : number;
+  netWtPerPallets : number;
+  invoiceNo : number;
+  fobValue : string;
+  hdFlag : boolean;
+  custPckCode : string;
+  grossWtPerPallet : number;
+  invoiceDate : Date;
+  hxWxl : string;
+  hxWxl2 : string;
+  hxWxl3 : string;
+  wtUOM : number;
+  attContNumber : number;
+  netWt : number;
+  grossWt : number;
+  totalPkgstype1 : number;
+  totalPkgstype2 : number;
+  unitQuantity : number;
+  m3chgWt : number;
+  insurance : number;
+  insuranceValue : number;
+  markQuantity : number;
+  markingTextArea : string;
+  descriptionTextArea : string;
+}

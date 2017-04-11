@@ -1,0 +1,205 @@
+@import '../../styles.scss';
+//
+// input[type='file'] {
+//   color: transparent;
+// }
+
+// Applying background color if input is disabled
+input[type="text"]:disabled {
+  background-color: $egraydisabledfield;
+  border: 1px solid $egraydisabledborder;
+  color: black;
+}
+
+// Changing hover color for buttons.
+.ui-button:enabled:hover, .ui-widget-content .ui-button:enabled:hover {
+  border: 1px solid $emaroon;
+  background: $emaroon;
+  outline: 0 none;
+  color: #fff;
+}
+
+.docsButtonStyle .ui-button, .docsButtonStyle button.ui-button.ui-state-default, .docsButtonStyle .ui-button.ui-state-default{
+  background: $ewhite;
+  color: $emaroon;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  padding: 2px !important;
+}
+
+.docsDataRow {
+  height: 68px;
+}
+
+.docsDataBlock {
+  float: left;
+  width: 20%;
+}
+
+.docsInputLabel {
+  color: $egrayfieldlabel;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.docSaveButton button {
+    border-radius: 17px;
+    height: 28px;
+    background: white;
+    color: #921b31;
+    margin-left: 29px;
+    margin-top: 24px;
+    border: 1px solid #921b31;
+    width: 18%;
+  }
+ .docSaveButton button:hover{
+   background: $emaroon;
+   color: $ewhite;
+   border: 1px solid $emaroon;
+ }
+
+.docDialogRow {
+  // border: 1px solid black;
+  height: 165px;
+  margin-left: 5px;
+  margin-right: 1px;
+}
+
+.docDialogBlock {
+  float: left;
+  width: 42%;
+}
+
+.docDialogLabel {
+  color: $egrayfieldlabel;
+  font-size: 11px;
+  margin-bottom: 7px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+}
+
+.docExtraSpace{
+  float: left;
+  width:5%;
+}
+
+.docInputText {
+  width: 100%;
+}
+
+.docsInputText {
+  width: 100%;
+}
+
+.docsLeftBtnBlock {
+  float: left;
+  height: 30px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+.docsRightBtnBlock {
+  float: right;
+  height: 30px;
+  font-size: 13px;
+}
+
+.docsBtnStyle {
+  float: left;
+  padding: 5px;
+  font-size: 13px;
+  color: $emaroon;
+}
+
+.docsBtnSubBlock {
+  float: left;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.docsExtraSpace {
+  float: left;
+  width: 6.66%;
+}
+
+.docsTableBlock {
+  width: 100%;
+  min-height: 220px;
+}
+
+.docsTableHeaderBlock {
+  height: 37px;
+  // border: 1px solid black;
+}
+
+.docsTableRowBlock {
+  float: left;
+  width: 20%;
+  height: 37px;
+  border-bottom: 1px solid $egraybottomborder;
+  border-left: 1px solid $egraybottomborder;
+  // border: 1px solid gray;
+}
+
+.docsTableHeaderContent {
+  margin-top: 11px;
+  margin-left: 8%;
+  color: black;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.docsTableRowContent {
+  margin-top: 13px;
+  margin-left: 8%;
+  color: $egraymenulabel;
+  font-size: 12px;
+}
+
+.docsTableRowSettingsContent {
+  margin-top: 8px;
+  margin-left: 8%;
+  color: $egraymenulabel;
+  font-size: 11px;
+}
+
+.docsBottomBlock {
+  margin-top: 25px;
+  height: 30px;
+}
+
+.docsBottomSubBlock1 {
+  float: left;
+  height: 30px;
+  cursor: pointer;
+}
+
+.docsBottomSubBlock2 {
+  float: right;
+  height: 30px;
+}
+
+.docsBottomBtnBlock {
+  float: left;
+  padding: 5px;
+  font-size: 15px;
+  color: $emaroon;
+}
+
+.docsBottomBtnMainBlock {
+  float: left;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.applyButtonStyle .ui-button, .applyButtonStyle button.ui-button.ui-state-default, .applyButtonStyle .ui-button.ui-state-default{
+  background: $ewhite;
+  color: $emaroon;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  padding: 2px !important;
+}

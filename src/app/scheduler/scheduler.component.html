@@ -1,0 +1,116 @@
+<div class="schedulerBody">
+  <div class="schedulerMainBlock">
+    <div class="schedulerSubmitTitle">
+      <span style="cursor: pointer">
+        Submit a Schedule
+        <i class="fa fa-angle-down" style="line-height: 22px;" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div class="schedulerSubmitBlock">
+      <div class="schedulerDataRow">
+        <div class="schedulerDataBlock">
+          <div class="schedulerInputLabel">Job Type</div>
+          <div class="schedulerInputText"><p-selectButton [options]="schedulerJobType" [(ngModel)]="selectedJobType" (click)="showSelectedJobType()"></p-selectButton></div>
+        </div>
+        <div class="schedulerExtraSpace">&nbsp;</div>
+        <div class="schedulerDataBlock">
+          <div class="schedulerInputLabel">Schedule Id</div>
+          <div class="schedulerInputText"><input type="text" pInputText min="1" [(ngModel)]="selectedJobId" /></div>
+        </div>
+        <div class="schedulerExtraSpace">&nbsp;</div>
+        <div class="schedulerDataBlock">
+          <div class="schedulerInputLabel">Fire Date / Time</div>
+          <div class="schedulerInputText tooltip">
+            <p-calendar [(ngModel)]="SelectedFireDate"  dateFormat="dd/mm/yy" [showTime]="true" hourFormat="24" [style]="{'width': '100%'}"></p-calendar>
+            <i class="fa fa-calendar schedulerCalendarIcon" aria-hidden="true"></i>
+            <span class="tooltiptext" style="margin-left:-124px">23:00 for 11:00 PM</span>
+          </div>
+        </div>
+        <div class="schedulerExtraSpace">&nbsp;</div>
+        <div class="schedulerDataBlock">
+          <div class="schedulerInputLabel">Interval</div>
+          <div class="schedulerInputText"><input type="text" pInputText (click)="schedulerInterval()" [(ngModel)]="SelectedInterval" placeholder="HH : MM : SS" [disabled]="!intervalDisabled"/></div>
+        </div>
+      </div>
+
+      <div class="schedulerDataRow">
+        <div class="schedulerDataBlock">
+          <div class="schedulerInputLabel">Customer Name</div>
+          <div class="schedulerInputText"><p-dropdown [options]="client"[(ngModel)]="scheduleClientName" (click)="schedulerClientName()" [style]="{'width' : '96.5%'}" ></p-dropdown></div>
+        </div>
+      </div>
+      <div style="height: 50px;margin-top:7px">
+        <div class="schedulerLeftBtnBlock applySchedulerButtonStyle">
+          <button pButton type="button" icon="fa-check" label="Submit" (click)="schedulerSubmit()" class="schedulerBtnStyle" [disabled]="!scheduleClientName || !selectedJobType ||  !SelectedFireDate || !selectedJobId || (!SelectedInterval && intervalDisabled)"></button>
+        </div>
+        <div class="schedulerLeftBtnBlock applySchedulerButtonStyle">
+          <button pButton type="button" icon="fa-times" label="Delete" (click)="schedulerDelete()" class="schedulerBtnStyle" [disabled]="!selectedJobType  || !selectedJobId"></button>
+        </div>
+        <div class="schedulerLeftBtnBlock applySchedulerButtonStyle">
+          <button pButton type="button" icon="fa-check" label="Booking Confirmation" (click)="schedulerBookingConfirmation()" class="schedulerBtnStyle" [disabled]="!scheduleClientName || !selectedJobType ||  !SelectedFireDate || !selectedJobId || (!SelectedInterval && intervalDisabled) || !bookingConfirmationClicked"></button>
+        </div>
+        <div class="schedulerLeftBtnBlock applySchedulerButtonStyle">
+          <button pButton type="button" icon="fa-refresh" label="Refresh" (click)="schedulerRefresh()" class="schedulerBtnStyle"></button>
+        </div>
+        <span  *ngIf="schedulerSubmitClick && !deleteClicked"><div style="padding-top: 6px;">Submit Successful.</div></span>
+        <span *ngIf="deleteClicked && !schedulerSubmitClick"><div style="padding-top: 6px;">Delete Successful.</div></span>
+      </div>
+    </div>
+    <div class="schedulerTableMainBlock">
+      <div class="schedulerTableBlock">
+        <div class="schedulerTableRowBlock" style="border-right:0.3px solid  #f9f9f9">
+          <div class="schedulerTableHeaderContent" >Schedule Id</div>
+        </div>
+        <div class="schedulerTableRowBlock" style="border-right:0.3px solid #f9f9f9;border-left:0.3px solid #f9f9f9">
+          <div class="schedulerTableHeaderContent">Job Type</div>
+        </div>
+        <div class="schedulerTableRowBlock" style="border-right:0.3px solid  #f9f9f9;border-left:0.3px solid #f9f9f9">
+          <div class="schedulerTableHeaderContent" >Fire Date / Time</div>
+        </div>
+        <div class="schedulerTableRowBlock" style="border-right: 0.3px solid rgb(216, 216, 216);border-left:0.5px solid  #f9f9f9">
+          <div class="schedulerTableHeaderContent">Status</div>
+        </div>
+      </div>
+      <!--
+      <table class="schedulerTable">
+      <tr class="schedulerTableRow " [ngStyle]="{'color': (selectedIndex == index ? 'white !important' : 'black'), 'background-color': (selectedIndex == index ? 'rgb(245, 245, 245)' : 'white')}" *ngFor="let data of schedulerPaginatorData1; let index = index">
+      <td class="schedulerTableData" style="text-transform: capitalize; text-align:center">{{data.jId}}</td>
+      <td class="schedulerTableData" style="text-transform: capitalize; text-align:center">{{data.jType}}</td>
+      <td class="schedulerTableData" style="text-transform: capitalize; text-align:center">{{data.jobDate}}</td>
+      <td class="schedulerTableData" style="text-transform: capitalize; text-align:center">{{data.jStatus}}</td>
+    </tr>
+  </table> -->
+
+  <div class="schedulerTableBlock">
+    <div class="schedulerTableHeaderBlock" *ngFor="let data of schedulerPaginatorData1; let index = index">
+      <div class="schedulerTableRowBlock2">
+        <div class="schedulerTableMainContent" style="text-transform: capitalize; text-align:center">{{data.jId}}</div>
+      </div>
+      <div class="schedulerTableRowBlock2">
+        <div class="schedulerTableMainContent" style="text-transform: capitalize; text-align:center">{{data.jType}}</div>
+      </div>
+      <div class="schedulerTableRowBlock2">
+        <div class="schedulerTableMainContent" style="text-transform: capitalize; text-align:center">{{data.jobDate}}</div>
+      </div>
+      <div class="schedulerTableRowBlock2" style="border-right: 1px solid rgb(216, 216, 216)">
+        <div class="schedulerTableMainContent" style="text-transform: capitalize; text-align:center">{{data.jStatus}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="schedulerTableBlock">
+    <div class="schedulerTableHeaderBlock">
+      <div class="schedulerTableRowBlock" style="border-right:0.3px solid #f5f5f5;background:#f5f5f5">
+        <div class="schedulerTableHeaderContent" ></div>
+      </div>
+      <div class="schedulerTableRowBlock" style="border-right:0.2px solid #f5f5f5;background:#f5f5f5;margin-left:-3px;border-left:0.3px solid #f5f5f5;">
+        <div class="schedulerTableHeaderContent"></div>
+      </div>
+      <div class="schedulerTableRowBlockpaginator" style="border-right: 0.3px solid rgb(216, 216, 216);border-left:0.5px solid #f5f5f5;">
+        <div class="schedulerTablePaginator"><p-paginator rows="5" totalRecords={{jobRows}} class="schedulerPaginator" [rowsPerPageOptions]="[5,10,20]" (onPageChange)="paginate($event)"></p-paginator></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

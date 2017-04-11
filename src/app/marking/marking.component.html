@@ -1,0 +1,384 @@
+<form #markingForm='ngForm' (ngSubmit)="save()">
+    <div class="markingBodyPart">
+        <div class="markingDataRow">
+            <div class="markingDataLargeBlock">
+                <div class="markingInputLabel">Search Product</div>
+                <div class="markingInputText">
+                    <p-dropdown [options]="productData" [style]="{'width':'100%'}" name="productSearch11" [(ngModel)]="markingProductSearch" (onChange)="productChangeHandler($event)" filter="filter">
+                        <template let-product pTemplate="item">
+                            <div class="ui-g ui-g-nopad">
+                                <div class="ui-g-4 ui-g-nopad">{{product.label}}</div>
+                                <div class="ui-g-8 ui-g-nopad">{{product.fullName}}</div>
+                            </div>
+                        </template>
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Product ID <span style="color: red">*</span></div>
+                <div class="markingInputText"><input type="text" pInputText required name="productSearch" #productSearch="ngModel" [(ngModel)]="markingDetailsData.prodId" /></div>
+                <div class="markingInputInfo" style="color: red" *ngIf="productSearch.errors && (productSearch.dirty || productSearch.touched)">
+                     <i class="fa fa-close"></i>
+                    <span [hidden]="!productSearch.errors.required">Product ID is required field</span>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Prod. Name <span style="color: red">*</span></div>
+                <div class="markingInputText"><input type="text" pInputText required name="prn1" #prn1="ngModel" [(ngModel)]="markingDetailsData.prodName" /></div>
+                <div class="markingInputInfo" style="color: red" *ngIf="prn1.errors && (prn1.dirty || prn1.touched)">
+                     <i class="fa fa-close"></i>
+                    <span [hidden]="!prn1.errors.required">Prod. Name is required field</span>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Product Descriptions</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.prodDescription" name="prodDescription"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">HS Code</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.hsCode" name="hsCode"/></div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Unit Price</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.unitPrice" name="unitPrice" (ngModelChange)="calculateInsurance()"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Unit Price UOM</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.unitPriceUOM" name="unitPriceUOM" /></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Currency</div>
+                <div class="markingInputText">
+                    <div class="markingCurrencyDropDown">
+                        <p-dropdown [options]="currency" [style]="{'width':'100%'}" [(ngModel)]="markingDetailsData.markingCurrency" name="markingCurrency" >
+                            <template let-currency pTemplate="item">
+                                <div class="ui-g ui-g-nopad">
+                                    <div class="ui-g-12 ui-g-nopad">{{currency.value}}</div>
+                                </div>
+                            </template>
+                        </p-dropdown>
+                    </div>
+                    <div class="markingCurrencyButton" style="cursor: pointer">
+                        <div class="markingCurrencySelect">
+                            Select Container
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Country Origin</div>
+                <div class="markingInputText">
+                    <div class="markingCurrencyDropDown">
+                        <p-dropdown [options]="markingCountry" [style]="{'width':'100%'}" [(ngModel)]="markingDetailsData.markingCountryOrigin" name="markingCountryOrigin">
+                            <template let-markingCountry pTemplate="item">
+                                <div class="ui-g ui-g-nopad">
+                                    <div class="ui-g-12 ui-g-nopad">{{markingCountry.value}}</div>
+                                </div>
+                            </template>
+                        </p-dropdown>
+                    </div>
+                    <div class="markingCurrencyButton">
+                        <div class="markingContSelect" style="cursor: pointer">
+                            MAPOL Name
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Manufacturer Code</div>
+                <div class="markingInputText">
+                    <div class="markingContInput">
+                        <input type="text" pInputText [(ngModel)]="markingDetailsData.manufactureCode" name="manufactureCode" />
+                    </div>
+                    <div class="markingContButton" style="cursor: pointer">
+                        <div class="markingCurrencySelect">
+                            Tech Name
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Plant Code</div>
+                <div class="markingInputText"><p-dropdown [options]="cities" [style]="{'width':'100%'}" [(ngModel)]="markingDetailsData.plantCode" name="plantCode" ></p-dropdown></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">No of Pallets</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.noOfPallets" name="noOfPallets"  /></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Net Wt Per Pallet</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.netWtPerPallets"  name="netWtPerPallets"/></div>
+            </div>
+        </div>
+
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Invoice No</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.invoiceNo" name="invoiceNo"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">FOB Value</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.fobValue" name="fobValue" /></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">HD Flag </div>
+                <div class="markingInputTextHd"><p-selectButton [options]="dropdownArray" [(ngModel)]="markingDetailsData.hdFlag" name="hdFlag"></p-selectButton></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Cust Pack code</div>
+                <div class="markingInputText"><p-dropdown [options]="cities" [style]="{'width':'100%'}" [(ngModel)]="markingDetailsData.custPckCode" name="custPckCode"></p-dropdown></div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Gross Wt Per Pallet</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.grossWtPerPallet" name="grossWtPerPallet"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Invoice Date</div>
+                <div class="markingInputText"><p-calendar [(ngModel)]="markingDetailsData.invoiceDate"  [style]="{'width':'100%'}" dateFormat="dd/mm/yy" name="invoiceDate"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Pkg Type</div>
+                <div class="markingInputText"><p-dropdown [options]="cities" [style]="{'width':'100%'}" [(ngModel)]="markingDetailsData.pkgType" name="pkgType"></p-dropdown></div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Cont Seq N</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingContSeqN" name="markingContSeqN" [disabled]="disabled"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Seal N</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingSealN" name="markingSealN" [disabled]="disabled"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Export N</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.jobNo" name="jobNo" [disabled]="disabled"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Line N</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingLineN" name="markingLineN" [disabled]="disabled" /></div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Cont N</div>
+                <div class="markingInputText">
+                    <div class="markingContInput">
+                        <input type="text" pInputText [disabled]="disabled" [(ngModel)]="markingNoOfPallets" name="markingNoOfPallets"/>
+                    </div>
+                    <div class="markingFindButtonCont">
+                        <div class="markingContFind">
+                            Find
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">HxWxL</div>
+                <div class="markingInputTextHx">
+                    <div style="width:33.33%;float:left">
+                        <input type="text" pInputText [(ngModel)]="markingDetailsData.hxWxl" name="hxWxl"/>
+                    </div>
+                    <div style="width:33.33%;float:left">
+                        <input type="text" pInputText [(ngModel)]="markingDetailsData.hxWxl2" name="hxWxl2"/>
+                    </div>
+                    <div style="width:33.33%;float:left">
+                        <input type="text" pInputText [(ngModel)]="markingDetailsData.hxWxl3" name="hxWxl3"/>
+                    </div>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Wt UOM</div>
+                <div class="markingInputText"><p-dropdown [options]="wtUomArray" [style]="{'width':'100%'}" [(ngModel)]="markingDetailsData.wtUOM" name="wtUOM"></p-dropdown></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Att Cont N</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.attContNumber" name="attContNumber"/></div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Net Wt <span style="color: red">*</span></div>
+                <div class="markingInputText"><input type="text" pInputText required name="netWt" #netWt="ngModel" [(ngModel)]="markingDetailsData.netWt" name="netWt" (ngModelChange)="calculateInsurance()"/></div>
+                <div class="markingInputInfo" style="color: red" *ngIf="netWt.errors && (netWt.dirty || netWt.touched)">
+                     <i class="fa fa-close"></i>
+                    <span [hidden]="!netWt.errors.required">Net Wt is required field</span>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Gross Wt <span style="color: red">*</span></div>
+                <div class="markingInputText"><input type="text" pInputText required name="grWt" #grWt="ngModel" [(ngModel)]="markingDetailsData.grossWt" name="grossWt"/></div>
+                <div class="markingInputInfo" style="color: red" *ngIf="grWt.errors && (grWt.dirty || grWt.touched)">
+                     <i class="fa fa-close"></i>
+                    <span [hidden]="!grWt.errors.required">Gross Wt is required field</span>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Total pkgs / Type</div>
+                <div class="markingInputText">
+                    <div style="width:30%;float:left">
+                        <input type="text" pInputText [(ngModel)]="markingDetailsData.totalPkgstype1"  name="totalPkgstype1"/>
+                    </div>
+                    <div style="width:70%;float:left">
+                        <input type="text" pInputText [(ngModel)]="markingDetailsData.totalPkgstype2" name="totalPkgstype2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Unit Qty</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.unitQuantity" name="unitQuantity"/></div>
+            </div>
+        </div>
+
+        <div class="markingDataRow">
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">M3 / Chg Wt</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.m3chgWt" name="m3chgWt" /></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Insurance (%)</div>
+                <div class="markingInputText"><input type="text" pInputText [(ngModel)]="markingDetailsData.insurance" name="insurance" (ngModelChange)="calculateInsurance()"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Insurance Value</div>
+                <div class="markingInputText"><input type="text" pInputText  [(ngModel)]="markingDetailsData.insuranceValue" name="insuranceValue" [disabled]="disabled"/></div>
+            </div>
+            <div class="markingExtraSpace">&nbsp;</div>
+            <div class="markingDataBlock">
+                <div class="markingInputLabel">Quantity (%)</div>
+                <div class="markingInputText"><input type="text" pInputText  [(ngModel)]="markingDetailsData.markQuantity" name="markQuantity"/></div>
+            </div>
+        </div>
+
+        <div class="markingBottomHeader">
+            <div class="markingBottomHeader1">
+                <div class="markingBottomHeaderIcon">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <label>Markings</label>
+                </div>
+            </div>
+            <div class="markingBottomHeader2">
+                <label>Description</label>
+                <div class="markingBottomHeader2SubBlock">
+                    <div class="markingInputTextHd1"><p-selectButton [options]="dropdownArrayDescription" class="markingSelect" name="hFlag" [(ngModel)]="hFlag"></p-selectButton></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:100%;margin-left:-6px">
+            <div class="markingBottomLongTextbox1">
+                <div class="markingBottomInput1">
+                    <input type="text" pInputText  [(ngModel)]="markingDetailsData.markingTextArea" name="markingTextArea" />
+                </div>
+            </div>
+
+            <div class="markingBottomLongTextbox2">
+                <div class="markingBottomInput2">
+                    <input type="text" pInputText  [(ngModel)]="markingDetailsData.descriptionTextArea" name="descriptionTextArea"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="markingsBottomBlock">
+            <div class="markingsLeftBtnBlock applymarkingsButtonStyle">
+                <button pButton type="button" label="Batch/Lot No" class="markingsBtnStyle"></button>
+            </div>
+            <div class="markingsLeftBtnBlock applymarkingsButtonStyle">
+                <button pButton type="button" label="Spell Check (F7)" class="markingsBtnStyle"></button>
+            </div>
+            <div class="markingsLeftBtnBlock applymarkingsButtonStyle">
+                <button pButton type="button" icon="fa-angle-down" iconPos="right" label="More"  (click)="bottomRowDisplay = !bottomRowDisplay" class="markingsBtnStyle"></button>
+            </div>
+
+            <div class="markingsRightBtnBlock" style="margin-right: 18px">
+              <div class="markingsSuccessMsg">
+                <span *ngIf="saveClicked && !deleteClicked">Save Successful.</span>
+                <span *ngIf="saveClicked && deleteClicked">Delete Successful.</span>
+              </div>
+
+                <div class="markingsBtnSubBlock applymarkingsButtonStyle">
+                    <button pButton type="button" icon="fa-floppy-o" label="Save" (click)="saveMarkingsDetails()" [disabled]="!markingForm.form.valid || numericError" class="markingsBtnStyle"></button>
+                </div>
+                <div class="markingsBtnSubBlock applymarkingsButtonStyle">
+                    <button pButton type="button" label="Cancel" class="markingsBtnStyle" (click)="markingCancelClick()"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="markingsBottomBlock1">
+          <div class="markingsLeftBtnBlock applymarkingsButtonStyle">
+            <button pButton type="button" icon="fa-plus" label="Add" class="markingsBtnStyle" [disabled]="addDisabled" (click)="addMarking()"></button>
+          </div>
+          <div class="markingsLeftBtnBlock applymarkingsButtonStyle">
+            <button pButton type="button" icon="fa-trash" label="Delete" class="markingsBtnStyle" [disabled]="deleteDisabled" (click)="deleteMarking()"></button>
+          </div>
+          <div class="markingsLeftBtnBlock" style="margin-top: 5px; margin-left: 160px;">
+            Row: {{currentIndex == -1 ? 0 : currentIndex + 1}} of {{totalMarkings}}
+          </div>
+          <div class="markingsRightBtnBlock" style="margin-right: 18px">
+              <div class="markingsBtnSubBlock applymarkingsButtonStyle">
+                <button pButton type="button" icon="fa-arrow-left" label="Previous" class="markingsBtnStyle" [disabled]="previousDisabled" (click)="previous()"></button>
+              </div>
+              <div class="markingsBtnSubBlock applymarkingsButtonStyle">
+                <button pButton type="button" icon="fa-arrow-right" iconPos="right" label="Next" class="markingsBtnStyle" [disabled]="nextDisabled" (click)="next()"></button>
+              </div>
+          </div>
+        </div>
+    </div>
+</form>
+
+<footer class="markingFooter" *ngIf="bottomRowDisplay">
+    <div class="markingsBottomBlock1">
+        <div class="markingsLeftBtnBlock applymarkingsButtonStyle">
+            <button pButton type="button" label="Preset Value Combination Shipper Tab" class="markingsBtnStyle"></button>
+        </div>
+        <div class="markingsLeftBtnBlock applymarkingsButtonStyle">
+            <button pButton type="button" label="Populate Product Description" class="markingsBtnStyle"></button>
+        </div>
+    </div>
+</footer>

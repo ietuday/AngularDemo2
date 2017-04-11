@@ -1,0 +1,180 @@
+import {Component, OnInit, Output, Input, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {SelectItem, Message} from 'primeng/primeng';
+import { TreeNode, ConfirmationService } from 'primeng/primeng';
+import { WsMessage } from '../data-models/ws-message';
+import { NcParty } from '../data-models/ncParty';
+import { WebSocketService } from '../services/web-socket.service';
+import { NcType } from '../data-models/ncType';
+import { NcCurrency } from '../data-models/ncCurrency';
+import { NcDetailsData } from '../data-models/nc-details-data';
+import {UploadService} from '../services/upload.service';
+
+declare var $: any;
+@Component({
+  selector: 'nc-report',
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './nc.component.html',
+  styleUrls: ['./nc.component.scss'],
+  providers: [WebSocketService, ConfirmationService]
+})
+
+export class NcComponent implements OnInit {
+  @Input() salesOrderNo: number;
+  @Output() TransNoEvent = new EventEmitter();
+
+    private value: Date;
+    private display:boolean=false;
+    private disabled:boolean= true;
+    private carierDisplay:boolean = false;
+    private referNo: number = 5229;
+    private add11: boolean = false;
+    private ncType: SelectItem[];
+    private agent: SelectItem[];
+    private bank: SelectItem[];
+    private jobNo: number = 915600;
+    private shown: boolean = false;
+    private selectName: string;
+    private selectedDropdown:string;
+    private selectType: boolean = false;
+    private ncParty: string;
+    private selectedValues: string;
+    private checked: boolean = true;
+    private name: SelectItem[];
+    private selectedType: string;
+    private cities: SelectItem[];
+    private ncPartyData: SelectItem[];
+    private cost : number = 0;
+    private ncCurrency:SelectItem[];
+    private CARRIER: string ='';
+    private msgs : Message[];
+    private ncDetailsData: NcDetailsData = new NcDetailsData();
+    private wsMessage: WsMessage = new WsMessage();
+    private transNo: number = -1;
+    private ncDataArray: NcDetailsData[] = [];
+    private displayMarkingDialog:boolean = false;
+    private dropdownArray: SelectItem[];
+
+    constructor(private confirmationService: ConfirmationService) {
+
+      this.dropdownArray = [];
+      this.dropdownArray.push({label: 'Yes', value: 'Yes'});
+      this.dropdownArray.push({label: 'No', value: 'No'});
+      // this.TransNoEvent.emit(this.transNo);
+      setTimeout(() => {
+        let elm1: any = $('.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable');
+        elm1[0]['style']['overflow'] = 'auto';
+        elm1[0]['style']['top'] = '70px';
+        elm1[0]['style']['bottom'] = '70px';
+       },100);
+
+//       console.log("NC Detaisls Data",this.ncDetailsData);
+        WebSocketService.getInstance().ncpartyDataBehaviorSubject.subscribe(data => this.showNcpartydropdown(data));
+        WebSocketService.getInstance().nctypeDataBehaviorSubject.subscribe(data => this.showNcTypedropdown(data));
+        WebSocketService.getInstance().currencyDataBehaviorSubject.subscribe(data => this.showNcCurrencydropdown(data));
+        WebSocketService.getInstance().saveNcDetailsBehaviorSubject.subscribe(data => this.saveNcDetailsHandler(data));
+        WebSocketService.getInstance().ncDetailsArrayBehaviorSubject .subscribe(data => this.showNcDetailsData(data));
+    }
+
+    showNCType(){
+      if(this.ncDetailsData.ncParty==null){
+         console.log("Its Null value on which You Clicked",this.ncDetailsData.ncParty);
+      }
+      else{
+         console.log("Hello action is NcTYPE",this.ncDetailsData.ncParty);
+          if(this.ncParty=='CARRIER'){
+               this.carierDisplay =! this.carierDisplay;
+               console.log("value of carierDisplay",this.carierDisplay);
+            }
+         this.disabled=false;
+         this.wsMessage.name = this.ncDetailsData.ncParty;
+         this.wsMessage.action = 'getNCType';
+         WebSocketService.getInstance().sendMessage(this.wsMessage);
+        }
+       }
+
+    showNcpartydropdown(data) {
+        this.ncPartyData = [];
+        this.ncPartyData.push({label: 'Description', value: 'CODE'});
+        for(let i in data) {
+          this.ncPartyData.push({label: data[i].NC_PARTY_DESC, value: data[i].NC_PARTY_CODE});
+        }
+    }
+
+    showNcCurrencydropdown(data){
+      this.ncCurrency = [];
+      this.ncCurrency.push({label:'Currency',value:'Code'});
+      for(let i in data){
+        this.ncCurrency.push({value:data[i].CURRENCY_ID, label:data[i].CURRENCY_NAME});
+      }
+    }
+
+    showNcTypedropdown(data) {
+        this.ncType = [];
+        this.ncType.push({label: 'Code', value: 'Description'});
+        for(let i in data) {
+          this.ncType.push({value: data[i].NC_TYPE_DESC, label: data[i].NC_TYPE_CODE});
+        }
+    }
+
+    ngOnInit(){
+    }
+
+    saveNcDetails() {
+      this.ncDataArray.push(this.ncDetailsData);
+      console.log("NcComponent: saveNcDetails@@@@@@@",this.ncDetailsData);
+        WebSocketService.getInstance().sendMessage({
+          'action': 'saveNcDetails',
+          'message': {
+            'salesOrderNo' : this.salesOrderNo,
+            'ncData' : this.ncDataArray
+          }
+      });
+      this.ncDataArray = [];
+    }
+
+    saveNcDetailsHandler(data) {
+        console.log("saveNcDetailsHandler: data", data);
+
+        if (data.status == 'Success') {
+            console.log("Iside if saveNcDetailsHandler", data.message.TransNo);
+            // this.TransNo = parseInt(data.message.TransNo);
+            // this.ncDetailsData.TransNo = this.TransNo;
+            // this.TransNoEvent.emit(this.TransNo);
+            // this.msgs = [];
+            // console.log("Before Inserting Push",this.msgs);
+            // this.msgs.push({severity: 'success', summary: 'Success.', detail: 'Trans No Generated #' + data.message.TransNo});
+            // console.log("After Inserting Push",this.msgs);
+        } else if (data.status == 'Error') {
+            // this.msgs = [];
+            // this.msgs.push({severity: 'error', summary: 'Error.', detail: 'Trans No Generation failed.'});
+        }
+    }
+    showNcDetailsData(data){
+          console.log("showNcDetailsData: data", data);
+          if (data == null || data == "" || data == undefined) {
+              console.log("Ignore");
+          } else {
+              // this is for displaying search (find) data....!!
+              // this.ncDataArray = data;
+              console.log("NcComponent :showNcDetailsData#####UUUUU******* ");
+              // Data is getting displayed on page and then throws the 'Getter' error
+              // Only need to fix this error
+          }
+
+    }
+
+    showDialog() {
+      this.displayMarkingDialog = true;
+  }
+
+    getNcDetails() {
+        console.log(" getNcDetails", this.salesOrderNo);
+        WebSocketService.getInstance().sendMessage({
+            'action': 'getNcDetail',
+            'message': {
+                "salesOrderNo": this.salesOrderNo
+            }
+        });
+    }
+
+}

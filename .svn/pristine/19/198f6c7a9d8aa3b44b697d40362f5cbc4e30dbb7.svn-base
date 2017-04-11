@@ -1,0 +1,452 @@
+<form #exportBLForm='ngForm' (ngSubmit)="save()">
+<div style="height: 20px;"></div>
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Vessel / Voyage</div>
+    <div class="blInputText"><input type="text" pInputText value="{{salesOrderData.vessel}} / {{salesOrderData.voyage}}" [disabled]="disabled"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Job Closed</div>
+    <div class="blInputText"><input type="text" pInputText [disabled]="disabled"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Export Ref N</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.salesOrderNo" [disabled]="disabled" name="salesOrderNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Customer Name</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="customerName" [disabled]="disabled" name="customerName"/></div>
+  </div>
+</div>
+
+<div class="blDataRow" style="border-bottom: 1px solid rgb(216, 216, 216);">
+  <div class="blDataBlock">
+    <div class="blInputLabel">ETD</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="etdDate" [disabled]="disabled" name="etdDate"/></div>
+  </div>
+</div>
+
+<div class="blDataRow" style="margin-top: 18px;">
+  <div class="blDataBlock">
+    <div class="blInputLabel">BL N <span style="color: red">*</span></div>
+    <div class="blInputText"><input type="text" pInputText required name="bln1" [(ngModel)]="salesOrderData.bln" #bln1="ngModel"/></div>
+    <div class="blInputInfo" style="color: red" *ngIf="bln1.errors && (bln1.dirty || bln1.touched)">
+      <i class="fa fa-close"></i>
+      <span [hidden]="!bln1.errors.required">This field is required</span>
+    </div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Bkg Ref N <span style="color: red">*</span></div>
+    <div class="blInputText"><input type="text" pInputText required name="carrierBkgRefNo1" [(ngModel)]="salesOrderData.carrierBkgRefNo" #carrierBkgRefNo1="ngModel" /></div>
+    <div class="blInputInfo" style="color: red" *ngIf="carrierBkgRefNo1.errors && (carrierBkgRefNo1.dirty || carrierBkgRefNo1.touched)">
+      <i class="fa fa-close"></i>
+      <span [hidden]="!carrierBkgRefNo1.errors.required">This field is required</span>
+    </div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Ref No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.refNo" name="refNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Quick / Track No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.quickTrackNo" [disabled]="disabled" name="quickTrackNo"/></div>
+  </div>
+</div>
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">For Payable at</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.portLoad" name="portLoad"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Packages / S.T.C</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.packagesSTC" name="packagesSTC"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">PO No <span style="color: red">*</span></div>
+    <div class="blInputText"><input type="text" pInputText required name="purchaseOrderNo1" [(ngModel)]="salesOrderData.purchaseOrderNo" #purchaseOrderNo1="ngModel"/></div>
+    <div class="blInputInfo" style="color: red" *ngIf="purchaseOrderNo1.errors && (purchaseOrderNo1.dirty || purchaseOrderNo1.touched)">
+      <i class="fa fa-close"></i>
+      <span [hidden]="!purchaseOrderNo1.errors.required">This field is required</span>
+    </div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Shipper Ref <span style="color: red">*</span></div>
+    <div class="blInputText"><input type="text" pInputText required name="shipperRef1" [(ngModel)]="salesOrderData.shipperRef" #shipperRef1="ngModel"/></div>
+    <div class="blInputInfo" style="color: red" *ngIf="shipperRef1.errors && (shipperRef1.dirty || shipperRef1.touched)">
+      <i class="fa fa-close"></i>
+      <span [hidden]="!shipperRef1.errors.required">This field is required</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Shipment No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.shipmentNo" name="shipmentNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Delivery No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.deliveryNo" name="deliveryNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Add Ref No <span style="color: rgb(146, 27, 49); float: right"><i class="fa fa-plus" aria-hidden="true"></i></span></div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.addRefNo" name="addRefNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Other Ref No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.otherRefNo" name="otherRefNo"/></div>
+  </div>
+</div>
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Consignee Ref</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.consigneeRef" name="consigneeRef"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Vehicle Load No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.vehicleLoadNo" name="vehicleLoadNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Entity</div>
+    <div class="blInputText"><p-dropdown [options]="dropdownArray" [(ngModel)]="salesOrderData.entity" [autoWidth]="false" name="entity"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">LC No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.lcNo" name="lcNo"/></div>
+  </div>
+</div>
+
+<div class="blDataRow" style="border-bottom: 1px solid rgb(216, 216, 216);">
+  <div class="blDataBlock">
+    <div class="blInputLabel">LC Desc <span style="color: rgb(146, 27, 49); float: right"><i class="fa fa-plus" aria-hidden="true"></i></span></div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.lcDesc" name="lcDesc"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">FCR No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.FCRNo" name="FCRNo"/></div>
+  </div>
+</div>
+
+<div class="blDataRow" style="margin-top: 18px;">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Tranship</div>
+    <div class="blInputText">
+      <div class="blCheckboxInput">
+          <p-checkbox [(ngModel)]="salesOrderData.transhipInd" binary="true" name="transhipInd"></p-checkbox>
+      </div>
+      <div style="width: 90%; float: right">
+         <input type="text" pInputText [(ngModel)]="salesOrderData.tranship" name="tranship"/>
+      </div>
+    </div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Freight Term Id</div>
+    <div class="blInputText"><p-dropdown [options]="gencodeData" [(ngModel)]="salesOrderData.freightTermId" [autoWidth]="false" name="freightTermId"></p-dropdown></div>
+  </div>
+</div>
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Port Load Name</div>
+    <div class="blInputText"><p-dropdown [options]="portData" [(ngModel)]="salesOrderData.portLoad" [autoWidth]="false" name="portLoad"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">&nbsp;</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.portLoad" [disabled]="disabled" name="portLoad1"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Place of Receipt</div>
+<!--    <div class="blInputText"><input type="text" pInputText [(ngModel)]="property"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i></div>-->
+    <div class="blInputText"><p-dropdown [options]="portData" [(ngModel)]="salesOrderData.placeOfReceipt" [autoWidth]="false" name="placeOfReceipt"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">&nbsp;</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.placeOfReceipt" [disabled]="disabled" name="placeOfReceipt1"/></div>
+  </div>
+</div>
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Port Disc Name</div>
+    <!--<div class="blInputText"><input type="text" pInputText [(ngModel)]="property"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i></div>-->
+    <div class="blInputText"><p-dropdown [options]="portData" [(ngModel)]="salesOrderData.portDischarge" [autoWidth]="false" name="portDischarge"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">&nbsp;</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.portDischarge" [disabled]="disabled" name="portDischarge1"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Terms</div>
+    <div class="blInputText"><p-dropdown [options]="gencodeData" [(ngModel)]="salesOrderData.portDischargeTerms" [autoWidth]="false" name="portDischargeTerms"></p-dropdown></div>
+  </div>
+</div>
+
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Place of Delivery</div>
+    <!--<div class="blInputText"><input type="text" pInputText [(ngModel)]="property"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i></div>-->
+    <div class="blInputText"><p-dropdown [options]="portData" [(ngModel)]="salesOrderData.placeOfDelivery" [autoWidth]="false" name="placeOfDelivery"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">&nbsp;</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.placeOfDelivery" [disabled]="disabled" name="placeOfDelivery1"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Terms</div>
+    <div class="blInputText"><p-dropdown [options]="gencodeData" [(ngModel)]="salesOrderData.placeOfDeliveryTerms" [autoWidth]="false" name="placeOfDeliveryTerms"></p-dropdown></div>
+  </div>
+</div>
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Final Del Remarks</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.finalRemarks" name="finalRemarks"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Country of Ultimate Dest</div>
+    <div class="blInputText"><p-dropdown [options]="countryData" [(ngModel)]="salesOrderData.countryOfUltimateDest" [autoWidth]="false" name="countryOfUltimateDest"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Price Term Port</div>
+    <div class="blInputText"><p-dropdown [options]="portData" [(ngModel)]="salesOrderData.priceTermPort" [autoWidth]="false" name="priceTermPort"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">INCO Terms <span style="color: red">*</span></div>
+    <div class="blInputText"><p-dropdown [options]="gencodeData" required name="incoTerms1" [(ngModel)]="salesOrderData.incoTerms" [autoWidth]="false" #incoTerms1="ngModel"></p-dropdown></div>
+    <div class="blInputInfo" style="color: red" *ngIf="incoTerms1.errors && (incoTerms1.dirty || incoTerms1.touched)">
+      <i class="fa fa-close"></i>
+      <span [hidden]="!incoTerms1.errors.required">This field is required</span>
+    </div>
+  </div>
+</div>
+
+<div class="blDataRow" style="border-bottom: 1px solid rgb(216, 216, 216);">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Payment Terms <span style="color: red">*</span> <span style="color: rgb(146, 27, 49); float: right"><i class="fa fa-plus" aria-hidden="true"></i></span></div>
+    <div class="blInputText"><p-dropdown [options]="paymentData" required name="paymentTerms1" [(ngModel)]="salesOrderData.paymentTerms" [autoWidth]="false" #paymentTerms1="ngModel"></p-dropdown></div>
+    <div class="blInputInfo" style="color: red" *ngIf="paymentTerms1.errors && (paymentTerms1.dirty || paymentTerms1.touched)">
+      <i class="fa fa-close"></i>
+      <span [hidden]="!paymentTerms1.errors.required">This field is required</span>
+    </div>
+  </div>
+</div>
+
+<div class="blDataRow" style="margin-top: 18px;">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Collecting Bank</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.collectingBank" name="collectingBank"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Ocean Freight Cost (USD)</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.oceanFreightCost" name="oceanFreightCost"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Inv. No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.invoiceNo" name="invoiceNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Insurer</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.insurer" name="insurer"/></div>
+  </div>
+</div>
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Insurance Value</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.insuranceValue" name="insuranceValue"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Invoice Date</div>
+    <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [(ngModel)]="salesOrderData.invoiceDate" [style]="{'width': '100%'}" name="invoiceDate"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Premium Rate</div>
+    <div class="blInputText"><p-dropdown [options]="premiumRates" [(ngModel)]="salesOrderData.premiumRate" [autoWidth]="false" name="premiumRate"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">ISF Ref</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.ISFRef" name="ISFRef"/></div>
+  </div>
+</div>
+
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">L/C Confirmed?</div>
+    <div class="blInputText"><p-dropdown [options]="dropdownArray" [(ngModel)]="salesOrderData.lcConfirmed" [autoWidth]="false" name="lcConfirmed"></p-dropdown></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">CNB Approval Date</div>
+    <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [(ngModel)]="salesOrderData.CNBApprovalDate" [style]="{'width': '100%'}" name="CNBApprovalDate"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">CNB Licence No</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.CNBLicenceNo" name="CNBLicenceNo"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Inv. Amt (USD)</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.invoiceAmount" name="invoiceAmount"/></div>
+  </div>
+</div>
+
+<div class="blDataRow">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Charge</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.charge" name="charge"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Containerized</div>
+    <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.containerized" name="containerized"></p-selectButton></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Premium Amt</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.premiumAmount" name="premiumAmount"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Ranking</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.ranking" name="ranking"/></div>
+  </div>
+</div>
+
+<div class="blDataRow" style="margin-bottom: 10px;">
+  <div class="blDataBlock">
+    <div class="blInputLabel">BL Cost</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.blCost" name="blCost"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Remarks / Comments <span style="color: rgb(146, 27, 49); float: right"><i class="fa fa-plus" aria-hidden="true"></i></span></div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.remarksComments" name="remarksComments"/></div>
+    <div class="blInputInfo">Max 500 characters</div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Special Instruction <span style="color: rgb(146, 27, 49); float: right"><i class="fa fa-plus" aria-hidden="true"></i></span></div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.specialInstruction" name="specialInstruction"/></div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Cancel Remarks</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.cancelRemarks" name="cancelRemarks"/></div>
+  </div>
+</div>
+
+<div class="blDataRow" style="border-bottom: 1px solid rgb(216, 216, 216); height: 80px">
+  <div class="blDataBlock">
+    <div class="blInputLabel">Internal Remarks</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.internalRemarks" name="internalRemarks"/></div>
+      <div class="blInputInfo">Max 500 characters</div>
+  </div>
+  <div class="blExtraSpace">&nbsp;</div>
+  <div class="blDataBlock">
+    <div class="blInputLabel">Loading Instruction</div>
+    <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.loadingInstruction" name="loadingInstruction"/></div>
+      <div class="blInputInfo">Max 500 characters</div>
+  </div>
+</div>
+
+  <!-- <div class="blBottomBlock">
+    <div class="blBottomSubBlock1">
+      <div class="blBottomBtnBlock" (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Save All</div>
+    </div>
+    <div class="blBottomSubBlock2">
+      <div class="blBottomBtnMainBlock">
+        <div class="blBottomBtnBlock" (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Save</div>
+      </div>
+      <div class="blBottomBtnMainBlock">
+        <div class="blBottomBtnBlock">Cancel</div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="blBottomBlock">
+    <div class="blBottomSubBlock1 applyBlButtonStyle">
+      <button pButton type="submit" icon="fa-floppy-o" label="Save All" class="blBottomBtnBlock" [disabled]="!exportBLForm.form.valid"></button>
+    </div>
+    <div class="blBottomSubBlock2">
+      <div class="blBottomBtnMainBlock applyBlButtonStyle">
+        <button pButton type="submit" icon="fa-floppy-o" label="Save" class="blBottomBtnBlock" [disabled]="!exportBLForm.form.valid"></button>
+      </div>
+      <div class="blBottomBtnMainBlock applyBlButtonStyle">
+        <button pButton type="button" label="Cancel" class="blBottomBtnBlock" (click)="cancel()"></button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+  <!-- <p-dialog header="Validations" [(visible)]="displayValidationDialog" height="400" width="400" responsive="true" modal="false">
+    <div>
+      <div *ngFor="let error of validations; let i = index;">
+        <div *ngIf="error.value == undefined" style="margin-top: 7px;margin-bottom: 7px">
+          The {{error.label}} is a mandatory field.
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog header="Update Sales Order" [(visible)]="displaySalesOrderSuccess" height="200" width="400" responsive="true" modal="false">
+      <div style="margin-top: 7px;margin-bottom: 7px">
+        Sales order is updated successfully.
+    </div>
+  </p-dialog>
+
+  <p-dialog header="Sales Order" [(visible)]="displaySalesOrderFailure" height="200" width="400" responsive="true" modal="false">
+      <div style="margin-top: 7px;margin-bottom: 7px">
+        Sales order updation failed.
+    </div>
+  </p-dialog> -->
+
+  <p-dialog header="Update Sales Order" [(visible)]="displaySalesOrderSuccess" height="200" width="400" responsive="true" modal="false">
+      <div style="margin-top: 7px;margin-bottom: 7px">
+        <span *ngIf="salesOrderData.salesOrderNo != -1">
+          Sales order is updated successfully.
+        </span>
+        <span *ngIf="salesOrderData.salesOrderNo == -1">
+            Sales order creation failed
+        </span>
+    </div>
+  </p-dialog>

@@ -1,0 +1,284 @@
+<div class="mainBody">
+  <!-- Header -->
+  <div>
+    <div class="mainHeader" *ngIf="headerLogin == false">
+      <!-- Logo -->
+      <div class="headerBlock1">
+        <img style="width: 76px;" src="assets/headerLogo.png" />
+      </div>
+      <!-- Search Block -->
+      <div class="headerBlock2" *ngIf="showSearchBar">
+        <div class="headerSubBlock1" (click)="find.toggle($event)">
+          <div style="text-align: center">
+            <span style="margin-right: 10px">{{queryTypeDesc}}</span>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="searchOverlayList">
+          <p-overlayPanel #find>
+            <div class="overlayTriangle"></div>
+            <div class="listBlock" *ngFor="let qt of queryTypes; let index=index">
+              <div class="listTitle" (click)="find.hide(); queryType=qt.queryType; queryTypeDesc=qt.queryTypeDesc; selectedQueryTypeIndex=index; this.queryValue=''; ">
+                <span *ngIf="index == selectedQueryTypeIndex"><strong>{{qt.queryTypeDesc}}</strong></span>
+                <span *ngIf="index != selectedQueryTypeIndex">{{qt.queryTypeDesc}}</span>
+              </div>
+            </div>
+          </p-overlayPanel>
+        </div>
+        <div class="headerSubBlock2" >
+          <div class="headerSearchIcon">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
+          <div class="headerSearchInputBlock">
+            <input type="text" [(ngModel)]="queryValue" class="headerSearchInput" placeholder="Enter {{queryTypeDesc}}"/>
+          </div>
+        </div>
+        <div class="headerSubBlock3"><button class="headerRetireveBtn" type="button" (click)="getSalesOrderData()">Retrieve</button></div>
+      </div>
+
+      <div class="headerBlock3">
+        <div class="headerIconBlock"><i class="fa fa-question" aria-hidden="true"></i></div>
+        <div class="headerIconBlock"><i class="fa fa-user" aria-hidden="true"></i></div>
+        <div class="headerIconBlock" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></div>
+      </div>
+    </div>
+    <div style="height: 50px;" *ngIf="headerLogin == false"></div>
+
+    <!-- Side Menu only with icons-->
+    <!-- <div class="sideMenuBar" *ngIf="headerLogin == false" [style.height]="sideMenuBarHeight"> -->
+    <div class="sideMenuBar" *ngIf="headerLogin == false">
+      <div class="sideMenuToogleBlock">
+        <div class="sideMenuToogle" (click)="toggleSideMenu();">
+          <i class="fa fa-angle-right" style="line-height: 22px;" aria-hidden="true"></i>
+        </div>
+      </div>
+      <br />
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <img style="width: 18px;" src="assets/export.png" />
+
+        <!-- <i class="fa fa-outdent" aria-hidden="true"></i> -->
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <img style="width: 16px;" src="assets/import.png" />
+        <!-- <i class="fa fa-indent" aria-hidden="true"></i> -->
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <i class="fa fa-money" aria-hidden="true"></i>
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <i class="fa fa-user-o" aria-hidden="true"></i>
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+        <img style="width: 17px;" src="assets/elite.png" />
+        <!-- <i class="fa fa-paper-plane-o" aria-hidden="true"></i> -->
+      </div>
+      <div class="sideMenuItems" (click)="toggleSideMenu();">
+      <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+    </div>
+    </div>
+
+    <!-- SlideOut Menu -->
+    <div [class]='menuClassLeft' style="float:left; background:rgb(245, 245, 245);">
+      <div class="sideMenuBlock">
+        <ul class="mainUlBlock">
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <div class="slideoutToggleBtn" (click)="toggleSideMenu()">
+                <i class="fa fa-angle-left" style="line-height: 20px;" aria-hidden="true"></i>
+              </div>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <i class="fa fa-paper-plane-o" aria-hidden="true" style="margin-right: 14px"></i>
+              MY QUICK LINKS
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <i class="fa fa-cog" aria-hidden="true" style="margin-right: 14px"></i>
+              MASTER
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <i class="fa fa-home" aria-hidden="true" style="margin-right: 14px"></i>
+              DOMESTIC
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock" (click)="displayExportMenu()">
+              <img style="width: 13px;margin-right: 14px" src="assets/export.png" />
+              <!-- <i class="fa fa-outdent" aria-hidden="true" style="margin-right: 14px"></i> -->
+              EXPORT
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+            <ul [class]='menuClass'>
+              <li [class]='subMenuRefClass' (click)="selectRefMenu()"><span class="subTitleBlock">Sea Export Ref</span></li>
+              <li [class]='subMenuBLClass' (click)="selectBLMenu()"><span class="subTitleBlock">Sea Export BL</span></li>
+              <li [class]='subMenuChartClass' (click)="selectOPSChartMenu()"><span class="subTitleBlock">OPS Chart</span></li>
+            </ul>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <img style="width: 11px;margin-right: 16px" src="assets/import.png" />
+              <!-- <i class="fa fa-indent" aria-hidden="true" style="margin-right: 14px"></i> -->
+              IMPORT
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <i class="fa fa-money" aria-hidden="true" style="margin-right: 12px"></i>
+              BILLING
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <i class="fa fa-user-o" aria-hidden="true" style="margin-right: 14px"></i>
+              ADMIN
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <i class="fa fa-file-text-o" aria-hidden="true" style="margin-right: 14px"></i>
+              REPORTS
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+          <li class="top listTitleBlock">
+            <div class="titleBlock">
+              <img style="width: 12px;margin-right: 14px" src="assets/elite.png" />
+              <!-- <i class="fa fa-paper-plane-o" aria-hidden="true" style="margin-right: 14px"></i> -->
+              ELITETRAX
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+           <li class="top listTitleBlock">
+            <div class="titleBlock" (click)="displaySchedulerMenu()">
+            <i class="fa fa-calendar-check-o" aria-hidden="true" style="margin-right: 14px"></i>
+              SCHEDULER
+              <i class="fa fa-angle-right" aria-hidden="true" style="float: right; margin-right: 10px"></i>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <p-dialog header="" [(visible)]="displaySearchDialog" class="displaySearchDialog" height="200" width="1100" responsive="true" modal="false">
+
+    <div class="appSearchDialog">
+    		<div class="appSearchWholeRowPart1">
+    			<div class="appSearchDialogLabel">BL No</div>
+    		</div>
+        <div class="appExtraSpace">&nbsp;</div>
+    		<div class="appSearchWholeRow">
+          <div class="appSearchDialogLabel">Export No</div>
+    		</div>
+        <div class="appExtraSpace">&nbsp;</div>
+        <div class="appSearchWholeRow">
+          <div class="appSearchDialogLabel">Export Ref No</div>
+        </div>
+          <div class="appExtraSpace">&nbsp;</div>
+        <div class="appSearchWholeRow">
+          <div class="appSearchDialogLabel">Customer Name</div>
+        </div>
+        <div class="appSearchWholeRowPart4">
+          <div class="appSearchDialogLabel">Customer Id</div>
+        </div>
+    </div>
+
+    <div class="appSearchDialogBar">
+      <div class="appSearchWholeRowPart1">
+        <div class="appSearchDialogLabelData">TBA</div>
+      </div>
+      <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">6055955</div>
+      </div>
+      <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">5055998</div>
+      </div>
+        <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">EXXONMOBIL PE MEAF</div>
+      </div>
+      <div class="appSearchWholeRowPart4">
+        <div class="appSearchDialogLabelData">2651</div>
+      </div>
+    </div>
+
+    <div class="appSearchDialogBar">
+      <div class="appSearchWholeRowPart1">
+        <div class="appSearchDialogLabelData">TBA</div>
+      </div>
+      <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">6055955</div>
+      </div>
+      <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">5055998</div>
+      </div>
+        <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">EXXONMOBIL PE MEAF</div>
+      </div>
+      <div class="appSearchWholeRowPart4">
+        <div class="appSearchDialogLabelData">2651</div>
+      </div>
+    </div>
+
+    <div class="appSearchDialogBar">
+      <div class="appSearchWholeRowPart1">
+        <div class="appSearchDialogLabelData">TBA</div>
+      </div>
+      <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">6055955</div>
+      </div>
+      <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">5055998</div>
+      </div>
+        <div class="appExtraSpace">&nbsp;</div>
+      <div class="appSearchWholeRow">
+        <div class="appSearchDialogLabelData">EXXONMOBIL PE MEAF</div>
+      </div>
+      <div class="appSearchWholeRowPart4">
+        <div class="appSearchDialogLabelData">2651</div>
+      </div>
+    </div>
+  </p-dialog>
+  <!-- Page Content -->
+  <div class="mainPageContent">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<p-dialog header="Search Error" [(visible)]="displaySearchError" height="200" width="400" responsive="true" modal="false">
+  <div style="margin-top: 7px;margin-bottom: 7px">
+    <span>
+      Search returned no data. Please refine the search.
+    </span>
+  </div>
+</p-dialog>

@@ -1,0 +1,125 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, enableProdMode } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { AppRoutes } from './app.routes';
+import { WebSocketService } from './services/web-socket.service';
+import { AuthService } from './services/auth.service';
+import { UploadService } from './services/upload.service';
+import { AccordionModule, AutoCompleteModule, BreadcrumbModule, ButtonModule, CalendarModule, CarouselModule, ChartModule, CheckboxModule, CodeHighlighterModule, SharedModule, ContextMenuModule, DataGridModule, DataListModule, DataScrollerModule, DataTableModule, DialogModule, ConfirmDialogModule, DragDropModule, DropdownModule, EditorModule, FieldsetModule, FileUploadModule, GalleriaModule, GMapModule, GrowlModule, InputMaskModule, InputSwitchModule, InputTextModule, InputTextareaModule, LightboxModule, ListboxModule, MegaMenuModule, MenuModule, MenubarModule, MessagesModule, MultiSelectModule, OrderListModule, OverlayPanelModule, PaginatorModule, PanelModule, PanelMenuModule, PasswordModule, PickListModule, ProgressBarModule, RadioButtonModule, RatingModule, ScheduleModule, SelectButtonModule, SlideMenuModule, SliderModule, SpinnerModule, SplitButtonModule, TabMenuModule, TabViewModule, TerminalModule, TieredMenuModule, ToggleButtonModule, ToolbarModule, TooltipModule, TreeModule, TreeTableModule, TriStateCheckboxModule, BlockUIModule } from 'primeng/primeng';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { NcComponent } from './nc/nc.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DocsRepoComponent } from './docs-repo/docs-repo.component';
+import { MarkingComponent } from './marking/marking.component';
+import { ExportBLComponent } from './export-bl/export-bl.component';
+import { ProductContainerComponent } from './product-container/product-container.component';
+import { ExportRefComponent } from './export-ref/export-ref.component';
+import { MappingDashboardComponent } from './mapping-dashboard/mapping-dashboard.component';
+enableProdMode();
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
+AppModule = __decorate([
+    NgModule({
+        declarations: [
+            AppComponent,
+            LoginComponent,
+            NcComponent,
+            DashboardComponent,
+            MarkingComponent,
+            DocsRepoComponent,
+            ExportBLComponent,
+            ProductContainerComponent,
+            ExportRefComponent,
+            MappingDashboardComponent
+        ],
+        imports: [
+            BrowserModule,
+            FormsModule,
+            ReactiveFormsModule,
+            AppRoutes,
+            HttpModule,
+            AccordionModule,
+            AutoCompleteModule,
+            BreadcrumbModule,
+            ButtonModule,
+            CalendarModule,
+            CarouselModule,
+            ChartModule,
+            CheckboxModule,
+            CodeHighlighterModule,
+            SharedModule,
+            ContextMenuModule,
+            DataGridModule,
+            DataListModule,
+            DataScrollerModule,
+            DataTableModule,
+            DialogModule,
+            ConfirmDialogModule,
+            DragDropModule,
+            DropdownModule,
+            EditorModule,
+            FieldsetModule,
+            FileUploadModule,
+            GalleriaModule,
+            GMapModule,
+            GrowlModule,
+            InputMaskModule,
+            InputSwitchModule,
+            InputTextModule,
+            InputTextareaModule,
+            LightboxModule,
+            ListboxModule,
+            MegaMenuModule,
+            MenuModule,
+            MenubarModule,
+            MessagesModule,
+            MultiSelectModule,
+            OrderListModule,
+            OverlayPanelModule,
+            PaginatorModule,
+            PanelModule,
+            PanelMenuModule,
+            PasswordModule,
+            PickListModule,
+            ProgressBarModule,
+            RadioButtonModule,
+            RatingModule,
+            ScheduleModule,
+            SelectButtonModule,
+            SlideMenuModule,
+            SliderModule,
+            SpinnerModule,
+            SplitButtonModule,
+            TabMenuModule,
+            TabViewModule,
+            TerminalModule,
+            TieredMenuModule,
+            ToggleButtonModule,
+            ToolbarModule,
+            TooltipModule,
+            TreeModule,
+            TreeTableModule,
+            TriStateCheckboxModule,
+            BlockUIModule
+        ],
+        providers: [
+            { provide: LocationStrategy, useClass: HashLocationStrategy },
+            WebSocketService, AuthService, UploadService
+        ],
+        bootstrap: [AppComponent]
+    })
+], AppModule);
+export { AppModule };
+//# sourceMappingURL=../../../src/app/app.module.js.map

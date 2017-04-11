@@ -1,0 +1,111 @@
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { WebSocketService } from '../services/web-socket.service';
+import { ProductContainerData } from '../data-models/product-container-data';
+import {SelectItem} from 'primeng/primeng';
+
+declare var $: any;
+
+@Component({
+  selector: 'product-container',
+  templateUrl: './product-container.component.html',
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./product-container.component.scss']
+})
+export class ProductContainerComponent implements OnInit {
+
+private checked2: boolean = true;
+private productContainerData: ProductContainerData = new ProductContainerData();
+private containers: ProductContainerData[] = [];
+private containerCols: any[];
+private counter:number = 1;
+private displayDialog : boolean = false;
+private disabled: boolean = true;
+private dummyData:number[] = [1,2,3,4];
+private displayEventBlock: boolean = false;
+private dropdownArray: SelectItem[];
+private dropdownArraySend: SelectItem[];
+private dropdownArrayDemo: SelectItem[];
+private selectedContType: string;
+// $('.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-shadow.ui-dialog-draggable')
+
+
+  constructor() {
+      WebSocketService.getInstance().productContainerDataBehaviorSubject.subscribe(wsMessage => this.productContainerDataBehaviorSubjectSubscribe(wsMessage));
+      this.setDropDowns();
+      this.dropdownArrayDemo = [];
+      this.dropdownArrayDemo.push({label: 'Yes', value: 'Yes'});
+      this.dropdownArrayDemo.push({label: 'No', value: 'No'});
+  }
+
+  ngOnInit() {
+  }
+
+  productContainerDataBehaviorSubjectSubscribe(wsMessage: ProductContainerData[]) {
+    this.containers = wsMessage;
+    console.log("Inside ContainerComponent: productContainerDataBehaviorSubjectSubscribe",wsMessage);
+
+    this.containerCols = [
+      { field: "SN", header: "S/N" },
+      { field: "ExportNo", header: "Export N" },
+      { field: "ContNo", header: "Cont No" },
+      { field: "SealNo", header: "Seal No" },
+      { field: "ContType", header: "Cont Type" },
+      { field: "Size", header: "Size" },
+      { field: "TEU", header: "TEU" },
+      { field: "NoOfPackage", header: "No of Packages" },
+      { field: "GrossWt", header: "Gross Wt" },
+      { field: "NetWt", header: "Net Wt" },
+      { field: "TareWt", header: "Tare Wt" },
+      { field: "PkgMatGrossWt", header: "Pkg Mat Gross Wt" },
+      { field: "LotNo", header: "Lot No" },
+      { field: "M3", header: "M3" },
+      { field: "VGM", header: "VGM" },
+      { field: "UOM", header: "UOM" },
+      { field: "VerifiedDt", header: "VerifiedDt" },
+      { field: "VGMMethod", header: "VGMMethod" },
+      { field: "Capacity", header: "Capacity" },
+      { field: "Depot", header: "Depot" },
+      { field: "EmptyReleaseDate", header: "Empty Tank Release Date" },
+      { field: "BatchNumber", header: "Batch Number" },
+      { field: "NoOfPalette", header: "No. of Palette" },
+      { field: "EmptyPickup", header: "Empty Pickup" },
+      { field: "GateIn", header: "Gate In" },
+      { field: "VesselLoad", header: "Vessel Load" },
+      { field: "VesselDeparture", header: "Vessel Departure" },
+      { field: "VesselArrival", header: "Vessel Arrival" },
+      { field: "UnloadedFromVessel", header: "Unloaded from vessel" }
+
+    ];
+    for (let ws of wsMessage) {
+     let newSN = parseInt((ws.SN)) + 1;
+     this.counter = newSN;
+   }
+}
+
+  addContainer(){
+    console.log("Inside ResponsiveComponent :addContainer ");
+    this.displayDialog = true;
+
+  }
+
+  cancel(){
+    console.log("Inside ResponsiveComponent :cancel ");
+    this.displayDialog = false;
+  }
+
+  save(){
+    console.log("Inside ResponsiveComponent :save ");
+    this.displayDialog = false;
+  }
+  
+   setDropDowns() {
+    this.dropdownArray = [];
+    this.dropdownArray.push({label: 'Yes', value: 'Yes'});
+    this.dropdownArray.push({label: 'No', value: 'No'});
+    
+    this.dropdownArraySend = [];
+    this.dropdownArraySend.push({label: 'Original', value: 'Original'});
+    this.dropdownArraySend.push({label: 'Amendment', value: 'Amendment'});
+    
+   }
+}

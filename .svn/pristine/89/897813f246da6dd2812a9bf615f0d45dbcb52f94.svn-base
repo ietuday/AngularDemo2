@@ -1,0 +1,34 @@
+export class ProductContainerData {
+  _id: string;
+  SN : string;
+  ExportN : string;
+  ContNo : string;
+  SealNo : string;
+  ContType : string;
+  Size :string;
+  TEU : string;
+  NoOfPackage : string;
+  GrossWt : string;
+  NetWt : string;
+  TareWt : string;
+  PkgMatGrossWt : string;
+  LotNo : string;
+  M3 : string;
+  VGM : string;
+  UOM : string;
+  VerifiedDt : string;
+  VGMMethod : string;
+  Capacity : string;
+  Depot : string;
+  EmptyReleaseDate : Date = new Date();
+  BatchNumber : string;
+  NoOfPalette : string;
+  EmptyPickup : Date = new Date();
+  GateIn : Date = new Date();
+  VesselLoad : Date = new Date();
+  VesselDeparture : Date = new Date();
+  VesselArrival : Date = new Date();
+  UnloadedFromVessel : Date = new Date();
+  // GatedOut : Date = new Date();
+  // Returned : Date = new Date();
+}

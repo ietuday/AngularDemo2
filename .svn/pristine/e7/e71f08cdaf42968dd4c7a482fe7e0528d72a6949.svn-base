@@ -1,0 +1,219 @@
+
+<div class="ncMainBlock">
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Reference No</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.salesOrderNo"  [disabled]="reference"/></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Job No</div>
+            <div class="ncInputTextJob">
+                <div style="width:50%;float:left">
+                    <input type="text" pInputText [(ngModel)]="salesOrderData.jobNo" [disabled]="reference"/>
+                </div>
+                <div style="width:50%;float:left">
+                    <input type="text" pInputText [(ngModel)]="ncJoncCustomerNbNo" [disabled]="reference"/>
+                </div>
+            </div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Trans No</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.transNo" [disabled]="reference"/></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Date</div>
+            <div class="ncInputText"><p-calendar [(ngModel)]="ncDetailsData.startDate" dateFormat="dd/mm/yy" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        </div>
+    </div>
+
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">NC Party</div>
+            <div class="ncInputText"><p-dropdown [options]="ncPartyData" (click)="showNCType()" [filter]="true" [style]="{'width':'100%'}" [(ngModel)]="ncDetailsData.ncParty"></p-dropdown></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">NC Type</div>
+            <div class="ncInputText"><p-dropdown [options]="ncType" [style]="{'width':'100%'}" [disabled]="ncDetailsData.ncParty == undefined || ncDetailsData.ncParty == ''" [(ngModel)]="ncDetailsData.ncType">
+                    <template let-nc>
+                        <div style="width:25%;float:left;font-size:10px;">{{nc.label}}</div>
+                        <div style="width:75%;font-size:10px;float:right">{{nc.value}}</div>
+                    </template>
+                </p-dropdown></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Customer Name</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.customerName" [disabled]="disabledCustomer" name="customerName"/></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Due Date of Action</div>
+            <div class="ncInputText"><p-calendar [(ngModel)]="ncDetailsData.dueDateOfAction" dateFormat="dd/mm/yy" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        </div>
+    </div>
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Carrier ID</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.carrierId" /></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Shipper Ref No</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.shipperNo" /></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Verified By</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.verifiedBy" /></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Rsvd. Booked ETD</div>
+            <div class="ncInputText"><p-calendar [(ngModel)]="ncDetailsData.revisedBookedEtd" dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        </div>
+    </div>
+
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Show in Report</div>
+            <div class="ncInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="ncDetailsData.showInReport"></p-selectButton></div>
+        </div>
+    </div>
+
+
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Description of Complaint</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.complaintDescription" /></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Action By</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.actionBy" /></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Action Date</div>
+            <div class="ncInputText"><p-calendar [(ngModel)]="ncDetailsData.actionDate"  dateFormat="dd/mm/yy" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        </div>
+    </div>
+
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Root Cause</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.rootCause" /></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Corrective and Preventive Action</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.correctiveAction" /></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Implementation Date</div>
+            <div class="ncInputText"><p-calendar [(ngModel)]="ncDetailsData.implementationDate"  dateFormat="dd/mm/yy" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Cost Incurred</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.costIncurred" /></div>
+        </div>
+    </div>
+
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Currency</div>
+            <div class="ncInputText"><p-dropdown [options]="ncCurrency" [style]="{'width':'100%'}" [(ngModel)]="ncDetailsData.selectNcCurrency"></p-dropdown></div>
+        </div>
+    </div>
+    <div class="ncDataRow">
+        <div class="ncDataBlock">
+            <div class="ncInputLabel">Billed To</div>
+            <div class="ncInputText"><input type="text" pInputText [(ngModel)]="ncDetailsData.bill" /></div>
+        </div>
+    </div>
+    <div class="ncDataRowCreate">
+        <div class="ncDataBlock">
+            <div class="ncInputLabelBottom"><b>Created By</b></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabelBottom"><b>Modified By</b></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabelBottom"><b>Date Created</b></div>
+        </div>
+        <div class="ncExtraSpace">&nbsp;</div>
+        <div class="ncDataBlock">
+            <div class="ncInputLabelBottom"><b>Date Modified</b></div>
+        </div>
+    </div>
+
+    <div class="ncDataRowTextbox">
+        <div class="ncExtraSpace2">&nbsp;</div>
+        <div class="ncDataBlockCreate">
+            <div class="ncInputTextRow"><input type="text" pInputText [(ngModel)]="createdBy"  [disabled]="disabledCreate"/></div>
+        </div>
+        <div class="ncExtraSpace2">&nbsp;</div>
+        <div class="ncDataBlockModified">
+            <div class="ncInputTextRowmodified"><input type="text" pInputText [(ngModel)]="ncDetailsData.modifiedBy" [disabled]="disabledCreate"/></div>
+        </div>
+        <div class="ncExtraSpace2">&nbsp;</div>
+        <div class="ncDataBlockDate">
+            <div class="ncInputTextRowCreatedDate"><p-calendar [(ngModel)]="salesOrderData.portCutOffDate"  dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [disabled]="disabledCreate" [style]="{'width': '100%'}"></p-calendar></div>
+        </div>
+        <div class="ncExtraSpace2">&nbsp;</div>
+        <div class="ncDataBlockDateModified">
+            <div class="ncInputTextRowCreatedModifiedDate"><p-calendar [(ngModel)]="ncDetailsData.dateModified"  dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [disabled]="disabledCreate" [style]="{'width': '100%'}"></p-calendar></div>
+        </div>
+    </div>
+
+    <div class="ncBottomBlock">
+        <div class="ncLeftBtnBlock applyNcButtonStyle">
+            <button pButton type="button" label="Add" class="ncBtnStyle" (click)="ncAdd()" [disabled]="ncDetailsData.transNo == null"></button>
+        </div>
+        <div class="ncLeftBtnBlock applyNcButtonStyle">
+            <button pButton type="button" label="Delete" (click)="ncDelete()" class="ncBtnStyle" [disabled]="ncDetailsData.transNo == null"></button>
+        </div>
+        <div class="ncLeftBtnBlock applyNcButtonStyle">
+            <button pButton type="button" label="Print" class="ncBtnStyle"></button>
+        </div>
+        <div class="ncLeftBtnBlock applyNcButtonStyle">
+            <button pButton type="button" icon="fa-angle-down" iconPos="right" label="More" class="ncBtnStyle"></button>
+        </div>
+        <div class="ncLeftBtnBlock applyNcButtonStyle">
+            <!-- <button pButton type="button" icon="fa-angle-down" iconPos="right" label="More" class="ncBtnStyle"></button> -->
+        </div>
+        <div class="ncLeftBtnBlockIcon1 applyNcButtonStyle">
+            <button pButton type="button" icon="fa-chevron-left" (click)="ncPrev()" class="ncBtnStyle" [disabled]="selectedIndex == 0 || ncDetailsData.transNo == null"></button>
+        </div>
+        <div class="ncLeftBtnBlockIcon2 applyNcButtonStyle">
+            <button pButton type="button" icon="fa-chevron-right" (click)="ncNext()" class="ncBtnStyle" [disabled]="selectedIndex == (totalRows - 1) || ncDetailsData.transNo == null"></button>
+        </div>
+
+        <div class="ncSuccessMsg">
+            <span>Row {{selectedIndex + 1}} of {{totalRows}}</span>
+        </div>
+
+
+        <div class="ncRightBtnBlock">
+            <div class="ncSuccessMsg">
+                <span *ngIf="saveClicked " style="font-size:16px" >Save Successful.</span>
+                <span *ngIf="deleteClicked" style="font-size:16px">Delete Successful.</span>
+            </div>
+            <div class="ncBtnSubBlock applyNcButtonStyle">
+                <button pButton type="button" icon="fa-floppy-o" label="Save"  (click)="ncSave()"  class="ncBtnStyle" [disabled]="saveClicked"></button>
+            </div>
+            <div class="ncBtnSubBlock applyNcButtonStyle">
+                <button pButton type="button" label="Cancel" class="ncBtnStyle" (click)="ncCancel()"></button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

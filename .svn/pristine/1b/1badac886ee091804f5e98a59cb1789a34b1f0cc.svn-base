@@ -1,0 +1,111 @@
+<div class="dashboardBody">
+  <!-- Main Body with side margins -->
+  <div class="dashboardMainBlock">
+    <!-- SubHeader of dashboard -->
+    <div class="subToolbar">
+
+      <div class="subToolbarBlock1Ref" *ngIf="displayExportRef">
+        <div class="subToolbarMenuBox" style="border-radius: 25px 0px 0px 25px" (click)="op1.toggle($event)">Toolbox</div>
+        <div class="subToolbarMenuBox" style="border-radius: 0px 25px 25px 0px; width: 59px;">Template</div>
+      </div>
+
+      <div class="subToolbarBlock1" *ngIf="displayExportRef == false">
+        <div class="subToolbarMenuBox" style="border-radius: 25px 0px 0px 25px" (click)="op1.toggle($event)">Toolbox</div>
+        <div class="subToolbarMenuBox">Export</div>
+        <div class="subToolbarMenuBox">Print</div>
+        <div class="subToolbarMenuBox" style="border-radius: 0px 25px 25px 0px; width: 38px;">MSG</div>
+      </div>
+     <div class="dashboardOverlayData">
+      <p-overlayPanel #op1>
+        <div class="daschBoardIcon"></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Invoice</div></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Hauller Ins.Sheet</div></div>
+        <div class="subOverlayBlank" (click)="displayMarkingDialog = true " ><div class="overlayLableDiv">Markings</div></div>
+        <div class="subOverlayBlank" (click)="displayNcDialog = true" ><div class="overlayLableDiv">NC Report</div></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Other Details</div></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Freight Prepaid</div></div>
+      </p-overlayPanel>
+      </div>
+
+      <div class="subToolbarBlock2">
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef">
+          <button pButton type="button" icon="fa-pencil-square-o" label="Change Customer"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef == false">
+          <button pButton type="button" icon="fa-pencil-square-o" label="Change Reference"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock">
+          <button pButton type="button" icon="fa-check" label="Spell Check (F7)"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock">
+          <button pButton type="button" icon="fa-plus" label="Add New Job"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock">
+          <button pButton type="button" icon="fa-files-o" label="Copy to New Job"></button>
+        </div>
+        <!-- <div class="subToolbarSubBlock" >
+          <div class="subToolbarMenuBox" style="padding-top:6.5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;Change Customer</div>
+        </div>
+        <div class="subToolbarSubBlock" *ngIf="displayExportRef == false">
+          <div class="subToolbarMenuBox" style="padding-top:6.5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;Change Reference</div>
+        </div>
+        <div class="subToolbarSubBlock">
+          <div class="subToolbarMenuBox" style="padding-top:6.5px"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;Spell Check (F7)</div>
+        </div>
+        <div class="subToolbarSubBlock">
+          <div class="subToolbarMenuBox" style="padding-top:6.5px"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp;Add New Job</div>
+        </div>
+        <div class="subToolbarSubBlock">
+          <div class="subToolbarMenuBox" style="padding-top:6.5px"><i class="fa fa-files-o" aria-hidden="true"></i> &nbsp;Copy to New Job</div>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Tabs block below subheader -->
+    <div class="dashboardTabBlock">
+      <p-tabView *ngIf="displayExportRef">
+        <p-tabPanel header="Export Ref">
+          <export-ref></export-ref>
+        </p-tabPanel>
+<!--        <p-tabPanel header="Export Ref" #exportRefTabPanel>
+          <export-ref [tabActive]="exportRefTabPanel.selected"></export-ref>
+        </p-tabPanel>-->
+        <p-tabPanel header="Shipper"></p-tabPanel>
+        <p-tabPanel header="Product / Container">
+          <product-container></product-container>
+        </p-tabPanel>
+        <p-tabPanel header="Transshipment"></p-tabPanel>
+        <p-tabPanel header="Direct Shipment"></p-tabPanel>
+        <p-tabPanel header="Others"></p-tabPanel>
+      </p-tabView>
+
+      <p-tabView *ngIf="displayExportRef == false">
+        <p-tabPanel header="Export Job">
+          <export-bl></export-bl>
+        </p-tabPanel>
+        <p-tabPanel header="Print Config"></p-tabPanel>
+        <p-tabPanel header="Events"></p-tabPanel>
+        <p-tabPanel header="Product / Container">
+          <product-container></product-container>
+        </p-tabPanel>
+        <p-tabPanel header="Shipper"></p-tabPanel>
+        <p-tabPanel header="Docs Repo">
+          <docs-repo></docs-repo>
+        </p-tabPanel>
+        <p-tabPanel header="Others"></p-tabPanel>
+        <p-tabPanel header="Alerts"></p-tabPanel>
+        <p-tabPanel header="Carrier EDI Log"></p-tabPanel>
+        <p-tabPanel header="Invoices"></p-tabPanel>
+        <p-tabPanel header="Voucher"></p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="MARKINGS" [(visible)]="displayMarkingDialog" class="dashboardDialog" height="625" width="800"responsive="true" modal="false">
+  <marking></marking>
+</p-dialog>
+
+<p-dialog header="NC Details" [(visible)]="displayNcDialog" class="dashboardDialog" height="625" width="800" responsive="true" modal="false">
+  <nc-report></nc-report>
+</p-dialog>

@@ -1,0 +1,102 @@
+var mongo = require('./mongo.js');
+
+exports.getCustomers = function(message, callback) {
+  // console.log("Inside masters.js getCustomers(): message ", message);
+  mongo.findDocumentFields("CustomerMaster", {}, {"customerId":true,"customerName":true, "countryId": true, "currencyId": true, "userId": true, "deptId": true, "_id": false}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  });
+}
+
+exports.getCurrencies = function (message, callback) {
+  mongo.findDocumentFields("CurrencyMaster",{ CURRENCY_EX_RATE: { $gt:0}},{"CURRENCY_ID":true,"CURRENCY_NAME":true}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+
+}
+
+exports.getNCParties = function (message, callback) {
+  mongo.findDocumentFields("NCPartyMaster",{ USER_ID: { $eq: "SCCELITE" }},{"NC_PARTY_DESC":true,"NC_PARTY_CODE":true}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getJobTypes = function (message, callback) {
+  mongo.findDocumentFields("JobType",{ job_id: { $ne:0}},{"job_id":true,"job_description":true}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getContainerTypes = function (message, callback) {
+  mongo.findDocumentFields('ContainerTypeMaster',{TARE_WT : { $eq: "NULL" }},{"CONT_TYPE_ID":true,"CONT_TYPE_DES":true,"CONT_SIZE":true,"CONT_TEU":true},function (data) {
+      message.message = data;
+      message.status = "Success";
+      callback(message);
+      // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getVendors = function (message, callback) {
+  mongo.findDocumentFields("Vendor",{ VENDOR_ID: { $ne:0}},{"VENDOR_ID":true,"VENDOR_NAME":true}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getNCTypes = function (message, callback) {
+  mongo.findDocumentFields("NCTypeMaster",{ NC_CATE_CODE: { $eq: message.name }},{"NC_TYPE_DESC":true,"NC_TYPE_CODE":true}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getPorts = function (message, callback) {
+  mongo.findDocumentFieldsLimit("PortMaster", {}, {"portId": true, "portName":true, "_id":false}, 30, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getGencodes = function (message, callback) {
+  mongo.findDocumentFields("GencodeMaster", {}, {"GENCODE_ID": true, "GENCODE_DES":true, "ADD_DESC":true, "_id":false}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getCountries = function (message, callback) {
+  mongo.findDocumentFields("CountryMaster", {}, {"COUNTRY_ID": true, "COUNTRY_NAME":true, "_id":false}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}
+
+exports.getPayments = function (message, callback) {
+  mongo.findDocumentFields("PaymentMaster", {"VALID":1}, {"ID": true, "DESCRIPTION":true, "lcgroup":true, "_id":false}, function (data) {
+    message.message = data;
+    message.status = "Success";
+    callback(message);
+    // mongo.sendWsMessage(connection, message);
+  })
+}

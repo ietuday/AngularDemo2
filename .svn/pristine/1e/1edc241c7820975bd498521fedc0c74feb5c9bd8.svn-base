@@ -1,0 +1,602 @@
+<!-- <form #exportRefForm='ngForm' (ngSubmit)="save()"> -->
+<form #exportRefForm='ngForm'>
+  <div style="height: 20px;"></div>
+  <div class="blDataRow">
+    <div class="blDataLargeBlock">
+      <div class="blInputLabel">Customer Name</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="customerName" [disabled]="disabled" name="customerName"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Export Bkg N</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.salesOrderNo" [disabled]="disabled" name="salesOrderNo"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Ref YM</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.refYM" [disabled]="disabled" name="refYM"/></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Dept C</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="getDeptC" [disabled]="disabled" name="deptId"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Vessel Ref</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.vesselRef" name="vesselRef"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Vessel <span style="color: red">*</span></div>
+      <div class="blInputText"><input type="text" pInputText required name="vessel1" [(ngModel)]="salesOrderData.vessel" #vessel1="ngModel"/></div>
+      <div class="blInputInfo" style="color: red" *ngIf="vessel1.errors && (vessel1.dirty || vessel1.touched)">
+        <i class="fa fa-close"></i>
+        <span [hidden]="!vessel1.errors.required">This field is required</span>
+      </div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Voyage <span style="color: red">*</span></div>
+      <div class="blInputText"><input type="text" pInputText   required  name="voyage1" [(ngModel)]="salesOrderData.voyage" (ngModelChange)="salesOrderData.voyage=salesOrderData.voyage.toUpperCase()" #voyage1="ngModel"/></div>
+      <div class="blInputInfo" style="color: red" *ngIf="voyage1.errors && (voyage1.dirty || voyage1.touched)">
+        <i class="fa fa-close"></i>
+        <span [hidden]="!voyage1.errors.required">This field is required</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Mode <span style="color: red">*</span></div>
+      <div class="blInputText"><p-dropdown [options]="transportMode" required name="mode1" [(ngModel)]="salesOrderData.mode" [autoWidth]="false"  #mode1="ngModel"></p-dropdown></div>
+      <div class="blInputInfo" style="color: red" *ngIf="mode1.errors && (mode1.dirty || mode1.touched)">
+        <i class="fa fa-close"></i>
+        <span [hidden]="!mode1.errors.required">This field is required</span>
+      </div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Pre Carriage</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.preCarriage" name="preCarriage"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Voyage</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.voyage" name="voyage1"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Job Type <span style="color: red">*</span></div>
+      <div class="blInputText"><p-dropdown [options]="jobType" required name="jobType1" [(ngModel)]="salesOrderData.jobType" [autoWidth]="false" #jobType1="ngModel"></p-dropdown></div>
+      <div class="blInputInfo" style="color: red" *ngIf="jobType1.errors && (jobType1.dirty || jobType1.touched)">
+        <i class="fa fa-close"></i>
+        <span [hidden]="!jobType1.errors.required">This field is required</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Agent ID</div>
+      <div class="blInputText"><p-dropdown [options]="vendorData" [(ngModel)]="salesOrderData.agentId" [autoWidth]="false" name="agentId1"></p-dropdown></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.agentId" [disabled]="disabled" name="agentId"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">BL</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.bl" name="bl"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText">
+        <div style="width: 50%; float: left">
+          <p-dropdown [options]="blArray" [(ngModel)]="salesOrderData.blOption" [autoWidth]="false" name="voyage2"></p-dropdown>
+        </div>
+        <div style="width: 50%; float: right">
+          <input type="text" pInputText [(ngModel)]="salesOrderData.blCopy" placeholder="Copy" name="blCopy"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Port Load <span style="color: red">*</span></div>
+      <div class="blInputText"><p-dropdown [options]="portData" required  name="portLoad1" [(ngModel)]="salesOrderData.portLoad" [autoWidth]="false" #portLoad1="ngModel"></p-dropdown></div>
+      <div class="blInputInfo" style="color: red" *ngIf="portLoad1.errors && (portLoad1.dirty || portLoad1.touched)">
+        <i class="fa fa-close"></i>
+        <span [hidden]="!portLoad1.errors.required">This field is required</span>
+      </div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.portLoad" [disabled]="disabled" name="portLoad"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Port Discharge <span style="color: red">*</span></div>
+      <div class="blInputText"><p-dropdown [options]="portData" required name="portDischarge1" [(ngModel)]="salesOrderData.portDischarge" [autoWidth]="false" #portDischarge1="ngModel"></p-dropdown></div>
+      <div class="blInputInfo" style="color: red" *ngIf="portDischarge1.errors && (portDischarge1.dirty || portDischarge1.touched)">
+        <i class="fa fa-close"></i>
+        <span [hidden]="!portDischarge1.errors.required">This field is required</span>
+      </div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.portDischarge" [disabled]="disabled" name="portDischarge"/></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Place of Rec</div>
+      <div class="blInputText"><p-dropdown [options]="portData" [(ngModel)]="salesOrderData.placeOfReceipt" [autoWidth]="false" name="placeOfReceipt1"></p-dropdown></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.placeOfReceipt" [disabled]="disabled" name="placeOfReceipt"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Place of Del</div>
+      <div class="blInputText"><p-dropdown [options]="portData" [(ngModel)]="salesOrderData.placeOfDelivery" [autoWidth]="false" name="placeOfDelivery1"></p-dropdown></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.placeOfDelivery" [disabled]="disabled" name="placeOfDelivery"/></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">DO / AWB / Carrier BL</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.carrierBLName" name="carrierBLName"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Obi Terms ID</div>
+      <div class="blInputText"><p-dropdown [options]="gencodeData" [(ngModel)]="salesOrderData.oblTermId" [autoWidth]="false" name="oblTermId"></p-dropdown></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Route</div>
+      <div class="blInputText"><p-dropdown [options]="routes" [(ngModel)]="salesOrderData.route" [autoWidth]="false" name="route"></p-dropdown></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Ref Currency</div>
+      <div class="blInputText">  <p-dropdown [options]="currency" [(ngModel)]="salesOrderData.refCurrency" [autoWidth]="false" name="refCurrency"></p-dropdown></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Carrier Ex Rate</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.carierRate" name="carierRate"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">No of HBL</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.hbl" name="hbl"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Carr Bkg Ref No</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.carrierBkgRefNo" name="carrierBkgRefNo"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Sch Type Ind</div>
+      <div class="blInputText"><p-dropdown [options]="schTypeInd" [(ngModel)]="salesOrderData.schTypeInd" [autoWidth]="false" name="schTypeInd"></p-dropdown></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Truck Waybill No</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.truckWaybillNo" name="schTypeInd1"/></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Carrier Agent ID <span style="color: red">*</span></div>
+      <div class="blInputText"><p-dropdown [options]="vendorData" required name="carrierAgentId1" [(ngModel)]="salesOrderData.carrierAgentId" [autoWidth]="false" #carrierAgentId1="ngModel"></p-dropdown></div>
+      <div class="blInputInfo" style="color: red" *ngIf="carrierAgentId1.errors && (carrierAgentId1.dirty || carrierAgentId1.touched)">
+        <i class="fa fa-close"></i>
+        <span [hidden]="!carrierAgentId1.errors.required">This field is required</span>
+      </div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.carrierAgentId" [disabled]="disabled" name="carrierAgentId"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Actual Carrier ID</div>
+      <div class="blInputText">
+        <div class="blCheckboxInputWithName">
+          <span style="margin-left: 5%;">
+            <p-checkbox [(ngModel)]="salesOrderData.actualCarrierIdPrintInd" binary="true" name="actualCarrierIdPrintInd"></p-checkbox>
+            <span style="font-size: 10px;">Print Ind</span>
+          </span>
+        </div>
+        <div style="width: 65%; float: right">
+          <input type="text" pInputText [(ngModel)]="salesOrderData.actualCarrierId" name="actualCarrierId"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.actualCarrierId" [disabled]="disabled" name="actualCarrierId1"/></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Deliver To / Warehouse</div>
+      <div class="blInputText"><p-dropdown [options]="vendorData" [(ngModel)]="salesOrderData.warehouse" [autoWidth]="false" name="warehouse"></p-dropdown></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Plant Code</div>
+      <div class="blInputText"><p-dropdown [options]="dropdownArray" [(ngModel)]="salesOrderData.plantCode" [autoWidth]="false" name="actualCarrierId2"></p-dropdown></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">NVOCC Agent</div>
+      <div class="blInputText">
+        <div class="blCheckboxInputWithName">
+          <span style="margin-left: 5%;">
+            <p-checkbox [(ngModel)]="salesOrderData.nvoccAgentPrintInd" binary="true" name="nvoccAgentPrintInd"></p-checkbox>
+            <span style="font-size: 10px;">Print Ind</span>
+          </span>
+        </div>
+        <div style="width: 65%; float: right">
+          <p-dropdown [options]="vendorData" [(ngModel)]="salesOrderData.nvoccAgent" [autoWidth]="false" name="nvoccAgent"></p-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Export Permit Not Required?</div>
+      <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.exportPermitNotRequired" name="exportPermitNotRequired"></p-selectButton></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">No Permit Amendment Required?</div>
+      <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.noPermitAmendmentRequired" name="noPermitAmendmentRequired"></p-selectButton></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Port of Disc Agent ID</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.portOfDischargeAgentId" name="portOfDischargeAgentId"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.portOfDischargeAgentId" [disabled]="disabled" name="portOfDischargeAgentId1"/></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">No of Container</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.noOfContainer" name="noOfContainer"/></div>
+    </div>
+  </div>
+
+  <div class="blDataRow">
+    <div class="blDataBlock">
+      <div class="blInputLabel">Sch Fax Ind</div>
+      <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.schFaxInd" name="schFaxInd"></p-selectButton></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">Vessel Location</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.vesselLocation" name="vesselLocation"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i></div>
+    </div>
+    <div class="blExtraSpace">&nbsp;</div>
+    <div class="blDataBlock">
+      <div class="blInputLabel">&nbsp;</div>
+      <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.vesselLocation" [disabled]="disabled" name="vesselLocation1"/></div>
+    </div>
+  </div>
+
+  <!-- Events Section started -->
+  <div class="refEventTitle">
+    <span (click)="sectionClick('displayEventBlock')" style="cursor: pointer">
+      Events
+      <i *ngIf="displayEventBlock" class="fa fa-angle-down" style="line-height: 22px;" aria-hidden="true"></i>
+      <i *ngIf="displayEventBlock == false" class="fa fa-angle-right" style="line-height: 22px;" aria-hidden="true"></i>
+    </span>
+  </div>
+
+  <div class="refEventBlock" *ngIf="displayEventBlock">
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">Port Cut off Date</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [(ngModel)]="salesOrderData.portCutOffDate" [style]="{'width': '100%'}" name="portCutOffDate"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">ETA Portnet</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [(ngModel)]="salesOrderData.etaPortnet" [style]="{'width': '100%'}" name="etaPortnet"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">ETA Port Load <span style="color: red">*</span></div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" required name="eta1" [(ngModel)]="salesOrderData.etdPortLoad" [style]="{'width': '100%'}"  #eta1="ngModel"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        <div class="blInputInfo" style="color: red" *ngIf="eta1.errors && (eta1.dirty || eta1.touched)">
+          <i class="fa fa-close"></i>
+          <span [hidden]="!eta1.errors.required">This field is required</span>
+        </div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">ETD <span style="color: red">*</span></div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" required name="etd1" [(ngModel)]="salesOrderData.etd" [style]="{'width': '100%'}" (onSelect)="calculateTransitDays()" #etd1="ngModel"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        <div class="blInputInfo" style="color: red" *ngIf="etd1.errors && (etd1.dirty || etd1.touched)">
+          <i class="fa fa-close"></i>
+          <span [hidden]="!etd1.errors.required">This field is required</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">ETA Dest <span style="color: red">*</span></div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy"  required name="etaDest1" [(ngModel)]="salesOrderData.etaDest" [style]="{'width': '100%'}" (onSelect)="calculateTransitDays()" #etaDest1="ngModel"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+        <div class="blInputInfo" style="color: red" *ngIf="etaDest1.errors && (etaDest1.dirty || etaDest1.touched)">
+          <i class="fa fa-close"></i>
+          <span [hidden]="!etaDest1.errors.required">This field is required</span>
+        </div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">ETA Place of Del</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [(ngModel)]="salesOrderData.etaPlaceOfDel" [style]="{'width': '100%'}" name="etaPlaceOfDel"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Obl Collect Date</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [(ngModel)]="salesOrderData.oblCollectDate" [style]="{'width': '100%'}" name="oblCollectDate"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Orig. Booked Vsl ETA</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [(ngModel)]="salesOrderData.origBookedVslETA" [style]="{'width': '100%'}" name="origBookedVslETA"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+    </div>
+
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">First Booked ETA POL</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [(ngModel)]="salesOrderData.firstBookedETAPOL" [style]="{'width': '100%'}" name="firstBookedETAPOL"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">First Booked ETD</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [(ngModel)]="salesOrderData.firstBookedETD" [style]="{'width': '100%'}" name="firstBookedETD"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">First Booked ETA Dest</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [showTime]="true" hourFormat="12" [(ngModel)]="salesOrderData.firstBookedETADest" [style]="{'width': '100%'}" name="firstBookedETADest"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Revised RDD</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [(ngModel)]="salesOrderData.revisedRDD" [style]="{'width': '100%'}" [disabled]="disabled" name="revisedRDD"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+    </div>
+
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">Transit Days</div>
+        <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.transitDays" [disabled]="disabled" name="transitDays"/></div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Event Section -->
+
+  <!-- Approver Details Section started -->
+  <div class="refApproverTitle">
+    <span (click)="sectionClick('displayApproverBlock')" style="cursor: pointer">
+      Booking Allocation & Approver Details
+      <i *ngIf="displayApproverBlock" class="fa fa-angle-down" style="line-height: 22px;" aria-hidden="true"></i>
+      <i *ngIf="displayApproverBlock == false" class="fa fa-angle-right" style="line-height: 22px;" aria-hidden="true"></i>
+    </span>
+  </div>
+
+  <div class="refEventBlock" *ngIf="displayApproverBlock">
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">Approver</div>
+        <div class="blInputText">
+          <div class="blCheckboxInput">
+            <p-checkbox [(ngModel)]="salesOrderData.approverInd" binary="true" (onChange)="approverIndHandler($event)" name="schFaxInd"></p-checkbox>
+          </div>
+          <div style="width: 90%; float: right">
+            <input type="text" pInputText [(ngModel)]="salesOrderData.approver" [disabled]="disabled" name="schFaxInd1"/>
+          </div>
+        </div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Date Approve</div>
+        <div class="blInputText"><p-calendar dateFormat="dd/mm/yy" [(ngModel)]="salesOrderData.approveDate" [style]="{'width': '100%'}" [disabled]="disabled" name="approveDate"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Remarks</div>
+        <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.approvalRemarks" name="approvalRemarks"/></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Preferred Vessel Sailing Schedules</div>
+        <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.preferredVesselSailingSchedules" name="preferredVesselSailingSchedules"></p-selectButton></div>
+      </div>
+    </div>
+
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">Availability of Equipment</div>
+        <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.availabilityOfEquipment" name="availabilityOfEquipment"></p-selectButton></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Shorter Transit Time</div>
+        <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.shorterTransitTime" name="shorterTransitTime"></p-selectButton></div>
+      </div>
+    </div>
+
+  </div>
+  <!-- End of Approver Details Section -->
+
+  <!-- GTN Section started -->
+  <div class="refGTNTitle">
+    <span (click)="sectionClick('displayGTNBlock')" style="cursor: pointer">
+      Send E-Booking Via GTN
+      <i *ngIf="displayGTNBlock" class="fa fa-angle-down" style="line-height: 22px;" aria-hidden="true"></i>
+      <i *ngIf="displayGTNBlock == false" class="fa fa-angle-right" style="line-height: 22px;" aria-hidden="true"></i>
+    </span>
+  </div>
+
+  <div class="refEventBlock" *ngIf="displayGTNBlock">
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">Move Type</div>
+        <div class="blInputText"><p-dropdown [options]="dropdownArray" [(ngModel)]="salesOrderData.moveType" [autoWidth]="false" name="moveType"></p-dropdown></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Send as</div>
+        <div class="blInputText"><p-selectButton [options]="sendAs" [(ngModel)]="salesOrderData.sendAs" name="sendAs"></p-selectButton></div>
+      </div>
+    </div>
+
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">20' Containers</div>
+        <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.container20" name="container20"/></div>
+        <!-- <div class="blInputText spinnerBlock"><p-spinner size="30" [(ngModel)]="salesOrderData.container20" [min]="0" [max]="100" name="container20"></p-spinner></div> -->
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">40' Containers</div>
+        <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.container40" name="container40"/></div>
+        <!-- <div class="blInputText spinnerBlock"><p-spinner size="30" [(ngModel)]="salesOrderData.container40" [min]="0" [max]="100" name="container40"></p-spinner></div> -->
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">20' Hi-Cube Containers</div>
+        <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.container20HiCube" name="container20HiCube"/></div>
+        <!-- <div class="blInputText spinnerBlock"><p-spinner size="30" [(ngModel)]="salesOrderData.container20HiCube" [min]="0" [max]="100" name="container20HiCube"></p-spinner></div> -->
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">ISO Containers</div>
+        <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.containerISO" name="containerISO"/></div>
+        <!-- <div class="blInputText spinnerBlock"><p-spinner size="30" [(ngModel)]="salesOrderData.containerISO" [min]="0" [max]="100" name="containerISO"></p-spinner></div> -->
+      </div>
+    </div>
+
+    <div class="blDataRow">
+      <div class="blDataBlock">
+        <div class="blInputLabel">Remarks of Container</div>
+        <div class="blInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.containerRemarks" name="containerRemarks"/></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">NOR</div>
+        <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.nor" name="nor"></p-selectButton></div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Refer</div>
+        <div class="blInputText">
+          <div class="blCheckboxInput">
+            <p-checkbox [(ngModel)]="salesOrderData.referInd" binary="true" name="referInd"></p-checkbox>
+          </div>
+          <div style="width: 90%; float: right">
+            <input type="text" pInputText [(ngModel)]="salesOrderData.refer" name="refer"/>
+          </div>
+        </div>
+      </div>
+      <div class="blExtraSpace">&nbsp;</div>
+      <div class="blDataBlock">
+        <div class="blInputLabel">Include Container Number</div>
+        <div class="blInputText"><p-selectButton [options]="dropdownArray" [(ngModel)]="salesOrderData.includeContainerNumber" name="includeContainerNumber"></p-selectButton></div>
+      </div>
+    </div>
+
+    <div style="height: 50px">
+      <div class="refBottomSubBlock1 applyButtonStyle">
+        <button pButton type="button" label="Send Booking Request" class="refBottomBtnBlock"></button>
+      </div>
+    </div>
+
+  </div>
+  <!-- End of GTN Section  -->
+
+<div class="blBottomBlock">
+  <div class="refBottomSubBlock1 applyButtonStyle">
+    <button pButton type="button" icon="fa-floppy-o" (click)="save()" label="Save All" class="refBottomBtnBlock" [disabled]="!exportRefForm.form.valid"></button>
+  </div>
+  <div class="refBottomSubBlock2">
+    <div class="refBottomBtnMainBlock applyButtonStyle">
+      <button pButton type="button" icon="fa-floppy-o" (click)="save()" label="Save" class="refBottomBtnBlock" [disabled]="!exportRefForm.form.valid"></button>
+    </div>
+    <div class="refBottomBtnMainBlock applyButtonStyle">
+      <button pButton type="button" label="Cancel" class="refBottomBtnBlock" (click)="cancel()"></button>
+    </div>
+  </div>
+</div>
+
+</form>
+
+<p-dialog header="Sales Order" [(visible)]="displaySalesOrderSuccess" height="200" width="400" responsive="true" modal="false">
+  <div style="margin-top: 7px;margin-bottom: 7px">
+    <span *ngIf="salesOrderNo != -1">
+      Sales order created successfully. <br /> Sales order number is {{salesOrderNo}}
+    </span>
+    <span *ngIf="salesOrderNo == -1">
+      Sales order creation failed
+    </span>
+  </div>
+</p-dialog>
+
+<p-dialog header="Get Customer" class="customerPopUp" [(visible)]="getCustomerPopUp" width="400" [closable]="false" responsive="true" modal="false">
+  <div class="customerPopUp">
+    <div class="customerTextBox1">
+      <p-dropdown [options]="customers" class="customerarrow" [(ngModel)]="selectCustomer" (click)="showCustomers()" name="selectCustomer" [style]="{'width': '82%','font-size':'12px','margin-top':'9.5px','color':'$egrayfieldlabel'}"></p-dropdown>
+    </div>
+    <div class="customerTextBox2">
+         <input type="text" pInputText  disabled="disabled" [(ngModel)]="customerName" name="refer"/>
+    </div>
+  </div>
+
+  <div class="customerPopUpButtonSection" >
+    <div class="customerPopUpCancelButton">
+         <div class="customerPopUpOklabel applyButtonStyle">
+          <button pButton type="button" label="Ok" (click)="clickOk()" class="customerokButton" [disabled]="disabled1"></button>
+         </div>
+    </div>
+
+  </div>
+</p-dialog>

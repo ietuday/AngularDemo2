@@ -1,0 +1,21 @@
+import { async, TestBed } from '@angular/core/testing';
+import { MappingDashboardComponent } from './mapping-dashboard.component.';
+describe('MappingDashboardComponent', function () {
+    var component;
+    var fixture;
+    beforeEach(async(function () {
+        TestBed.configureTestingModule({
+            declarations: [MappingDashboardComponent]
+        })
+            .compileComponents();
+    }));
+    beforeEach(function () {
+        fixture = TestBed.createComponent(MappingDashboardComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+    it('should create', function () {
+        expect(component).toBeTruthy();
+    });
+});
+//# sourceMappingURL=../../../../src/app/mapping-dashboard/mapping-dashboard.component.spec.js.map

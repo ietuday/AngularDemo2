@@ -1,0 +1,369 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewEncapsulation } from '@angular/core';
+import { WebSocketService } from '../services/web-socket.service';
+import { SalesOrderData } from '../data-models/sales-order-data';
+var ExportRefComponent = (function () {
+    function ExportRefComponent() {
+        this.disabled = true;
+        this.displayApproverBlock = false;
+        this.displayEventBlock = true;
+        this.displayGTNBlock = false;
+        this.salesOrderData = new SalesOrderData();
+        this.salesOrderNo = -1;
+        this.agentName = "";
+        this.carrierBLName = "";
+        this.portLoadName = "";
+        this.portDischargeName = "";
+        this.placeOfReceiptName = "";
+        this.placeOfDeliveryName = "";
+        this.carrierAgentName = "";
+        this.transportMode = [];
+        this.moveTypeArray = [];
+        this.jobType = [];
+        this.vendorData = [];
+        this.vendorData2 = [];
+        this.portData = [];
+        this.routes = [];
+        this.schTypeInd = [];
+        this.blArray = [];
+        this.currency = [];
+        this.gencodeData = [];
+        this.notLoaded = true;
+        this.customerName = '';
+        this.customerId = -1;
+        this.selectCustomer = '';
+        this.validations = [];
+        this.validationFailed = false;
+        this.displayValidationDialog = false;
+        this.displaySalesOrderSuccess = false;
+        this.displaySalesOrderFailure = false;
+        this.disabledOkButton = true;
+        this.selectedCustomer = { customerId: "", customerName: "", deptId: "" };
+        console.log("ExportRefComponent: constructor");
+        this.setDropDowns();
+        this.setRefYM();
+        this.startSubscribe();
+        this.selectedCustomer = { customerId: "", customerName: "", deptId: "" };
+    }
+    ExportRefComponent.prototype.ngOnInit = function () {
+    };
+    ExportRefComponent.prototype.setDefaultsSalesOrder = function () {
+        this.salesOrderData.jobType = 'L';
+        this.salesOrderData.agentId = '';
+        this.salesOrderData.portLoad = 'DUBAI';
+        this.salesOrderData.portDischarge = 'DUBAI';
+        this.salesOrderData.oblTermId = 'FP';
+        this.salesOrderData.refCurrency = 'USD';
+        this.salesOrderData.carierRate = '1.0000';
+        this.salesOrderData.hbl = '0';
+        this.salesOrderData.schTypeInd = 'Direct';
+        this.salesOrderData.carrierAgentId = '';
+        this.salesOrderData.actualCarrierId = '';
+        this.salesOrderData.schFaxInd = 'Yes';
+        this.salesOrderData.mode = 'SEA';
+        this.salesOrderData.bl = '3';
+        this.salesOrderData.blCopy = 3;
+        this.salesOrderData.nvoccAgent = '';
+        this.salesOrderData.sendAs = 'Original';
+        this.salesOrderData.moveType = 'PP';
+        this.salesOrderData.includeContainerNumber = 'Yes';
+        this.salesOrderData.etaDest = new Date();
+        this.salesOrderData.portCutOffDate = new Date();
+        this.setRefYM();
+        WebSocketService.getInstance().salesOrderDataBehaviorSubject.next(this.salesOrderData);
+    };
+    ExportRefComponent.prototype.customerDataBehaviorSubjectSubscribe = function (data) {
+        this.customers = [];
+        this.customers.push({ label: 'Select Customer', value: null });
+        for (var i in data) {
+            this.customers.push({ label: data[i].customerName, value: { customerId: data[i].customerId, customerName: data[i].customerName, deptId: data[i].deptId } });
+        }
+    };
+    ExportRefComponent.prototype.selectCustomerHandler = function () {
+        console.log("selectCustomerHandler");
+        this.getCustomerPopUp = false;
+        WebSocketService.getInstance().customerIdBehaviorSubject.next(this.selectedCustomer);
+    };
+    ExportRefComponent.prototype.setDropDowns = function () {
+        this.dropdownArray = [];
+        this.dropdownArray.push({ label: 'Yes', value: 'Yes' });
+        this.dropdownArray.push({ label: 'No', value: 'No' });
+        this.routes = [];
+        this.routes.push({ label: 'Select Route', value: '' });
+        this.routes.push({ label: 'East Coast', value: 'East Coast' });
+        this.routes.push({ label: 'West Coast', value: 'West Coast' });
+        this.schTypeInd = [];
+        this.schTypeInd.push({ label: 'Select', value: '' });
+        this.schTypeInd.push({ label: 'Direct', value: 'Direct' });
+        this.schTypeInd.push({ label: 'Console', value: 'Console' });
+        this.blArray = [];
+        this.blArray.push({ label: 'Select BL', value: '' });
+        this.blArray.push({ label: 'ORIGINAL', value: 'ORIGINAL' });
+        this.blArray.push({ label: 'SEAWAY BILL', value: 'SEAWAY BILL' });
+        this.sendAs = [];
+        this.sendAs.push({ label: 'Original', value: 'Original' });
+        this.sendAs.push({ label: 'Amendment', value: 'Amendment' });
+        this.transportMode = [];
+        this.transportMode.push({ label: 'Select Mode', value: '' });
+        this.transportMode.push({ label: 'SEA', value: 'SEA' });
+        this.transportMode.push({ label: 'AIR', value: 'AIR' });
+        this.transportMode.push({ label: 'LAND', value: 'LAND' });
+        this.transportMode.push({ label: 'RAIL', value: 'RAIL' });
+        this.moveTypeArray.push({ label: 'Door To Door', value: 'DD' });
+        this.moveTypeArray.push({ label: 'Door To Port', value: 'DP' });
+        this.moveTypeArray.push({ label: 'Port To Door', value: 'PD' });
+        this.moveTypeArray.push({ label: 'Port To Port', value: 'PP' });
+        this.moveTypeArray.push({ label: 'CY / CY', value: 'CY' });
+    };
+    ExportRefComponent.prototype.showCustomers = function () {
+        console.log("selected value", this.selectedCustomer.customerName);
+        if (this.selectedCustomer.customerName == "") {
+            console.log("selected value***************************", this.selectedCustomer.customerName);
+        }
+        else {
+            this.disabledOkButton = false;
+        }
+    };
+    ExportRefComponent.prototype.startSubscribe = function () {
+        var _this = this;
+        WebSocketService.getInstance().salesOrderSaveBehaviorSubject.subscribe(function (data) { return _this.salesOrderSaveHandler(data); });
+        WebSocketService.getInstance().jobTypeDataBehaviorSubject.subscribe(function (data) { return _this.showJobTypedropdown(data); });
+        WebSocketService.getInstance().vendorDataBehaviorSubject.subscribe(function (data) { return _this.vendorDatadropdown(data); });
+        WebSocketService.getInstance().portDataBehaviorSubject.subscribe(function (data) { return _this.portDataBehaviorSubjectSubscribe(data); });
+        WebSocketService.getInstance().salesOrderDataBehaviorSubject.subscribe(function (data) { return _this.showSalesOrderData(data); });
+        WebSocketService.getInstance().currencyDataBehaviorSubject.subscribe(function (data) { return _this.showCurrencydropdown(data); });
+        WebSocketService.getInstance().gencodeDataBehaviorSubject.subscribe(function (data) { return _this.gencodeDataHandler(data); });
+        WebSocketService.getInstance().customerIdBehaviorSubject.subscribe(function (data) { return _this.selectedCustomerDataHandler(data); });
+        WebSocketService.getInstance().customerDataBehaviorSubject.subscribe(function (data) { return _this.customerDataBehaviorSubjectSubscribe(data); });
+    };
+    ExportRefComponent.prototype.salesOrderSaveHandler = function (data) {
+        if (data.status == 'Success') {
+            console.log("ExportRefComponent: salesOrderSaveHandler: Success", data, data.message.salesOrderNo);
+            this.salesOrderNo = parseInt(data.message.salesOrderNo);
+            this.salesOrderData.salesOrderNo = this.salesOrderNo;
+            console.log("ExportRefComponent: salesOrderSaveHandler: Success this.salesOrderData", this.salesOrderData);
+            WebSocketService.getInstance().salesOrderDataBehaviorSubject.next(this.salesOrderData);
+            setTimeout(function () {
+                data.status = "";
+                WebSocketService.getInstance().salesOrderSaveBehaviorSubject.next(data);
+            }, 10);
+        }
+        else if (data.status == 'Error') {
+            console.log("ExportRefComponent: salesOrderSaveHandler: Error");
+            this.displaySalesOrderFailure = true;
+        }
+    };
+    ExportRefComponent.prototype.showJobTypedropdown = function (data) {
+        this.jobType = [];
+        this.jobType.push({ label: 'Job Code', value: '' });
+        for (var i in data) {
+            this.jobType.push({ label: data[i].job_description, value: data[i].job_id });
+        }
+    };
+    ExportRefComponent.prototype.vendorDatadropdown = function (data) {
+        this.vendorData = [];
+        this.vendorData.push({ label: 'Vendor ID', value: '' });
+        for (var i in data) {
+            this.vendorData.push({ label: data[i].VENDOR_ID, value: data[i].VENDOR_NAME });
+        }
+        this.vendorData2 = [];
+        this.vendorData2.push({ label: 'Vendor Name', value: '' });
+        for (var i in data) {
+            this.vendorData2.push({ label: data[i].VENDOR_NAME, value: data[i].VENDOR_ID });
+        }
+    };
+    ExportRefComponent.prototype.clickOk = function () {
+        this.getCustomerPopUp = false;
+    };
+    ExportRefComponent.prototype.portDataBehaviorSubjectSubscribe = function (data) {
+        if (data != undefined) {
+            if (data.length > 0) {
+                this.portData = [];
+                this.portData.push({ label: 'Port ID', value: '' });
+                for (var i in data) {
+                    this.portData.push({ label: data[i].portId, value: data[i].portName });
+                }
+            }
+        }
+    };
+    ExportRefComponent.prototype.showSalesOrderData = function (data) {
+        console.log("ExportRefComponent: showSalesOrderData: data", data);
+        if (data == null || data == "" || data == undefined) {
+            this.salesOrderData = new SalesOrderData();
+            this.setDefaultsSalesOrder();
+        }
+        else {
+            this.salesOrderData = data;
+            this.salesOrderData.portCutOffDate = this.getNewDate(data.portCutOffDate);
+            this.salesOrderData.etaPortnet = this.getNewDate(data.etaPortnet);
+            this.salesOrderData.etdPortLoad = this.getNewDate(data.etdPortLoad);
+            this.salesOrderData.etd = this.getNewDate(data.etd);
+            this.salesOrderData.etaDest = this.getNewDate(data.etaDest);
+            this.salesOrderData.etaPlaceOfDel = this.getNewDate(data.etaPlaceOfDel);
+            this.salesOrderData.oblCollectDate = this.getNewDate(data.oblCollectDate);
+            this.salesOrderData.origBookedVslETA = this.getNewDate(data.origBookedVslETA);
+            this.salesOrderData.firstBookedETAPOL = this.getNewDate(data.firstBookedETAPOL);
+            this.salesOrderData.firstBookedETD = this.getNewDate(data.firstBookedETD);
+            this.salesOrderData.firstBookedETADest = this.getNewDate(data.firstBookedETADest);
+            this.salesOrderData.revisedRDD = this.getNewDate(data.revisedRDD);
+            this.salesOrderData.approveDate = this.getNewDate(data.approveDate);
+            this.setCustomer();
+        }
+        if (this.salesOrderData['refYM'] == undefined) {
+            this.setRefYM();
+        }
+        else if (this.salesOrderData['refYM'] == "") {
+            this.setRefYM();
+        }
+    };
+    ExportRefComponent.prototype.setCustomer = function () {
+        for (var i in this.customers) {
+            if (this.customers[i].value) {
+                console.log(this.customers[i].value.customerId);
+                if (this.customers[i].value.customerId == this.salesOrderData.customerId) {
+                    console.log("INside if", this.customers[i].value.customerId);
+                    this.customerName = this.customers[i].value.customerName;
+                    this.selectedCustomer = {
+                        customerId: this.salesOrderData.customerId,
+                        customerName: this.customers[i].value.customerName,
+                        deptId: this.salesOrderData.deptId
+                    };
+                    WebSocketService.getInstance().customerIdBehaviorSubject.next(this.selectedCustomer);
+                }
+            }
+        }
+    };
+    ExportRefComponent.prototype.getNewDate = function (d) {
+        var timestamp = Date.parse(d);
+        if (timestamp == 0) {
+            return null;
+        }
+        else if (isNaN(timestamp) == false) {
+            return new Date(timestamp);
+        }
+        else {
+            return null;
+        }
+    };
+    ExportRefComponent.prototype.showCurrencydropdown = function (data) {
+        this.currency = [];
+        this.currency.push({ label: 'Currency', value: '' });
+        for (var i in data) {
+            this.currency.push({ value: data[i].CURRENCY_ID, label: data[i].CURRENCY_NAME });
+        }
+    };
+    ExportRefComponent.prototype.gencodeDataHandler = function (data) {
+        this.gencodeData = [];
+        this.gencodeData.push({ label: 'Select Gencode', value: '' });
+        for (var i in data) {
+            this.gencodeData.push({ label: data[i].GENCODE_ID, value: data[i].GENCODE_DES });
+        }
+    };
+    ExportRefComponent.prototype.save = function () {
+        this.displaySalesOrderSuccess = true;
+        this.salesOrderData.customerId = this.selectedCustomer.customerId;
+        console.log("this.salesOrderData.sale", this.salesOrderData.salesOrderNo);
+        WebSocketService.getInstance().sendMessage({
+            'action': 'saveSalesOrder',
+            'message': this.salesOrderData
+        });
+        this.salesOrderData.customerId = this.customerId;
+    };
+    ExportRefComponent.prototype.cancel = function () {
+        console.log("ExportRefComponent: cancel");
+        var deptId = this.salesOrderData.deptId;
+        this.salesOrderData = new SalesOrderData();
+        this.customerName = '';
+        this.getCustomerPopUp = (this.customerName == '') ? true : false;
+        this.selectedCustomer = { customerId: "", customerName: "", deptId: "" };
+        WebSocketService.getInstance().customerIdBehaviorSubject.next(this.selectedCustomer);
+        WebSocketService.getInstance().appSearchClearBehaviorSubject.next(true);
+        console.log('this.getCustomerPopUp', this.getCustomerPopUp, '**' + this.customerName + '**');
+        this.salesOrderData.deptId = deptId;
+        this.salesOrderData.customerId = this.selectedCustomer.customerId;
+        this.setDefaultsSalesOrder();
+    };
+    ExportRefComponent.prototype.setRefYM = function () {
+        var currentDate = new Date();
+        var str = "" + (currentDate.getMonth() + 1);
+        var pad = "00";
+        var month = pad.substring(0, pad.length - str.length) + str;
+        this.salesOrderData['refYM'] = currentDate.getFullYear() + "" + month;
+    };
+    ExportRefComponent.prototype.calculateTransitDays = function () {
+        if (this.salesOrderData.etaDest != undefined && this.salesOrderData.etd != undefined)
+            this.salesOrderData.transitDays = Math.ceil((new Date(new Date(this.salesOrderData.etaDest).setHours(0, 0, 0, 0)).getTime() - new Date(new Date(this.salesOrderData.etd).setHours(0, 0, 0, 0)).getTime()) / 1000 / 60 / 60 / 24);
+    };
+    ExportRefComponent.prototype.approverIndHandler = function (e) {
+        if (e) {
+            this.salesOrderData.approver = sessionStorage.getItem("userName");
+            this.salesOrderData.approveDate = new Date();
+        }
+        else {
+            this.salesOrderData.approver = "";
+            this.salesOrderData.approveDate = null;
+        }
+    };
+    ExportRefComponent.prototype.selectedCustomerDataHandler = function (data) {
+        console.log('selectedCustomerDataHandler', data);
+        this.customerName = data.customerName;
+        this.salesOrderData.deptId = data.deptId;
+        this.customerId = data.customerId;
+        this.getCustomerPopUp = (this.customerName == '') ? true : false;
+        console.log('this.getCustomerPopUp', this.getCustomerPopUp, '**' + this.customerName + '**');
+    };
+    ExportRefComponent.prototype.sectionClick = function (data) {
+        console.log(data);
+        if (data == 'displayApproverBlock') {
+            this.displayApproverBlock = !this.displayApproverBlock;
+        }
+        else if (data == 'displayApproverBlock') {
+            this.displayApproverBlock = !this.displayApproverBlock;
+        }
+        if (data == 'displayEventBlock') {
+            this.displayEventBlock = !this.displayEventBlock;
+        }
+        if (data == 'displayGTNBlock') {
+            this.displayGTNBlock = !this.displayGTNBlock;
+        }
+        if (this.displayApproverBlock && this.displayApproverBlock && this.displayApproverBlock) {
+        }
+        if (!this.displayApproverBlock && !this.displayApproverBlock && !this.displayApproverBlock) {
+        }
+    };
+    ExportRefComponent.prototype.testCal = function (el) {
+        console.log(el);
+        console.log(el.el.nativeElement);
+        for (var i in el.el.nativeElement.childNodes) {
+            if (el.el.nativeElement.childNodes[i].nodeName == 'SPAN') {
+                for (var j in el.el.nativeElement.childNodes[i].childNodes) {
+                    if (el.el.nativeElement.childNodes[i].childNodes[j].nodeName == 'INPUT') {
+                        el.el.nativeElement.childNodes[i].childNodes[j].focus();
+                        el.onFocus();
+                    }
+                }
+            }
+        }
+    };
+    return ExportRefComponent;
+}());
+ExportRefComponent = __decorate([
+    Component({
+        selector: 'export-ref',
+        encapsulation: ViewEncapsulation.None,
+        templateUrl: './export-ref.component.html',
+        styleUrls: ['./export-ref.component.scss'],
+        providers: [WebSocketService]
+    }),
+    __metadata("design:paramtypes", [])
+], ExportRefComponent);
+export { ExportRefComponent };
+//# sourceMappingURL=../../../../src/app/export-ref/export-ref.component.js.map

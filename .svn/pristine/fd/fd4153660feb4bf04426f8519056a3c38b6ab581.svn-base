@@ -1,0 +1,68 @@
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {SelectItem} from 'primeng/primeng';
+import {Router} from '@angular/router';
+import {WebSocketService} from '../services/web-socket.service';
+import {CustomerData} from '../data-models/customer-data';
+
+declare var $: any;
+
+@Component({
+  selector: 'marking',
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: './marking.component.html',
+  styleUrls: ['./marking.component.scss'],
+  providers: [WebSocketService]
+})
+
+export class MarkingComponent implements OnInit {
+
+  display: boolean = false;
+  cities: SelectItem[];
+  checked2: boolean = false;
+  private markingBottom:boolean=false;
+  private dropdownArray: SelectItem[];
+  private dropdownArrayDescription: SelectItem[];
+  private bottomRowDisplay: boolean = false;
+
+  selectedCity: string;
+
+  constructor(private router: Router) {
+
+    this.dropdownArray = [];
+    this.dropdownArray.push({label: 'Yes', value: 'Yes'});
+    this.dropdownArray.push({label: 'No', value: 'No'});
+
+    this.dropdownArrayDescription = [];
+    this.dropdownArrayDescription.push({label: 'Lubs Hi', value: 'Yes'});
+    this.dropdownArrayDescription.push({label: 'Sum All Prod', value: 'No'});
+
+    this.cities = [];
+    this.cities.push({label:null, value:null});
+    // this.cities.push({label:'New York', value:{id:1, name: 'New York', code: 'NY'}});
+    // this.cities.push({label:'Rome', value:{id:2, name: 'Rome', code: 'RM'}});
+    // this.cities.push({label:'London', value:{id:3, name: 'London', code: 'LDN'}});
+    // this.cities.push({label:'Istanbul', value:{id:4, name: 'Istanbul', code: 'IST'}});
+    // this.cities.push({label:'Paris', value:{id:5, name: 'Paris', code: 'PRS'}});
+
+    setTimeout(() => {
+     let elm1: any = $('.ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-dialog-draggable');
+     elm1[0]['style']['position'] = 'relative';
+    // //  elm1[0]['style']['margin-top'] = '244px';
+    // //  elm1[0]['style']['padding'] = '0';
+     elm1[0]['style']['overflow'] = 'auto';
+    //
+    //  elm1[0]['style']['height'] = '469px';
+    // //  elm1[0]['style']['bottom'] = '60px';
+    console.log("in dcnawkvakasl",elm1[0]);
+    },100);
+}
+
+
+  showDialog() {
+      this.display = true;
+  }
+
+  ngOnInit() {
+
+  }
+}

@@ -1,0 +1,568 @@
+<div style="height: 20px;"></div>
+<div class="pcDataRow">
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Net Wt </div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productDetails.netWt"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Gross Wt</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productDetails.grossWt"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">M3</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productDetails.m3"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Weight UOM (KG)</div>
+        <div class="pcInputText">
+            <p-dropdown [options]="wtUom" [(ngModel)]="productDetails.weightUom" [style]="{'width' : '250px'}" ></p-dropdown>
+        </div>
+    </div>
+</div>
+
+<div class="pcDataRow">
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Product Value in US$</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productDetails.productValue"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Package Words</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productDetails.packageWords"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">DG Ind</div>
+        <div class="pcInputText">
+            <p-selectButton [options]="dropdownArray" [(ngModel)]="productDetails.dgInd"></p-selectButton>
+        </div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Tot Packages</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productDetails.totPackages"/></div>
+    </div>
+</div>
+
+<div class="pcDataRow">
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Tot Pack Type</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productDetails.totPackType"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Product Country of Origin</div>
+        <div class="pcInputText">
+            <p-dropdown [options]="countryData" [(ngModel)]="productDetails.procuctCountryOfOrigin" [autoWidth]="false" name="countryOfUltimateDest" filter="filter"></p-dropdown></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Commodity Desc</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productDetails.CommodityDesc"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+    </div>
+</div>
+
+<div class="containerVgmInfo">
+    <span (click)="this.displayEventBlock = !this.displayEventBlock" style="cursor: pointer">
+        VGM info
+        <i *ngIf="displayEventBlock" class="fa fa-angle-down" style="line-height: 22px;" aria-hidden="true"></i>
+        <i *ngIf="displayEventBlock == false" class="fa fa-angle-right" style="line-height: 22px;" aria-hidden="true"></i>
+    </span>
+</div>
+
+<div class="containerVgmInfoBottomBorder"></div>
+<div>&nbsp;</div>
+<div class="containerVGMInfoContent" *ngIf="displayEventBlock">
+    <div class="pcDataRow">
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Send As </div>
+            <div class="pcInputText"><p-selectButton [options]="dropdownArraySend" [(ngModel)]="vgmInfo.sendAs"></p-selectButton></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Party</div>
+            <div class="pcInputText"><input type="text" pInputText [(ngModel)]="vgmInfo.contactParty"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Address<span style="color: rgb(146, 27, 49); float: right"><i class="fa fa-plus" aria-hidden="true"></i></span></div>
+            <div class="pcInputText"><input type="text" pInputText [(ngModel)]="vgmInfo.address" /></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">City</div>
+            <div class="pcInputText"><input type="text" pInputText [(ngModel)]="vgmInfo.city"/></div>
+        </div>
+    </div>
+
+    <div class="pcDataRow">
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">State/Subdivision </div>
+            <div class="pcInputText"><input type="text" pInputText [(ngModel)]="vgmInfo.stateSubdivision"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Country Code </div>
+            <div class="pcInputText"><input type="text" pInputText [(ngModel)]="vgmInfo.countryCode"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Post Code</div>
+            <div class="pcInputText"><input type="text" pInputText [(ngModel)]="vgmInfo.postCode"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+        </div>
+    </div>
+
+    <div class="pcDataRow">
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Id </div>
+            <div class="pcInputTextContact">
+                <div class="pcTextContact" (click) = "getContactInfo()" >
+
+                    <input type="text" pInputText [disabled]="disabled" [(ngModel)]="vgmInfo.contactId"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i>
+                </div>
+                <div class="containerContactButton">
+                    <div class="containerContactSelect">
+                        Edit Contact Info
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Name</div>
+            <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="vgmInfo.contactName"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Email</div>
+            <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="vgmInfo.contactEmail"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Phone</div>
+            <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="vgmInfo.contactPhone"/></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="containerSecondPartBottomBorder"></div>
+
+<div class="containerBlankDiv">
+
+</div>
+
+<div class="pContainerSaveButtons">
+    <div class="pcLeftBtnBlock applypcButtonStyle">
+        <button pButton type="button" label="Save & Add" (click)="addContainer()" class="pcBtnStyle"  [disabled]="!saveButton"></button>
+    </div>
+    <div class="pcLeftBtnBlock applypcButtonStyle">
+        <button pButton type="button" label="Delete" (click)="deleteContainer()" class="pcBtnStyle" [disabled]="selectedIndex == -1"></button>
+    </div>
+    <div class="pcLeftBtnBlock applypcButtonStyle">
+        <button pButton type="button" label="Edit" (click)="displayDialog = true;" class="pcBtnStyle" [disabled]="selectedIndex == -1"></button>
+    </div>
+    <div class="pcRightBtnBlock">
+        <div class="pcBtnSubBlock applypcButtonStyle">
+            <button pButton type="button" label="Partial Container" class="pcBtnStyle"></button>
+        </div>
+        <div class="pcBtnSubBlock applypcButtonStyle">
+            <button pButton type="button" label="No Container" class="pcBtnStyle"></button>
+        </div>
+    </div>
+</div>
+
+<div class="VgmBlock">
+    <div class="VgmBlanck">&nbsp;</div>
+    <div class="VgmText">VGM INFORMATION</div>
+</div>
+
+<div class="containerTableMainBlock">
+    <div class="containerTableLeftDiv">
+        <table class="containerTable">
+
+            <tr class="containerTableRow">
+                <th class="containerTableDataHeading" >S/N</th>
+                <th class="containerTableDataHeading">Export N</th>
+            </tr>
+            <tr class="containerTableRow">
+                <td class="containerTableData"><b>Total</b></td>
+                <td class="containerTableData">0</td>
+            </tr>
+            <tr class="containerTableRow showingTableDialog" [ngStyle]="{'color': (selectedIndex == index ? 'white !important' : 'black'), 'background-color': (selectedIndex == index ? 'rgb(245, 245, 245)' : 'white')}" *ngFor="let container of containers; let index = index" (click) = "onRowSelect(index)">
+                <td class="containerTableData">{{container.sn}}</td>
+                <td class="containerTableData">{{container.exportN}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="containerTableRightDiv">
+        <table class="containerTable">
+
+            <tr class="containerTableRow">
+                <th class="containerTableDataHeading">Count No</th>
+                <th class="containerTableDataHeading">Seal No</th>
+                <th class="containerTableDataHeading">Cont Type</th>
+                <th class="containerTableDataHeading">Size</th>
+                <th class="containerTableDataHeading">TEU</th>
+                <th class="containerTableDataHeading">No of Package</th>
+                <th class="containerTableDataHeading">Gross Wt.</th>
+                <th class="containerTableDataHeading">Net Wt.</th>
+                <th class="containerTableDataHeading">Tare Wt</th>
+                <th class="containerTableDataHeading">Pkg Mat Gross Wt</th>
+                <th class="containerTableDataHeading">Lot No</th>
+                <th class="containerTableDataHeading">M3</th>
+                <th class="containerTableDataHeading">VGM</th>
+                <th class="containerTableDataHeading">UOM</th>
+                <th class="containerTableDataHeading">Verified Dt</th>
+                <th class="containerTableDataHeading">VGM Method</th>
+                <th class="containerTableDataHeading">Capacity</th>
+                <th class="containerTableDataHeading">Depot</th>
+                <th class="containerTableDataHeading">Batch Number</th>
+                <th class="containerTableDataHeading">No of Palette</th>
+                <th class="containerTableDataHeading">Empty Release Date</th>
+                <th class="containerTableDataHeading">Empty Pickup</th>
+                <th class="containerTableDataHeading">Gate In</th>
+                <th class="containerTableDataHeading">Vessel Load</th>
+                <th class="containerTableDataHeading">Vessel Departure</th>
+                <th class="containerTableDataHeading">Vessel Arrival</th>
+                <th class="containerTableDataHeading">Unloaded From Vessel</th>
+                <th class="containerTableDataHeading">Gated Out</th>
+                <th class="containerTableDataHeading">Returned</th>
+            </tr>
+
+            <tr class="containerTableRow">
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">{{totalTEU}}</td>
+                <td class="containerTableData">{{productDetails.totPackages}}</td>
+                <td class="containerTableData">{{productDetails.grossWt}}</td>
+                <td class="containerTableData">{{productDetails.netWt}}</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">{{productDetails.m3}}</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+                <td class="containerTableData">0</td>
+            </tr>
+
+            <!--<tr class="containerTableRow showingTableDialog" *ngFor="let container of containers; let index = index" (click)="onRowSelect(index)">-->
+            <tr class="containerTableRow showingTableDialog"  [ngStyle]="{'color': (selectedIndex == index ? 'white' : 'black'), 'background-color': (selectedIndex == index ? 'rgb(245, 245, 245)' : 'white')}" *ngFor="let container of containers; let index = index" (click)="onRowSelect(index)">
+                <td class="containerTableData">{{container.contNo}}</td>
+                <td class="containerTableData">{{container.sealNo}}</td>
+                <td class="containerTableData">{{container.contType}}</td>
+                <td class="containerTableData">{{container.size}}</td>
+                <td class="containerTableData">{{container.teu}}</td>
+                <td class="containerTableData">{{container.noOfPackage}}</td>
+                <td class="containerTableData">{{container.grossWt}}</td>
+                <td class="containerTableData">{{container.netWt}}</td>
+                <td class="containerTableData">{{container.tareWt}}</td>
+                <td class="containerTableData">{{container.pkgMatGrossWt}}</td>
+                <td class="containerTableData">{{container.lotNo}}</td>
+                <td class="containerTableData">{{container.m3}}</td>
+                <td class="containerTableData">{{container.vgm}}</td>
+                <td class="containerTableData">{{container.uom}}</td>
+                <td class="containerTableData">{{formatDate(container.verifiedDt)}}</td>
+                <td class="containerTableData">{{container.vgmMethod}}</td>
+                <td class="containerTableData">{{container.capacity}}</td>
+                <td class="containerTableData">{{container.depot}}</td>
+                <td class="containerTableData">{{container.batchNumber}}</td>
+                <td class="containerTableData">{{container.noOfPalette}}</td>
+                <td class="containerTableData">{{formatDate(container.emptyReleaseDate)}}</td>
+                <td class="containerTableData">{{formatDate(container.emptyPickup)}}</td>
+                <td class="containerTableData">{{formatDate(container.gateIn)}}</td>
+                <td class="containerTableData">{{formatDate(container.vesselLoad)}}</td>
+                <td class="containerTableData">{{formatDate(container.vesselDeparture)}}</td>
+                <td class="containerTableData">{{formatDate(container.vesselArrival)}}</td>
+                <td class="containerTableData">{{formatDate(container.unloadedFromVessel)}}</td>
+                <td class="containerTableData">{{formatDate(container.gatedOut)}}</td>
+                <td class="containerTableData">{{formatDate(container.returned)}}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div class="containerTableDataDetails">
+    <div class="containerTableDataCounts">
+        <div style="padding-bottom: 6px;color: #5f5f5f;font-size: 10px;">NO OF CONT</div>
+        <div>
+            <div style="width: 5%;float: left;"><span class="containerCount">20'</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">{{total20}}</span></div>
+            <div style="width: 5%;float: left;"><span class="containerCount">40'</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">{{total40}}</span></div>
+            <div style="width: 10%;float: left;"><span class="containerCount">40 HI-CUBE</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">{{total40hicube}}</span></div>
+            <div style="width: 5%;float: left;"><span class="containerCount">ISO</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">{{totalISO}}</span></div>
+            <div style="width: 6%;float: left;"><span class="containerCount">Other</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">{{totalOther}}</span></div>
+            <div style="width: 6%;float: left;"><span class="containerCount">TEU</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">{{totalTEU}}</span></div>
+        </div>
+    </div>
+    <div class="containerTablePaginator"><p-paginator rows="10" totalRecords="{{containerRows}}" class="containerPaginator" [rowsPerPageOptions]="[10,20,30]" (onPageChange)="paginate($event)"></p-paginator></div>
+</div>
+
+<div class="pcBottomBlock">
+    <div class="pcLeftBtnBlock applypcButtonStyle">
+        <button pButton type="button" icon="fa-floppy-o" label="Save All" (click)="save(false)" class="pcBtnStyle" [disabled]="!saveButton"></button>
+    </div>
+    <div class="pcRightBtnBlock">
+        <div class="pcBtnSubBlock applypcButtonStyle">
+            <button pButton type="button" icon="fa-floppy-o" label="Save" (click)="save(false)" class="pcBtnStyle" [disabled]="!saveButton"></button>
+        </div>
+        <div class="pcBtnSubBlock applypcButtonStyle">
+            <button pButton type="button" label="Cancel" class="pcBtnStyle" (click)="cancel(true)" [disabled]="!saveButton"></button>
+        </div>
+    </div>
+</div>
+
+<div class="containerDialogDiv">
+    <p-dialog header="Edit Container Details" [(visible)]="displayDialog" class="containerDialogHeader" [responsive]="true" height="540" showEffect="fade" [modal]="true">
+        <form #pcForm='ngForm' (ngSubmit)="save(false)">
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">S/N </div>
+                    <div class="pcInputText"><input type="text" pInputText [disabled]="true" name="s/n" [(ngModel)]="productContainerData.sn"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Export N</div>
+                    <div class="pcInputText"><input type="text" pInputText [disabled]="true" name="exportn" [(ngModel)]="productContainerData.exportN"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Cont No</div>
+                    <div class="pcInputText"><input type="text" pInputText name="contno" [(ngModel)]="productContainerData.contNo"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Seal No</div>
+                    <div class="pcInputText"><input type="text" pInputText name="sealNo" [(ngModel)]="productContainerData.sealNo"/></div>
+                </div>
+            </div>
+
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Cont Type <span style="color: red">*</span></div>
+                    <div class="pcInputText">
+                        <p-dropdown class = "contTypeDropDown"  required name="cont1" #cont1="ngModel" [autoWidth]="false" [options]="contTypeArray" editable="editable" filter="filter"  [(ngModel)]="productContainerData.contType" [style]="{'width' : '155px'}" (onChange)="contChanged($event)">
+                            <template let-pc>
+                                <div class="ui-helper-clearfix">
+                                    <div style="float:left;font-size:10px;">{{pc.value}}</div>
+                                    <div style="font-size:10px;float:right">{{pc.label}}</div>
+                                </div>
+                            </template>
+                        </p-dropdown>
+                    </div>
+                    <div class="pcInputInfo" style="color: red" *ngIf="cont1.errors && (cont1.dirty || cont1.touched)">
+                         <i class="fa fa-close"></i>
+                        <span [hidden]="!cont1.errors.required">Cont Type is required field</span>
+                    </div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Size</div>
+                    <div class="pcInputText"><input type="text" pInputText name="size"  [(ngModel)]="productContainerData.size" [disabled]="disabled"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">TEU</div>
+                    <div class="pcInputText"><input type="text" pInputText  name="TEU" [(ngModel)]="productContainerData.teu" [disabled]="disabled"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">No of Package</div>
+                    <div class="pcInputText"><input type="text" pInputText name="packageNo" [(ngModel)]="productContainerData.noOfPackage"/></div>
+                </div>
+            </div>
+
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Gross Wt</div>
+                    <div class="pcInputText"><input type="text" pInputText  name="grosswWt" [(ngModel)]="productContainerData.grossWt"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Net Wt</div>
+                    <div class="pcInputText"><input type="text" pInputText name="netWt" [(ngModel)]="productContainerData.netWt"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Tare Wt</div>
+                    <div class="pcInputText"><input type="text" pInputText name="tareWt" [(ngModel)]="productContainerData.tareWt"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Pkg Mat Gross Wt</div>
+                    <div class="pcInputText"><input type="text" pInputText name="pkgGrossWt" [(ngModel)]="productContainerData.pkgMatGrossWt"/></div>
+                </div>
+            </div>
+
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Lot No</div>
+                    <div class="pcInputText"><input type="text" pInputText  name="lotNo" [(ngModel)]="productContainerData.lotNo"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">M3</div>
+                    <div class="pcInputText"><input type="text" pInputText name="m3field" [(ngModel)]="productContainerData.m3"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">VGM</div>
+                    <div class="pcInputText"><input type="text" pInputText name="vgm" [(ngModel)]="productContainerData.vgm"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">UOM</div>
+                    <div class="pcInputText"><input type="text" pInputText name="uom" [(ngModel)]="productContainerData.uom"/></div>
+                </div>
+            </div>
+
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Verified Dt </div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="productContainerData.verifiedDt" name="verifieddt" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">VGM Method</div>
+                    <div class="pcInputText"><input type="text" pInputText name="vgmMethod" [(ngModel)]="productContainerData.vgmMethod"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Capacity</div>
+                    <div class="pcInputText"><input type="text" pInputText name="capacity" [(ngModel)]="productContainerData.capacity"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Depot</div>
+                    <div class="pcInputText"><input type="text" pInputText name="Depot" [(ngModel)]="productContainerData.depot"/></div>
+                </div>
+            </div>
+
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Empty Release Date</div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy" name="emptyDate" [disabled]="false" [(ngModel)]="productContainerData.emptyReleaseDate" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Batch Number</div>
+                    <div class="pcInputText"><input type="text" pInputText name="batchNo" [(ngModel)]="productContainerData.batchNumber"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">No of Palette</div>
+                    <div class="pcInputText"><input type="text" pInputText name="noOfPallete" [(ngModel)]="productContainerData.noOfPalette"/></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Empty Pickup</div>
+                    <div class="pcInputTextCalender">
+                        <p-calendar dateFormat="dd/mm/yy"  name="emptyPickUp" [(ngModel)]="productContainerData.emptyPickup" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+            </div>
+
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Gate In</div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy" name="gateIn" [(ngModel)]="productContainerData.gateIn" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Vessel Load</div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy"  name="veselLoad" [(ngModel)]="productContainerData.vesselLoad" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Vessel Departure</div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy"  name="vesselDeparture" [(ngModel)]="productContainerData.vesselDeparture" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Vessel Arrival</div>
+                    <div class="pcInputTextCalender">
+                        <p-calendar dateFormat="dd/mm/yy" name="vesselArrival" [(ngModel)]="productContainerData.vesselArrival" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+            </div>
+
+            <div class="pcDataRow">
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Unloaded From Vessel</div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy"  name="unloaded" [(ngModel)]="productContainerData.unloadedFromVessel" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Gated Out</div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy"  name="gatedOut" [(ngModel)]="productContainerData.gatedOut" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock">
+                    <div class="pcInputLabel">Returned</div>
+                    <div class="pcInputText">
+                        <p-calendar dateFormat="dd/mm/yy" name="returned" [(ngModel)]="productContainerData.returned" [style]="{'width': '100%'}" ></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+                </div>
+                <div class="pcExtraSpace">&nbsp;</div>
+                <div class="pcDataBlock"></div>
+            </div>
+        </form>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <!-- <span *ngIf="!saveClicked" style="margin-left: 400px;">Save Successful.</span> -->
+            <div class="pcRightBtnBlock" style="margin-right: -20px;">
+              <div class="pcSuccessMsg">
+                <span *ngIf="!saveClicked">Save Successful.</span>
+              </div>
+                <div class="pcBtnSubBlock applypcButtonStyle">
+                    <button pButton type="button" icon="fa-floppy-o" label="Save" (click)="saveContainerDetails()" [disabled]="!pcForm.form.valid || numericError" class="pcBtnStyle"></button>
+                </div>
+                <div class="pcBtnSubBlock applypcButtonStyle">
+                    <button pButton type="button" label="Cancel" class="pcBtnStyle" (click)="cancelContainerDetails()"></button>
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>
+
+<p-dialog header="Success" [(visible)]="displaySalesOrderSuccess" height="200" width="400" responsive="true" modal="false" (onAfterHide)="deleteButton=false">
+    <div style="margin-top: 7px;margin-bottom: 7px">
+        <span *ngIf="salesOrderNo != -1 && !deleteButton">
+            Product container: Order {{salesOrderData.salesOrderNo}} saved successfully.
+        </span>
+        <span *ngIf="deleteButton">
+            Deleted record successfully.
+        </span>
+    </div>
+
+</p-dialog>

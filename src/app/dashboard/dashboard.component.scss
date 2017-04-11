@@ -1,0 +1,309 @@
+@import '../../styles.scss';
+
+//Removing margins between the tabs!!
+.ui-tabview .ui-tabview-nav li {
+    margin: 0px !important;
+}
+
+//Maroon color of label when tab active
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: $emaroon;
+    text-decoration: none;
+}
+
+input[type="text"]:disabled {
+  // background-color: $egrayfield;
+  background-color: rgb(215, 215, 215);
+  border: 1px solid $egrayborder;
+}
+
+// Removing side padding of tab-view body
+.ui-tabview.ui-tabview-top>.ui-tabview-nav {
+    padding: 0px;
+}
+.ui-tabview {
+    padding: 0px;
+}
+
+// Removing padding of tab-content
+.ui-tabview .ui-tabview-panel {
+    padding: 0px;
+}
+
+// Reducing side padding of header
+.ui-tabview .ui-tabview-nav li a {
+    float: left;
+    padding: .4em .4em;
+    text-decoration: none;
+}
+
+// .ui-tabview.ui-tabview-top>.ui-tabview-nav li {
+//     border-bottom: 0;
+//     top: 1px;
+// }
+
+.ui-dialog {
+    overflow-y: auto;
+}
+
+.dashboardDialog .ui-dialog .ui-dialog-content{
+  overflow: hidden !important;
+}
+
+.changeBtnStyle .ui-button, .changeBtnStyle button.ui-button.ui-state-default, .changeBtnStyle .ui-button.ui-state-default{
+  // background: $ewhite;
+  //   color: $emaroon;
+  //   border: 1px solid $emaroon;
+  //   font-size: 13.5px;
+  //   padding-top: 3.5px;
+  //   padding-bottom: 3.5px;
+  //   border-radius: 25px;
+  background: $ewhite;
+  color: $emaroon;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  padding: 3.8px !important;
+}
+
+// Changing hover color for buttons.
+.changeBtnStyle .ui-button:enabled:hover, .changeBtnStyle .ui-widget-content .ui-button:enabled:hover {
+    border: 1px solid $emaroon;
+    background: $emaroon;
+    outline: 0 none;
+    color: #fff;
+}
+
+.dashboardOverlayData .ui-overlaypanel-content {
+    padding: .5em 1em;
+}
+
+.dashboardOverlayData .ui-overlaypanel {
+    padding: 0;
+    margin: 0;
+    width: 118px;
+    height: auto;
+    margin-top: 8px;
+    position: absolute;
+}
+
+.dashboardOverlayDataMsg .ui-overlaypanel-content {
+    padding: .5em 1em;
+}
+
+
+.dashboardOverlayDataMsg .ui-overlaypanel{
+  padding: 0;
+  margin: 0;
+  width: 168px;
+  height: auto;
+  margin-top: 8px;
+  position: absolute;
+}
+
+.dashboardDialog .ui-dialog.ui-dialog-titlebar {
+    padding: 1em 1.5em;
+    margin-left: 3px;
+    margin-right: -20px;
+
+    border-bottom: 1px solid $egrayborder;
+    background: $ewhite 0 0 repeat-x;
+    color: #212121;
+}
+
+.subOverlayBlank {
+    height: 24px;
+    margin-left: -16px;
+    font-size: 10px;
+    // width: 124%;
+    color: #5f5f5f;
+    width: 136.8%;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+}
+
+.subOverlayBlankMsg {
+    height: 24px;
+    margin-left: -16px;
+    font-size: 10px;
+    // width: 124%;
+    color: #5f5f5f;
+    width: 124%;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+}
+
+.subOverlayBlank:hover{
+   background: #ebedf0;
+   color: #5f5f5f;
+}
+
+.subOverlayBlankMsg:hover{
+   background: #ebedf0;
+   color: #5f5f5f;
+}
+
+.daschBoardIcon {
+    width: 10px;
+    height: 10px;
+    border-width: 1px;
+    border-style: solid;
+    margin-top: -13px;
+    background-color: white;
+    border-bottom: 1px solid white;
+    border-color: transparent #D5D5D5 #D5D5D5 transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(225deg);
+}
+
+.overlayLableDivMsg {
+    width: 95%;
+    padding-top: 5px;
+    margin-left: 10px;
+    /* margin-top: 5px; */
+    height: 12px;
+}
+
+.overlayLableDiv {
+    width: 80%;
+    margin-left: 12px;
+    padding-top: 5px;
+    /* margin-top: 5px; */
+    height: 12px;
+}
+
+.dashboardBody {
+  // width: 100%;
+  margin-left: 55px;
+}
+
+.dashboardMainBlock {
+  margin: 2%;
+  width: 96%;
+}
+
+.subToolbar {
+  background-color: white;
+  height: 30px;
+}
+
+.subToolbarBlock1 {
+  float: left;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  min-width: 227px;
+  height: 32px;
+}
+
+.subToolbarBlock1Ref {
+  float: left;
+  border: 1px solid $emaroon;
+  border-radius: 19px;
+  min-width: 146px;
+  height: 32px;
+}
+
+.subToolbarBlock2 {
+  float: right;
+  height: 30px;
+  font-size: 13px;
+}
+
+.subToolbarMenuBox {
+  float: right;
+  padding: 9px;
+  color: $emaroon;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+.subToolbarMenuBox:hover {
+   background: $emaroon;
+   color: white;
+   height: 14px;
+}
+
+.subToolbarSubBlock {
+  float: left;
+  border: 1px solid $emaroon;
+  border-radius: 25px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.subToolbarBtnBlock {
+  float: left;
+  margin-left: 10px;
+
+}
+
+.dashboardTabBlock {
+  margin-top: 28px;
+}
+
+.customerPopUp .ui-dialog-titlebar {
+  border-bottom: 1px solid $egrayborder;
+  background: $ewhite 0 0 repeat-x;
+  color: #212121;
+}
+
+.customerTextBox1 .ui-dropdown .ui-dropdown-trigger .fa {
+  margin-top: 6px;
+}
+
+.customerPopUp .ui-dialog.ui-widget .ui-dialog-titlebar {
+  padding:4px 5px;
+}
+
+.customerPopUp {
+  width: 105%;
+  margin-left: -3px;
+  height: 223px;
+  margin-top: 9px;
+  margin-right: 13px;
+}
+
+.customerTextBox1{
+  width: 50%;
+  margin-top: -9px;
+  float: left;
+  margin-left: 0%;
+  height: 30px;
+}
+
+.customerTextBox2{
+  width: 50%;
+  margin-left: -3%;
+  float: left;
+  height: 30px;
+}
+
+.customerPopUpButtonSection{
+  width:50%;
+  float:right;
+  height:20px;
+  font-size: 12px;
+}
+
+.customerokButton{
+  width: 66px;
+  margin-left: -8px;
+}
+.customerPopUpOklabel{
+  float: left;
+  height: 18px;
+  margin-top: -5px;
+  margin-left: 4px;
+}
+
+.customerPopUpCancelButton{
+  width:64px;
+  float: right;
+  border-radius: 15px;
+  // border: 1px solid $emaroon;
+  height: 24px;
+  margin-top: -8px;
+  padding: 5px;
+  color:$emaroon;
+  // margin-left: 5px;
+}

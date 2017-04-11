@@ -1,0 +1,123 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewEncapsulation } from '@angular/core';
+import { SchedulerServiiceService } from '../services/scheduler-serviice.service';
+import { WebSocketService } from '../services/web-socket.service';
+var SchedulerComponent = (function () {
+    function SchedulerComponent(SchedulerServiiceService) {
+        var _this = this;
+        this.SchedulerServiiceService = SchedulerServiiceService;
+        this.intervalDisabled = false;
+        this.schedulerSubmitDisabled = false;
+        this.schedulerDeleteDisabled = false;
+        console.log("SchedulerComponent Constructor");
+        console.log("schedulerDeleteDisabled", this.schedulerDeleteDisabled);
+        WebSocketService.getInstance().schedulerStatusBehaviorSubject.subscribe(function (data) { return _this.schedulerStatusDataHandler(data); });
+        this.schedulerJobType = [];
+        this.schedulerJobType.push({ label: 'Ad-Hoc Schedule', value: 'oneTimejob' });
+        this.schedulerJobType.push({ label: 'Repetitive Schedule', value: 'repeatedjob' });
+    }
+    SchedulerComponent.prototype.ngOnInit = function () {
+    };
+    SchedulerComponent.prototype.schedulerInterval = function () {
+    };
+    SchedulerComponent.prototype.showSelectedJobType = function () {
+        console.log("showSelectedJobType", this.selectedJobType);
+        if (this.selectedJobType == 'repeatedjob') {
+            this.intervalDisabled = true;
+        }
+        if (this.selectedJobType == 'oneTimejob') {
+            this.intervalDisabled = false;
+        }
+    };
+    SchedulerComponent.prototype.schedulerSubmit = function () {
+        console.log("schedulerSubmitDisabled", this.schedulerSubmitDisabled);
+        var date = new Date(this.SelectedFireDate);
+        var status = "pending";
+        var d = date.getDate();
+        var m = date.getMonth() + 1;
+        var y = date.getFullYear();
+        var dateString = y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+        console.log("dateString", dateString);
+        var stringJob = this.selectedJobId.toString();
+        console.log("stringJob", stringJob);
+        this.schedulerData = [];
+        this.schedulerAdHocData = [];
+        if (this.selectedJobType == 'repeatedjob') {
+            this.schedulerData.push({ jobId: stringJob, date: dateString + " " + this.SelectedInterval, status: status });
+        }
+        if (this.selectedJobType == 'oneTimejob') {
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+            var timeString = h + ":" + m + ":" + s;
+            console.log("timeString :" + timeString);
+            this.schedulerData.push({ jobId: stringJob, date: dateString + " " + timeString, status: status });
+        }
+        console.log("this.schedulerData", this.schedulerData[0]);
+        this.myJSON = JSON.stringify(this.schedulerData[0]);
+        console.log("myJSON()", this.myJSON);
+        this.loadSchedulerSubmit();
+    };
+    SchedulerComponent.prototype.loadSchedulerSubmit = function () {
+        WebSocketService.getInstance().sendMessage({
+            'action': 'schedulerStatus'
+        });
+        var jobType = this.selectedJobType;
+        console.log("jobType", jobType);
+        var job = encodeURIComponent(this.myJSON);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                this.responseText;
+                console.log("responseText : ", this.responseText);
+            }
+        };
+        xhttp.open("GET", "http://192.168.10.146:8080/EliteJava/webresources/scheduleJob/" + jobType + "/" + this.myJSON, true);
+        xhttp.send();
+    };
+    SchedulerComponent.prototype.loadSchedulerDelete = function () {
+        var jobType = this.selectedJobType;
+        var job = encodeURIComponent(this.myJSON);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                this.responseText;
+                console.log("responseText : ", this.responseText);
+            }
+        };
+        xhttp.open("GET", "http://192.168.10.146:8080/EliteJava/webresources/scheduleJob/delete/" + this.selectedJobId.toString(), true);
+        xhttp.send();
+    };
+    SchedulerComponent.prototype.schedulerDelete = function () {
+        console.log("this.schedulerDeleteDisabled");
+        this.loadSchedulerDelete();
+    };
+    SchedulerComponent.prototype.schedulerStatusDataHandler = function (data) {
+        console.log("Inside this.jobTypeStatus", data);
+        for (var i in data) {
+            this.jobTypeStatus.push({ label: data[i].jobId, value: data[i].status });
+            console.log("Inside this.jobTypeStatus", this.jobTypeStatus);
+        }
+    };
+    return SchedulerComponent;
+}());
+SchedulerComponent = __decorate([
+    Component({
+        selector: 'scheduler-report',
+        encapsulation: ViewEncapsulation.None,
+        providers: [SchedulerServiiceService],
+        templateUrl: './scheduler.component.html',
+        styleUrls: ['./scheduler.component.scss']
+    }),
+    __metadata("design:paramtypes", [SchedulerServiiceService])
+], SchedulerComponent);
+export { SchedulerComponent };
+//# sourceMappingURL=../../../../src/app/scheduler/scheduler.component.js.map

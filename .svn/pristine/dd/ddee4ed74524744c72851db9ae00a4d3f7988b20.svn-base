@@ -1,0 +1,223 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import 'rxjs/add/operator/share';
+var WebSocketService = WebSocketService_1 = (function () {
+    function WebSocketService() {
+        this.authenticated = true;
+        this.unauthorized = false;
+        this.uuid = "";
+        this.uuidBehaviorSubject = new BehaviorSubject(this.uuid);
+        this.loginBehaviorSubject = new BehaviorSubject("");
+        this.customerIdBehaviorSubject = new BehaviorSubject({ customerId: "", customerName: "", deptId: "" });
+        this.salesOrderSaveBehaviorSubject = new BehaviorSubject("");
+        this.saveTransNoDetailsBehaviorSubject = new BehaviorSubject("");
+        this.saveNcDetailsBehaviorSubject = new BehaviorSubject("");
+        this.ncDetailsArrayBehaviorSubject = new BehaviorSubject("");
+        this.ncDetailsSchedulerBehaviorSubject = new BehaviorSubject([]);
+        this.docsRepoBehaviorSubject = new BehaviorSubject("");
+        this.salesOrderDataBehaviorSubject = new BehaviorSubject("");
+        this.salesOrderNumbersBehaviorSubject = new BehaviorSubject([]);
+        this.ncpartyDataBehaviorSubject = new BehaviorSubject([]);
+        this.nctypeDataBehaviorSubject = new BehaviorSubject([]);
+        this.currencyDataBehaviorSubject = new BehaviorSubject([]);
+        this.jobTypeDataBehaviorSubject = new BehaviorSubject([]);
+        this.vendorDataBehaviorSubject = new BehaviorSubject([]);
+        this.customerDataBehaviorSubject = new BehaviorSubject([]);
+        this.productContainerDataBehaviorSubject = new BehaviorSubject([]);
+        this.jobDataBehaviorSubject = new BehaviorSubject([]);
+        this.contTypeBehaviorSubject = new BehaviorSubject([]);
+        this.portDataBehaviorSubject = new BehaviorSubject([]);
+        this.gencodeDataBehaviorSubject = new BehaviorSubject([]);
+        this.countryDataBehaviorSubject = new BehaviorSubject([]);
+        this.deleteNCDetailsBehaviorSubject = new BehaviorSubject([]);
+        this.paymentDataBehaviorSubject = new BehaviorSubject([]);
+        this.showExportRefBehaviorSubject = new BehaviorSubject(true);
+        this.sideMenuBarHeightBehaviorSubject = new BehaviorSubject("150vh");
+        this.contactInfoDataBehaviorSubject = new BehaviorSubject("");
+        this.appSearchClearBehaviorSubject = new BehaviorSubject(true);
+        this.schedulerStatusBehaviorSubject = new BehaviorSubject({});
+        if (WebSocketService_1._instance) {
+            console.log("Inside Websocket");
+            throw new Error("Error: Instantiation failed: Use WebSocketService.getInstance() instead of new.");
+        }
+        WebSocketService_1._instance = this;
+    }
+    WebSocketService.getInstance = function () {
+        return WebSocketService_1._instance;
+    };
+    WebSocketService.prototype.resetBehaviorSubject = function () {
+        this.loginBehaviorSubject.next("");
+        this.customerIdBehaviorSubject.next({ customerId: "", customerName: "", deptId: "" });
+        this.salesOrderSaveBehaviorSubject.next("");
+        this.saveNcDetailsBehaviorSubject.next("");
+        this.ncDetailsArrayBehaviorSubject.next("");
+        this.docsRepoBehaviorSubject.next("");
+        this.salesOrderDataBehaviorSubject.next("");
+        this.salesOrderNumbersBehaviorSubject.next([]);
+        this.showExportRefBehaviorSubject.next(true);
+    };
+    WebSocketService.prototype.connect = function (uuid) {
+        var _this = this;
+        this.uuid = uuid;
+        if ("WebSocket" in window && uuid) {
+            console.log("WebSocket is supported by your Browser!");
+            var url = "ws://" + (document.location.hostname) + ":80/wsendpoint";
+            console.log("ws url", url);
+            this.ws = new WebSocket(url);
+            this.ws.onopen = function () {
+                console.log("Connection opened...", uuid);
+                _this.sendMessage({
+                    action: "confirmAuth",
+                    message: uuid
+                });
+            };
+            this.ws.onmessage = function (evt) {
+                try {
+                    var decodedMessage = evt.data;
+                    var encodedMesage = atob(decodedMessage);
+                    var received_msg = JSON.parse(encodedMesage);
+                    if (received_msg.action === "confirmAuth") {
+                        if (received_msg.status === 'Success') {
+                            _this.authenticated = true;
+                        }
+                        else {
+                            _this.unauthorized = true;
+                        }
+                    }
+                    else if (received_msg.action === 'login') {
+                        if (received_msg['status'] === 'Success') {
+                            _this.loginBehaviorSubject.next(received_msg['message']['userName']);
+                        }
+                        else {
+                            _this.loginBehaviorSubject.next("ERROR");
+                        }
+                    }
+                    else if (received_msg.action === 'getSOnumbers') {
+                        _this.salesOrderNumbersBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action === 'saveSalesOrder') {
+                        console.log("saveSalesOrder", received_msg);
+                        _this.salesOrderSaveBehaviorSubject.next(received_msg);
+                    }
+                    else if (received_msg.action === 'saveNcDetails') {
+                        console.log("saveNcDetails", received_msg);
+                        _this.saveNcDetailsBehaviorSubject.next(received_msg);
+                    }
+                    else if (received_msg.action === 'showNCDetailsScheduler') {
+                        _this.ncDetailsSchedulerBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action === 'saveTransNo') {
+                        console.log("saveTransNo", received_msg);
+                        _this.saveTransNoDetailsBehaviorSubject.next(received_msg);
+                    }
+                    else if (received_msg.action === 'getNcDetails') {
+                        console.log("getNcDetails", received_msg);
+                        _this.ncDetailsArrayBehaviorSubject.next(received_msg);
+                    }
+                    else if (received_msg.action === 'getSalesOrder') {
+                        _this.salesOrderDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action === 'getDocsRepo') {
+                        _this.docsRepoBehaviorSubject.next(received_msg);
+                    }
+                    else if (received_msg.action === 'getCustomers') {
+                        _this.customerDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "getNCParties") {
+                        _this.ncpartyDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "getCurrencies") {
+                        _this.currencyDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "getNCTypes") {
+                        _this.nctypeDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action === 'deleteLastNC') {
+                        console.log("In WebScocket service.ts", received_msg.message);
+                        _this.deleteNCDetailsBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg["action"] == "findContainer") {
+                        _this.productContainerDataBehaviorSubject.next(received_msg["message"]);
+                        console.log("In WebScocket service.ts Container Data", received_msg.message);
+                    }
+                    else if (received_msg["action"] == "getContactInfo") {
+                        _this.contactInfoDataBehaviorSubject.next(received_msg["message"]);
+                        console.log("In WebScocket service.ts Container Data", received_msg.message);
+                    }
+                    else if (received_msg["action"] == "sendJobType") {
+                        _this.productContainerDataBehaviorSubject.next(received_msg["message"]);
+                    }
+                    else if (received_msg["action"] == "getContainerTypes") {
+                        _this.contTypeBehaviorSubject.next(received_msg["message"]);
+                    }
+                    else if (received_msg.action == "getVendors") {
+                        _this.vendorDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "getJobTypes") {
+                        _this.jobTypeDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "getPorts") {
+                        _this.portDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "getGencodes") {
+                        _this.gencodeDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "getCountries") {
+                        _this.countryDataBehaviorSubject.next(received_msg.message);
+                    }
+                    else if (received_msg.action == "schedulerStatus") {
+                        console.log("inside websocket : scheduler", received_msg.message);
+                        _this.schedulerStatusBehaviorSubject.next(received_msg.message);
+                        console.log("inside websocket : scheduler", received_msg.message);
+                    }
+                    else if (received_msg.action == "getPayments") {
+                        _this.paymentDataBehaviorSubject.next(received_msg.message);
+                    }
+                }
+                catch (e) {
+                    console.log("Message received... Catch Error", atob(evt.data), "error", e);
+                }
+            };
+            this.ws.onclose = function () {
+                console.log("Connection is closed...");
+            };
+        }
+        else {
+            console.log("WebSocket NOT supported by your Browser!");
+        }
+    };
+    WebSocketService.prototype.sendMessage = function (message) {
+        var _this = this;
+        if (this.unauthorized) { }
+        var sendFlag = this.ws === undefined ? false : (this.ws.readyState === 1);
+        if (message.action !== 'confirmAuth') {
+            sendFlag = sendFlag && this.authenticated;
+        }
+        if (sendFlag) {
+            message.sessionId = this.uuid;
+            message.source = 'webApp';
+            this.ws.send(btoa(JSON.stringify(message)));
+        }
+        else {
+            setTimeout(function () { return _this.sendMessage(message); }, 1000);
+        }
+    };
+    return WebSocketService;
+}());
+WebSocketService._instance = new WebSocketService_1();
+WebSocketService = WebSocketService_1 = __decorate([
+    Injectable(),
+    __metadata("design:paramtypes", [])
+], WebSocketService);
+export { WebSocketService };
+var WebSocketService_1;
+//# sourceMappingURL=../../../../src/app/services/web-socket.service.js.map

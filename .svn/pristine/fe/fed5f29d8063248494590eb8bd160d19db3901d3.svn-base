@@ -1,0 +1,695 @@
+@import '../styles.scss';
+
+
+//standard classes
+
+// input.middle:focus {
+//     outline-width: 0;
+// }
+
+input:focus,
+// select:focus,
+// textarea:focus,
+button:focus {
+    outline: none;
+}
+
+.searchOverlayList .ui-overlaypanel {
+  margin-top: 7px;
+  position: fixed;
+  top: 42px !important;
+}
+
+
+.displaySearchDialog .ui-dialog.ui-widget .ui-dialog-titlebar{
+  border-bottom: 0;
+  height: 33px;
+  margin-top: -25px;
+  padding: 0;
+}
+
+.displaySearchDialog .ui-dialog .ui-dialog-titlebar-close span{
+   margin-top: 26px;
+}
+
+.mainBody {
+  margin: -8px;
+}
+
+//For search Dialog
+
+.appSearchDialog{
+  height: 35px;
+  width: 100%;
+  border-bottom: 1px solid #ebebeb;
+  margin-left: 0;
+  margin-right: 1px;
+}
+
+.appSearchDialogBar{
+  height: 35px;
+  width: 100%;
+  color: $egraymenulabel;
+  border-bottom: 1px solid #ebebeb;
+  margin-left: 0;
+  margin-right: 1px;
+}
+
+.appSearchDialogBar:hover{
+  background: #ebebeb;
+}
+.appSearchWholeRowPart1{
+  float: left;
+  margin-top: 9px;
+  text-align: center;
+  width: 10%;
+}
+
+.appSearchWholeRowPart4{
+  float: left;
+  margin-top: 9px;
+  text-align: center;
+  width: 10%;
+}
+.appSearchWholeRow {
+  float: left;
+  margin-top: 9px;
+  width: 24%;
+}
+
+.appSearchDialogData{
+   width:100%;
+}
+
+.appExtraSpace {
+  float: left;
+  width:2%;
+}
+
+.appSearchDialogLabel{
+  color:black;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 7px;
+  letter-spacing: 0.2px;
+}
+
+.appSearchDialogLabelData{
+  color:$egraymenulabel;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  letter-spacing: 0.2px;
+
+}
+.appSearchDialogInput{
+  height: 25px;
+  width: 93%;
+  // border-radius: 3px;
+  // border: 1px solid gainsboro;
+  border:1px solid $egrayborder;
+}
+
+.mainHeader {
+  height: 50px;
+  background: $emaroon;
+  color: $ewhite;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+
+.headerBlock1 {
+  float: left;
+  width: 15%;
+  margin-top: 12px;
+  padding-left: 10px;
+}
+
+.headerLogo {
+  float: left;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.toolbarTitle {
+  float: left;
+  margin-right: 35px;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 44px;
+  font-family: 'Roboto' !important;
+}
+
+.headerBlock2 {
+  border-radius: 25px;
+  float: left;
+  height: 34px;
+  margin-top: 8px;
+  // width: 38%;
+  width: 414px;
+  background: rgb(245, 245, 245);
+}
+
+.headerSubBlock1 {
+  background: $egrayfield;
+  color: $egraymenulabel;
+  float: left;
+  min-width: 15%;
+  max-width: 30%;
+  height: 100%;
+  border-radius: 25px 0px 0px 25px;
+  line-height: 35px;
+  cursor: pointer;
+  font-size: 12px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-family: sans-serif;
+}
+
+.overlayTriangle {
+  width: 10px;
+  height: 10px;
+  border-width: 1px;
+  border-style: solid;
+  margin-top: -13px;
+  background-color: white;
+  border-bottom: 1px solid white;
+  border-color: transparent #D5D5D5 #D5D5D5 transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(225deg);
+}
+
+.listBlock {
+  height: 24px;
+    /* width: 108px; */
+    margin-left: -16px;
+    /* padding-left: 8px; */
+    font-size: 10px;
+    color: #5f5f5f;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    width: 145%;
+}
+
+.listTitle {
+  width: 80%;
+  padding-top: 5px;
+  height: 12px;
+  margin-left: 8px;
+}
+
+.listBlock:hover{
+   background: #ebedf0;
+   color: #5f5f5f;
+}
+
+.headerSubBlock2 {
+  float: left;
+  width: 50%;
+  color: $egrayfieldlabel;
+}
+
+.headerSearchIcon {
+  float: left;
+  width: 20px;
+  margin-top: 9px;
+  margin-left: 3%;
+  font-size: 13px;
+}
+
+.headerSearchInputBlock {
+  float: left;
+  margin-top: 9px;
+}
+
+.headerSearchInput {
+  border: none !important;
+  background-color: whitesmoke;
+  width: 100%;
+  color: $egrayfieldlabel;
+}
+
+.headerSubBlock3 {
+  float: right;
+  height: 70%;
+  border: 5px solid rgb(245, 245, 245);
+  border-radius: 25px;
+  width: 15%;
+}
+
+.headerRetireveBtn {
+  height: 100%;
+  border: none;
+  border-radius: 25px;
+  width: 62px;
+  background: $emaroon;
+  text-align: center;
+  color: $ewhite;
+  cursor: pointer;
+}
+
+.headerBlock3 {
+  float: right;
+  height: 30px;
+  margin-top: 10px;
+}
+
+.headerIconBlock {
+  height: 100%;
+  line-height: 32px;
+  width: 30px;
+  margin-right: 15px;
+  border-radius: 50%;
+  background: $ewhite;
+  color: $egraymenulabel;
+  float: left;
+  text-align: center;
+  cursor: pointer;
+}
+
+.sideMenuBar {
+  background: $egrayfield;
+  color: $egraymenulabel;
+  // width: 5%;
+  width: 55px;
+  position: fixed;
+  float: left;
+  height: 672px;
+}
+
+.sideMenuToogleBlock {
+  padding-top: 20px;
+  width: 99%;
+  padding-bottom: 20px;
+}
+
+.sideMenuToogle {
+  width: 50%;
+  height: 25px;
+  float: right;
+  text-align: center;
+  color: white;
+  background: $emaroon;
+  border-radius: 25px 0px 0px 25px;
+  cursor: pointer;
+}
+
+
+.sideMenuItems {
+  // border: 1px solid black;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  color: $egraymenulabel;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.mainPageContent {
+  float: left;
+  width: 100%;
+  z-index: 50;
+}
+
+//SlideOut Css
+.slideoutShowLeft {
+  opacity: 1;
+  left: 0px;
+  overflow: auto;
+  position: fixed;
+  // width: 85%;
+  width: 215px;
+  z-index: 75;
+  top: 50px;
+  height: 100%;
+  -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.slideoutHideLeft {
+  opacity: 1;
+  left: -80%;
+  overflow: auto;
+  position: fixed;
+  // width: 85%;
+  width: 215px;
+  z-index: 75;
+  top: 50px;
+  height: 100%;
+  -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.slideoutShowRight {
+  opacity: 0.5;
+  left: 85%;
+  overflow: auto;
+  position: fixed;
+  width: 15%;
+  z-index: 9999;
+  top: 50px;
+  height: 100%;
+  -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.slideoutHideRight {
+  opacity: 0.5;
+  left: -15%;
+  overflow: auto;
+  position: fixed;
+  width: 15%;
+  z-index: 99;
+  top: 50px;
+  height: 100%;
+  -webkit-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.sideMenuHeaderBlock {
+  text-align: center;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid white;
+  // padding: 7px;
+  padding-bottom: 2%;
+}
+
+.sideMenuTitle {
+  color: rgb(102, 102, 102);
+  font-size: 23px;
+  font-weight: bolder;
+  margin-top: 4%;
+}
+
+.toggleMenuBtn {
+  margin-right: -30%;
+  font-size: 20px;
+  width: 100%;
+  height: 100%;
+  margin-top: 10%;
+  color: black;
+}
+
+.menuList {
+  padding: 13px;
+  color: black;
+  // border-bottom: .000001px solid #6f5151;
+  border-bottom: .000001px solid #674747;
+
+}
+
+
+
+.toolbarRightMenu {
+  float: right;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.toolbarLeftMenu {
+
+  float: left;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.searchMenuBlock {
+  background: $ewhite;
+  border-radius: 25px;
+
+}
+
+.toolbarMenuTitleBlock {
+  position: relative;
+  display: block;
+  float: left;
+  cursor: pointer;
+}
+
+.toolbarMenuTitleBlock1 {
+  height: 34px;
+  width: 34px;
+  position: relative;
+  display: block;
+  float: left;
+  cursor: pointer;
+  border-radius: 50%;
+  background: white;
+  color: $egraymenulabel;
+}
+
+.toolbarMenuTitle {
+  display: block;
+  height: 44px;
+  padding: 0 10px;
+  color: $egraymenulabel;
+  line-height: 44px;
+  text-decoration: none;
+}
+
+.toolbarMenuTitleFont {
+  font-size: 13px;
+  font-weight:bold;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 13px;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+
+
+.subToolbarBox {
+  width: 49.85%;
+  float: left;
+  height: 50%;
+}
+
+.mainContentBlock {
+  width: 1200px;
+  background-color: white;
+  margin-left: calc((100% - 1200px)/2);
+  height: 510px;
+}
+
+.contentHeader {
+  background-color: #e2e2e0;
+  height: 50px;
+}
+
+.contentToolbarTitle {
+  text-align: center;
+  color: #666666;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 44px;
+  font-family: 'Roboto' !important;
+}
+
+.displayMenuBelowBlock {
+  position: relative;
+  display: block;
+  float: none;
+}
+
+.displayMenuBelow {
+  display: block;
+  font-size: 13px;
+  font-weight:bold;
+  height: 44px;
+  padding: 0 10px;
+  color: white;
+  line-height: 44px;
+}
+
+
+//Side Menu CSS----------------------------------
+.sideMenuBlock {
+  // visibility: hidden;
+  // visibility: visible;
+  width: 215px;
+  background: rgb(235, 235, 235);
+  height: 100%;
+}
+
+.mainUlBlock {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ulActiveBlock {
+  transition: all 150ms ease;
+  display: block;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  height:auto;
+}
+
+
+.ulInactiveBlock {
+  transition: all 150ms ease;
+  display: none;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  height:0px;
+}
+
+
+
+.slideoutToggleBtn {
+  float:right;
+  width: 26px;
+  height: 22px;
+  border-radius: 25px 0px 0px 25px;
+  color: white;
+  background: $emaroon;
+  text-align: center;
+}
+
+.listTitleBlock {
+  font-family: Arial,sans-serif;
+  font-size: 13px;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  // border: 1px solid black;
+}
+
+.subListInactiveBlock {
+  font-family: Arial,sans-serif;
+  font-size: 13px;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  margin-left: -38px;
+  padding-left: 38px;
+  color: $egraymenulabel;
+}
+
+.subListActiveBlock {
+  font-family: Arial,sans-serif;
+  font-size: 13px;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  margin-left: -38px;
+  padding-left: 35px;
+  background: $elightmaroon;
+  border-left: 3px solid $emaroon;
+  color:  $emaroon;
+}
+
+.titleBlock {
+  padding-left: 16px;
+  padding-top: 18px;
+  padding-bottom: 12px;
+  font-family: 'Lucida Grande',Geneva,Candara,Tahoma,sans-serif;
+  font-size: 14px;
+  // color: rgb(95, 95, 95);
+  // font-family:Lato;
+  // font-size: 17px;
+  color: #444444;
+}
+
+.sideMenuBlock div.caret {
+  color: inherit;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-right: 12px;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-style: solid;
+  border-width: 6px;
+  position: relative;
+  border-bottom: 6px solid transparent;
+  border-right: none;
+  border-left-color: initial;
+  border-top-color: transparent;
+}
+
+.sideMenuBlock div.caret.active {
+  margin-bottom: 3px;
+  margin-right: 6px;
+  border-bottom: none;
+  border-right: 6px solid transparent;
+  border-left-color: transparent;
+  border-top-color: initial;
+}
+
+.subTitleBlock {
+  padding-left: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  font-weight: normal;
+  font-size: 13px;
+  text-decoration: none;
+  display: block;
+  line-height: 1;
+  transition: all .3s;
+}
+
+.sideMenuBlock a {
+  color: $egraymenulabel;
+  font-weight: normal;
+  font-size: 13px;
+  text-decoration: none;
+  display: block;
+  line-height: 1;
+  transition: all .3s;
+}
+
+@media only screen and (min-height: 730px) {
+  .sideMenuBar {
+    height: 722px;
+  }
+}

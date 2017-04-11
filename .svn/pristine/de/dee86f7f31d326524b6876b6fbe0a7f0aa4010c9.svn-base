@@ -1,0 +1,177 @@
+import {Component, OnInit, OnChanges, ViewEncapsulation, Input} from '@angular/core';
+import {SelectItem} from 'primeng/primeng';
+import {WebSocketService} from '../services/web-socket.service';
+import {SalesOrderData} from '../data-models/sales-order-data';
+
+@Component({
+    selector: 'export-bl',
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './export-bl.component.html',
+    styleUrls: ['./export-bl.component.scss'],
+    providers: [WebSocketService]
+})
+export class ExportBLComponent implements OnInit {
+
+    @Input() tabActive: boolean;
+
+    private disabled: boolean = true;
+    private dropdownArray: SelectItem[];
+    private selectedData: string;
+    private salesOrderData: SalesOrderData = new SalesOrderData();
+    private salesOrderNo: number = -1;
+    private gencodeData: any[] = [];
+    private countryData: any[] = [];
+    private paymentData: any[] = [];
+    private portData: any[] = [];
+    private premiumRates: any[] = [];
+    private customerId: number = -1;
+    private customerName: string = "";
+
+    private etdDate: any;
+    private validations: any[] = [];
+    private validationFailed: boolean = false;
+    private displayValidationDialog: boolean = false;
+    private displaySalesOrderSuccess: boolean = false;
+    private displaySalesOrderFailure: boolean = false;
+
+    constructor() {
+
+        this.dropdownArray = [];
+        this.dropdownArray.push({label: 'Yes', value: 'Yes'});
+        this.dropdownArray.push({label: 'No', value: 'No'});
+
+        this.premiumRates = [];
+        this.premiumRates.push({label: 'Select', value: ''});
+        this.premiumRates.push({label: '0', value: '0'});
+        this.premiumRates.push({label: '0.06', value: '0.06'});
+        this.premiumRates.push({label: '0.095', value: '0.095'});
+        this.premiumRates.push({label: '0.10', value: '0.10'});
+        this.premiumRates.push({label: '0.12', value: '0.12'});
+        this.premiumRates.push({label: '0.135', value: '0.135'});
+        this.premiumRates.push({label: '0.155', value: '0.155'});
+
+        WebSocketService.getInstance().salesOrderDataBehaviorSubject.subscribe(data => this.showSalesOrderData(data));
+        WebSocketService.getInstance().gencodeDataBehaviorSubject.subscribe(data => this.gencodeDataHandler(data));
+        WebSocketService.getInstance().countryDataBehaviorSubject.subscribe(data => this.countryDataHandler(data));
+        WebSocketService.getInstance().paymentDataBehaviorSubject.subscribe(data => this.paymentDataHandler(data));
+        WebSocketService.getInstance().portDataBehaviorSubject.subscribe(data => this.portDataBehaviorSubjectSubscribe(data));
+        WebSocketService.getInstance().customerIdBehaviorSubject.subscribe(data => this.selectedCustomerDataHandler(data));
+    }
+
+    ngOnInit() {
+    }
+
+    showSalesOrderData(data) {
+        console.log("ExportBLComponent: data", data);
+        if (data == null || data == "" || data == undefined) {
+            this.salesOrderData = new SalesOrderData();
+        } else {
+            let convertedDate = this.convertDate(data.etd);
+            this.etdDate = convertedDate;
+            this.salesOrderData = data;
+            this.salesOrderData.portCutOffDate = this.getNewDate(data.portCutOffDate);
+            this.salesOrderData.etaPortnet = this.getNewDate(data.etaPortnet);
+            this.salesOrderData.etdPortLoad = this.getNewDate(data.etdPortLoad);
+            this.salesOrderData.etd = this.getNewDate(data.etd);
+            this.salesOrderData.etaDest = this.getNewDate(data.etaDest);
+            this.salesOrderData.etaPlaceOfDel = this.getNewDate(data.etaPlaceOfDel);
+            this.salesOrderData.oblCollectDate = this.getNewDate(data.oblCollectDate);
+            this.salesOrderData.origBookedVslETA = this.getNewDate(data.origBookedVslETA);
+            this.salesOrderData.firstBookedETAPOL = this.getNewDate(data.firstBookedETAPOL);
+            this.salesOrderData.firstBookedETD = this.getNewDate(data.firstBookedETD);
+            this.salesOrderData.firstBookedETADest = this.getNewDate(data.firstBookedETADest);
+            this.salesOrderData.revisedRDD = this.getNewDate(data.revisedRDD);
+            this.salesOrderData.approveDate = this.getNewDate(data.approveDate);
+            //            this.salesOrderData.portCutOffDate = new Date(data.portCutOffDate);
+            //            this.salesOrderData.etaPortnet = new Date(data.etaPortnet);
+            //            this.salesOrderData.etdPortLoad = new Date(data.etdPortLoad);
+            //            this.salesOrderData.etd = new Date(data.etd);
+            //            this.salesOrderData.etaDest = new Date(data.etaDest);
+            //            this.salesOrderData.etaPlaceOfDel = new Date(data.etaPlaceOfDel);
+            //            this.salesOrderData.oblCollectDate = new Date(data.oblCollectDate);
+            //            this.salesOrderData.origBookedVslETA = new Date(data.origBookedVslETA);
+            //            this.salesOrderData.firstBookedETAPOL = new Date(data.firstBookedETAPOL);
+            //            this.salesOrderData.firstBookedETD = new Date(data.firstBookedETD);
+            //            this.salesOrderData.firstBookedETADest = new Date(data.firstBookedETADest);
+            //            this.salesOrderData.revisedRDD = new Date(data.revisedRDD);
+        }
+    }
+
+    getNewDate(d: string) {
+        var timestamp = Date.parse(d)
+        //        console.log(d, timestamp, new Date(timestamp));
+
+        if (timestamp == 0) {
+            return null;
+        } else if (isNaN(timestamp) == false) {
+            //        console.log('returning', timestamp);
+            return new Date(timestamp);
+        } else {
+            return null;
+        }
+    }
+
+    gencodeDataHandler(data) {
+        this.gencodeData = [];
+        this.gencodeData.push({label: 'Select Gencode', value: ''});
+        for (let i in data) {
+            this.gencodeData.push({label: data[i].GENCODE_DES, value: data[i].GENCODE_ID});
+        }
+    }
+
+    countryDataHandler(data) {
+        this.countryData = [];
+        this.countryData.push({label: 'Select Country', value: ''});
+        for (let i in data) {
+            this.countryData.push({label: data[i].COUNTRY_NAME, value: data[i].COUNTRY_ID});
+        }
+    }
+
+    paymentDataHandler(data) {
+        this.paymentData = [];
+        this.paymentData.push({label: 'Select Payment', value: ''});
+        for (let i in data) {
+            this.paymentData.push({label: data[i].DESCRIPTION, value: data[i].ID});
+        }
+    }
+
+    portDataBehaviorSubjectSubscribe(data) {
+        if (data != undefined) {
+            if (data.length > 0) {
+                this.portData = [];
+                this.portData.push({label: 'Port ID', value: 'Port Name'});
+                for (let i in data) {
+                    this.portData.push({label: data[i].portId, value: data[i].portName});
+                }
+            }
+        }
+    }
+
+    save() {
+        this.displaySalesOrderSuccess = true;
+        console.log("ExportBLComponent: saveSalesOrder", this.salesOrderData);
+        WebSocketService.getInstance().sendMessage({
+            'action': 'saveSalesOrder',
+            'message': this.salesOrderData
+        });
+    }
+
+    cancel() {
+        console.log("ExportBLComponent: cancel"); 
+        // this.salesOrderData = new SalesOrderData();
+    }
+
+    selectedCustomerDataHandler(data) {
+        console.log('selectedCustomerDataHandler', data);
+        this.customerName = data.customerName;
+        this.salesOrderData.deptId = data.deptId;
+        this.customerId = data.customerId;
+    }
+
+    convertDate(inputFormat) {
+        function pad(s) {return (s < 10) ? '0' + s : s;}
+        var d = new Date(inputFormat);
+        return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
+    }
+
+}

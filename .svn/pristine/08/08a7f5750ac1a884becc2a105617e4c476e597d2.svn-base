@@ -1,0 +1,264 @@
+@import '../../styles.scss';
+
+// Applying changes to inputText
+.ui-inputtext {
+  width: 100% !important;
+  font-size: 12px !important;
+  padding: 5px !important;
+  color: #222 !important;
+}
+
+//Applying 100% width to dropdown widget
+.ui-dropdown {
+  width: 100%;
+}
+
+.customerPopUp .ui-dialog-titlebar {
+    // padding: 1em 1.5em;
+    // margin-left: 3px;
+    // margin-right: -20px;
+    //
+    border-bottom: 1px solid $egrayborder;
+    background: $ewhite 0 0 repeat-x;
+    color: #212121;
+}
+
+.customerPopUp .ui-dialog .ui-dialog-titlebar-close span {
+    display: block;
+    margin: 0;
+    color: white;
+}
+
+ .customerTextBox1 .ui-dropdown .ui-dropdown-trigger .fa {
+    margin-top: 6px;
+}
+
+.customerPopUp .ui-dialog.ui-widget .ui-dialog-titlebar {
+     padding:4px 5px;
+}
+
+//Applying font-size to dropdown items
+.ui-dropdown-panel .ui-dropdown-item {
+    font-size: 12px;
+}
+
+// Applying background color if input is disabled
+input[type="text"]:disabled {
+  // background-color: $egrayfield;
+  background-color: $egraydisabledfield;
+  // border: 1px solid $egrayborder;
+  border: 1px solid $egraydisabledborder;
+  color: black;
+}
+
+// Reducing font-size of select button
+.ui-selectbutton .ui-button.ui-state-active {
+    font-size: 11px;
+}
+.ui-selectbutton .ui-button.ui-state-default {
+    font-size: 11px;
+}
+
+//Adjusting trigger of dropdown
+.ui-dropdown .ui-dropdown-trigger .fa {
+    margin-top: .2em;
+}
+
+// Changing hover color for buttons.
+.ui-button:enabled:hover, .ui-widget-content .ui-button:enabled:hover {
+    border: 1px solid $emaroon;
+    background: $emaroon;
+    outline: 0 none;
+    color: #fff;
+}
+
+.spinnerBlock .ui-button, .spinnerBlock button.ui-button.ui-state-default, .spinnerBlock .ui-button.ui-state-default{
+    background: $ewhite;
+    color: #555555;
+    border: 1px solid #d6d6d6;
+    padding: 3px !important;
+}
+
+.applyButtonStyle .ui-button, .applyButtonStyle button.ui-button.ui-state-default, .applyButtonStyle .ui-button.ui-state-default{
+    background: $ewhite;
+    color: $emaroon;
+    border: 1px solid $emaroon;
+    border-radius: 25px;
+    padding: 2px !important;
+}
+
+.blDataRow {
+  height: 68px;
+}
+
+.blDataBlock {
+  float: left;
+  width: 20%;
+}
+
+.blDataLargeBlock {
+  float: left;
+  width: 46.66%;
+}
+
+.blInputLabel {
+  color: $egrayfieldlabel;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.blInputText {
+  width: 100%;
+}
+
+.blCheckboxInputWithName {
+  width: 35%;
+  float: left;
+  font-size: 13px;
+  border-top: 1px solid #d6d6d6;
+  border-left: 1px solid #d6d6d6;
+  border-bottom: 1px solid #d6d6d6;
+  border-radius: 3px;
+  line-height: 23.5px;
+}
+
+.blCheckboxInput {
+  width: 10%;
+  float: left;
+  font-size: 13px;
+  border-top: 1px solid #d6d6d6;
+  border-left: 1px solid #d6d6d6;
+  border-bottom: 1px solid #d6d6d6;
+  border-radius: 3px;
+  line-height: 23.5px;
+  text-align: center;
+}
+
+.blInputInfo {
+  font-size: 10px;
+  margin-top: 5px;
+  color: rgb(170, 170, 170);
+}
+
+.blExtraSpace {
+  float: left;
+  width: 6.66%;
+}
+
+.blSearchIcon {
+  float: right;
+  margin-right: 10px;
+  margin-top: -21px;
+  position: relative;
+  font-size: 13px;
+}
+
+.refApproverTitle {
+  color: $emaroon;
+  height: 30px;
+  border-bottom: 1px solid $egraybottomborder;
+  margin-top: 30px;
+}
+
+.refEventTitle {
+  color: $emaroon;
+  height: 30px;
+  border-bottom: 1px solid $egraybottomborder;
+  margin-top: 10px;
+}
+
+.refEventBlock {
+  margin-top: 15px;
+  border-bottom: 1px solid $egraybottomborder;
+}
+
+.refGTNTitle {
+  color: $emaroon;
+  height: 30px;
+  border-bottom: 1px solid $egraybottomborder;
+  margin-top: 30px;
+}
+
+.blBottomBlock {
+  margin-top: 25px;
+  height: 30px;
+}
+
+.refBottomSubBlock1 {
+  float: left;
+  height: 30px;
+  cursor: pointer;
+}
+
+.refBottomSubBlock2 {
+  float: right;
+  height: 30px;
+}
+
+.refBottomBtnBlock {
+  float: left;
+  padding: 5px;
+  font-size: 15px;
+  color: $emaroon;
+}
+
+.refBottomBtnMainBlock {
+  float: left;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.customerPopUp {
+    width: 105%;
+    margin-left: -3px;
+    height: 223px;
+    margin-top: 9px;
+    margin-right: 13px;
+}
+
+.customerTextBox1{
+      width: 50%;
+      margin-top: -9px;
+      float: left;
+      margin-left: 0%;
+      height: 30px;
+}
+
+.customerTextBox2{
+  width: 50%;
+  margin-left: -3%;
+  float: left;
+  height: 30px;
+}
+
+.customerPopUpButtonSection{
+  width:50%;
+  float:right;
+  height:20px;
+  font-size: 12px;
+}
+
+.customerokButton{
+  width: 66px;
+  margin-left: -8px;
+}
+.customerPopUpOklabel{
+float: left;
+height: 18px;
+margin-top: -5px;
+margin-left: 4px;
+}
+
+.customerPopUpCancelButton{
+  width:64px;
+  float: right;
+  border-radius: 15px;
+  // border: 1px solid $emaroon;
+  height: 24px;
+  margin-top: -8px;
+  padding: 5px;
+  color:$emaroon;
+  // margin-left: 5px;
+}

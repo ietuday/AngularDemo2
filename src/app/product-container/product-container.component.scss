@@ -1,0 +1,704 @@
+@import '../../styles.scss';
+
+//Standard Classes
+
+.ui-inputswitch{
+    border-radius: 14px;
+}
+
+.ui-inputswitch-offlabel{
+    color: $egrayfieldlabel;
+    font-size: 12px;
+}
+
+// Applying background color if input is disabled
+input[type="text"]:disabled{background-color:$egrayfield;}
+
+// Applying 100% width to inputText
+.ui-inputtext {
+    width: 100% !important;
+}
+
+.containerDialogDiv .ui-dialog.ui-widget .ui-dialog-content {
+    overflow: hidden;
+    padding: 1em 1.5em;
+
+}
+
+.containerDialogDiv .ui-datepicker.ui-widget{
+  top:-273px !important;
+}
+
+.pcInputTextCalender .ui-datepicker.ui-widget{
+  top:-273px !important;
+  left:-126px !important;
+}
+.containerDialogHeader .ui-dialog-titlebar{
+    background: $ewhite;
+    border-bottom: 1px solid $egrayborder;
+}
+
+.containerDialogHeader .ui-dialog{
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    width: 800px !important;
+    height: 625px !important;
+    top: 23.5px !important;
+}
+
+.containerDialogHeader .ui-dialog .ui-resizable-se{
+    width: 0px;
+}
+
+.containerPaginator .ui-paginator .ui-paginator-page.ui-state-active{
+    background: $emaroon;
+    border: 1px solid $emaroon;
+}
+
+.DgButton .ui-inputswitch-on{
+    background: $ewhite;
+    color: $egrayfield;
+}
+
+//Component Classes
+
+.containerFirstPart{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.containerSecondPart{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.containerData {
+    text-align: left;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+}
+
+.pcInputInfo {
+  font-size: 10px;
+  margin-top: 6px;
+  color: rgb(170, 170, 170);
+}
+
+.containerLabel{
+    color: $egrayfieldlabel;
+    font-size: 11px;
+    font-weight: bold;
+}
+.containerInput{
+    height: 25px;
+    width: 231px;
+    border-radius: 3px;
+    // border: 1px solid gainsboro;
+    border:1px solid $egrayborder;
+}
+.containerInputEditField{
+    height: 25px;
+    width: 117px;
+}
+
+.containerEditContactButton{
+    height: 31px;
+}
+
+.containerVgmInfo{
+    // padding: 10px;
+    font-size: 16px;
+    color: $emaroon;
+}
+
+.containerVgmInfoBottomBorder{
+    border-bottom: 1px solid $egrayborder;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.containerSecondPartBottomBorder{
+    // border-bottom: 1px solid $egrayborder;
+    // margin-left: 10px;
+    // margin-right: 92px;
+    margin-top: 10px;
+
+}
+
+.containerSecondPart{
+    margin-top: 10px;
+}
+
+.containerBlankDiv{
+    height: 1px;
+}
+
+.containerTable{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background: $ewhite;
+}
+
+.containerTableData{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    color: black;
+    font-size: 11px;
+    }
+
+.containerTableRow{
+    border-left: 1px solid $egrayborder;
+    border-right:  1px solid $egrayborder;
+}
+
+.selectedRow {
+    background-color: gray !important;
+    color: white !important;
+}
+
+.showingDialog{
+    cursor: pointer;
+}
+
+.selected {
+    background-color: yellow;
+}
+.containerTableDataHeading{
+    text-align: left;
+    padding: 10px;
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.containerSearchIcon{
+    margin-left: -22px;
+    margin-right: 6px;
+    color: $edarkgray;
+}
+
+.containerPlusIcon{
+    float: right;
+    margin-right: 84px;
+    color: $emaroon;
+}
+
+.containerTableDataTotal{
+    background-color: $egrayfield;
+    // border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    color: $edarkgray;
+    font-weight: bold;
+}
+
+.containerTablePaginatorDetail{
+    float: left;
+    padding-top: 25px;
+    width: 60%;
+    padding-left: 20px;
+}
+
+.containerTablePaginator{
+    float: right;
+    margin-top: -32px;
+    margin-right: 17px;
+}
+
+.containerTableDataVGM{
+    background-color: $egrayfield;
+    border: 1px solid #dddddd;
+    color: $edarkgray;
+    font-size: 12px;
+    padding: 5px;
+    color: $egraymenulabel;
+}
+
+.containerAddButton{
+    border: 1px solid $egrayborder;
+    border-radius: 17px 17px;
+    height: 34px;
+    font-size: 11px;
+    background: white;
+    position: relative;
+    text-align: center;
+    top: -15px;
+    z-index: 999
+}
+
+.containerDialogDiv{
+    // padding: 50px;
+}
+
+.pContainerButton{
+    background: $ewhite !important;
+    color: $emaroon !important;
+    border: 1px solid $emaroon !important;
+    border-radius: 25px;
+    padding: 7px;
+    font-size: 15px;
+
+}
+
+.pContainerButton1{
+    background: $ewhite !important;
+    color: $emaroon !important;
+    border: 1px solid $emaroon !important;
+    border-radius: 25px;
+    padding: 7px;
+    float: right;
+}
+
+.pContainerButton:hover{
+    color: #fff !important;
+    background: $emaroon !important;
+}
+
+.pContainerButton:hover{
+    color: #fff !important;
+}
+
+.pContainerButton1:hover{
+    color: #fff !important;
+    background: $emaroon !important;
+}
+
+.pContainerButton1:hover{
+    color: #fff !important;
+}
+
+
+.pContainerSelectButton{
+    float: left;
+    margin-bottom: 20px;
+}
+
+.pContainerNoButton{
+    float: right;
+}
+
+.pContainerPartialButton{
+    float: right;
+}
+
+.pContainerAddButtons{
+    padding-top: 30px;
+}
+
+.dialogButton{
+    border-radius: 5px;
+}
+
+.pcDataRow {
+    // border: 1px solid black;
+    height: 68px;
+}
+
+.pcDataBlock {
+    float: left;
+    width: 20%;
+}
+
+.pcInputLabel {
+    color: $egrayfieldlabel;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.pcInputText {
+    width: 100%;
+}
+
+.pcInputTextCalender{
+  width: 100%;
+}
+
+.pcExtraSpace {
+    float: left;
+    width: 6.66%;
+}
+
+.BottomBlockContainer {
+    margin-top: 20px;
+    height: 30px;
+    padding-top: 5px;
+    // border-top: 1px solid $egrayborder;
+}
+
+.containerBottomSubBlock1 {
+    float: left;
+    border: 1px solid $emaroon;
+    border-radius: 25px;
+    height: 30px;
+}
+
+.containerBottomSubBlock1:hover{
+    color: #fff;
+    background: $emaroon;
+}
+
+.containerBottomBtnBlock:hover{
+    color: #fff;
+}
+.containerBottomSubBlock2 {
+    float: right;
+    height: 30px;
+    margin-top: 5px;
+}
+
+.containerBottomBtnBlock {
+    float: left;
+    padding: 5px;
+    color: $emaroon;
+    cursor: pointer;
+}
+
+.containerBottomBtnMainBlock {
+    float: left;
+    border: 1px solid $emaroon;
+    border-radius: 25px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.containerBottomBtnMainBlock:hover{
+    color: #fff;
+    background: $emaroon;
+}
+
+.containerBottomBtnMainBlock:hover{
+    color: #fff;
+}
+
+.pcDialogFooter {
+    padding: none !important;
+}
+
+.containerTableDataDetails{
+    border: 1px solid #c8c8c8;
+    height: auto;
+    background: $egrayfield;
+    padding-bottom: 15px;
+}
+
+.containerVGMInfoContent{
+    border-bottom: 1px solid $egrayborder;
+    margin-bottom: 29px;
+}
+
+.containerTableCount{
+    width: 25%;
+    float:left;
+    color:$egrayfieldlabel;
+    font-size: 12px;
+}
+
+.containerTableCube{
+    width: 15%;
+    float:left;
+    color:$egrayfieldlabel;
+    font-size: 12px;
+}
+
+.containerTableISO{
+    width: 10%;
+    float:left;
+    color:$egrayfieldlabel;
+    font-size: 12px;
+}
+
+.containerTableTEU{
+    width: 10%;
+    float:left;
+    color:$egrayfieldlabel;
+    font-size: 12px;
+}
+
+.pContainerSaveButtons{
+    height: 60px;
+}
+
+.containerTable{
+    height: 60px;
+    /*border: 1px solid black;*/
+}
+
+.containerTableleft{
+    width: 30%;
+    float: left;
+}
+
+.containerTableRight{
+    width: 70%;
+    float: left;
+    overflow-x: auto;
+    border: 1px solid blue;
+    height: 60px;
+
+}
+
+.containerTableHeading{
+    width: 20%;
+    float: left;
+    height: 60px;
+}
+
+.containerTableLeftDiv{
+    width: 400px;
+    float: left;
+}
+
+.containerTableRightDiv{
+    width: calc(100% - 400px);
+    float: left;
+    overflow-x: auto;
+}
+
+.VgmBlock{
+    border: 1px solid $egrayborder;
+    width: 100%;
+    height: 25px;
+    background: $egrayfield;
+    color: $egraymenulabel;
+}
+
+.VgmText{
+    float: right;
+    width: 15%;
+    border-left: 1px solid $egrayborder;
+    text-align: center;
+    height: 21px;
+    margin-top: 2px;
+    font-size: 9px;
+    padding-top: 5px;
+}
+
+.VgmBlanck{
+    float: left;
+    width: 85%;
+}
+
+.containerTableDataHeading{
+    min-width: 200px;
+}
+
+.containerTableMainBlock{
+    height: auto;
+}
+
+.containerCountBlock{
+    background:$egrayborder;
+    border-radius: 39%;
+    padding-left: 12px;
+    padding-right: 12px;
+    min-width: 50px !important;
+    color: #5f5f5f;
+    font-size: 10px;
+}
+
+.containerTableDataCounts{
+    width: 60%;
+    padding: 15px;
+}
+
+.pcInputTextContact{
+    width: 100%;
+}
+
+.pcTextContact{
+    width: 50%
+}
+
+.containerContactButton{
+    font-size: 12px;
+    float: right;
+    height: 26px;
+    border: 1px solid #d6d6d6;
+    color: #323232;
+    margin-left: 0px;
+    background: #ebedf0;
+    width: 50%;
+    margin-top: -26px;
+}
+
+.containerContactSelect{
+    margin-top: 6px;
+    margin-left: 9px;
+}
+
+.containerCount{
+    color: #5f5f5f;
+    font-size: 10px;
+}
+
+.pcBottomBlock {
+    margin-top: 25px;
+    height: 30px;
+    margin-bottom: -25px;
+}
+
+.pcLeftBtnBlock {
+    float: left;
+    height: 30px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.pcRightBtnBlock {
+    float: right;
+    height: 30px;
+    font-size: 13px;
+}
+
+.pcBtnStyle {
+    float: left;
+    padding: 5px;
+    font-size: 13px;
+    color: $emaroon;
+}
+
+.pcBtnSubBlock {
+    float: left;
+    height: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.pcSuccessMsg {
+  margin-top: 10px;
+  font-size: 17px;
+  float: left;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.applypcButtonStyle .ui-button, .applypcButtonStyle button.ui-button.ui-state-default, .applypcButtonStyle .ui-button.ui-state-default{
+    background: $ewhite;
+    color: $emaroon;
+    border: 1px solid $emaroon;
+    border-radius: 25px;
+    padding: 2px !important;
+}
+
+/*Media Queries*/
+@media only screen
+and (min-width : 266px)
+{
+    .containerInput{
+        height: 25px;
+        width: 90px;
+        border-radius: 3px;
+        border:1px solid $egrayborder;
+        width: 100%;
+    }
+
+    .containerInputEditField{
+        height: 25px;
+        width: 35px;
+    }
+}
+
+@media only screen
+and (min-width : 404px)
+{
+    .containerInput{
+        height: 25px;
+        width: 85px;
+        border-radius: 3px;
+        border:1px solid $egrayborder;
+        width: 100%;
+    }
+
+    .containerInputEditField{
+        height: 25px;
+        width: 45px;
+    }
+}
+
+@media only screen
+and (min-width : 480px)
+{
+    .containerInput{
+        height: 25px;
+        width: 160px;
+        border-radius: 3px;
+        border:1px solid $egrayborder;
+        width: 100%;
+    }
+
+    .containerInputEditField{
+        height: 25px;
+        width: 45px;
+    }
+}
+
+@media only screen
+and (min-width : 768px)
+{
+    .containerInput{
+        height: 25px;
+        width: 185px;
+        border-radius: 3px;
+        border:1px solid $egrayborder;
+    }
+
+    .containerInputEditField{
+        height: 25px;
+        width: 70px;
+    }
+}
+
+@media only screen
+and (min-width : 950px)
+{
+    .containerInput{
+        height: 25px;
+        width: 200px;
+        border-radius: 3px;
+        border:1px solid $egrayborder;
+    }
+
+    .containerInputEditField{
+        height: 25px;
+        width: 90px;
+    }
+}
+
+@media only screen
+and (min-width : 1200px)
+{
+    .containerInput{
+        height: 25px;
+        width: 230px;
+        border-radius: 3px;
+        border:1px solid $egrayborder;
+    }
+
+    .containerInputEditField{
+        height: 25px;
+        width: 117px;
+    }
+}
+
+@media only screen
+and (min-width : 1410px)
+{
+    .containerInput{
+        height: 25px;
+        width: 250px;
+        border-radius: 3px;
+        border:1px solid $egrayborder;
+    }
+
+    .containerInputEditField{
+        height: 25px;
+        width: 150px;
+    }
+}

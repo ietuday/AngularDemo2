@@ -1,0 +1,526 @@
+<div style="height: 20px;"></div>
+<div class="pcDataRow">
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Net Wt </div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productContainerData.NetWt"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Gross Wt</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productContainerData.GrossWt"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">M3</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productContainerData.M3"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Weight UOM (KG)</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.UOM"/></div>
+    </div>
+</div>
+ 
+<div class="pcDataRow">
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Product Value in US$</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.ProductValue"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Package Words</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.PackageWords"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">DG Ind</div>
+        <div class="pcInputText">
+            <!--<input type="text" pInputText [(ngModel)]="productContainerData.DGInd"/>-->
+            <!--<p-inputSwitch onLabel="Yes" offLabel="No" [(ngModel)]="productContainerData.DGInd"></p-inputSwitch>-->
+            <p-selectButton [options]="dropdownArray" [(ngModel)]="productContainerData.DGInd"></p-selectButton>
+        </div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Tot Packages</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productContainerData.TotPackage"/></div>
+    </div>
+</div>
+
+<div class="pcDataRow">
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Tot Pack Type</div>
+        <div class="pcInputText"><input type="text" pInputText [disabled]="disabled" [(ngModel)]="productContainerData.TotPackType"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Product Country of Origin</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.ProductCountryOfOrigin"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <div class="pcInputLabel">Commodity Desc</div>
+        <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.CommodityDesc"/></div>
+    </div>
+    <div class="pcExtraSpace">&nbsp;</div>
+    <div class="pcDataBlock">
+        <!--<div class="pcInputLabel">Net Wt</div>-->
+        <!--<div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.NetWt"/></div>-->
+    </div>
+</div>
+
+<div class="containerVgmInfo">
+    <span (click)="this.displayEventBlock = !this.displayEventBlock" style="cursor: pointer">
+        VGM info
+        <i *ngIf="displayEventBlock" class="fa fa-angle-down" style="line-height: 22px;" aria-hidden="true"></i>
+        <i *ngIf="displayEventBlock == false" class="fa fa-angle-right" style="line-height: 22px;" aria-hidden="true"></i>
+        <!--<i class="fa fa-angle-down" style="margin-left:8px;"></i>-->
+    </span>
+</div>
+
+<div class="containerVgmInfoBottomBorder"></div>
+<div>&nbsp;</div>
+<div class="containerVGMInfoContent" *ngIf="displayEventBlock">
+    <div class="pcDataRow">
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Send As </div>
+            <div class="pcInputText"><p-selectButton [options]="dropdownArraySend"></p-selectButton>
+            </div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Party</div>
+            <div class="pcInputText"><input type="text" pInputText /></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Address<span style="color: rgb(146, 27, 49); float: right"><i class="fa fa-plus" aria-hidden="true"></i></span></div>
+            <div class="pcInputText"><input type="text" pInputText /></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">City</div>
+            <div class="pcInputText"><input type="text" pInputText/></div>
+        </div>
+    </div>
+
+    <div class="pcDataRow">
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">State / Subdivision </div>
+            <div class="pcInputText"><input type="text" pInputText /></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Country Code </div>
+            <div class="pcInputText"><input type="text" pInputText/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Post Code</div>
+            <div class="pcInputText"><input type="text" pInputText/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <!--    <div class="pcInputLabel">Weight UOM (KG)</div>
+                <div class="pcInputText"><input type="text" pInputText/></div>-->
+        </div>
+    </div>
+
+    <div class="pcDataRow">
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Id </div>
+            <div class="pcInputTextContact">
+                <div class="pcTextContact"><input type="text" pInputText [(ngModel)]="property"/><i class="fa fa-search blSearchIcon" aria-hidden="true"></i>
+                </div>
+
+
+                <div class="containerContactButton">
+                    <div class="containerContactSelect">
+                        Edit Contact Info
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Name</div>
+            <div class="pcInputText"><input type="text" pInputText [disabled]="disabled"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Email</div>
+            <div class="pcInputText"><input type="text" pInputText [disabled]="disabled"/></div>
+        </div>
+        <div class="pcExtraSpace">&nbsp;</div>
+        <div class="pcDataBlock">
+            <div class="pcInputLabel">Contact Phone</div>
+            <div class="pcInputText"><input type="text" pInputText [disabled]="disabled"/></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="containerSecondPartBottomBorder"></div>
+
+<div class="containerBlankDiv">
+
+</div>
+
+<div class="pContainerSaveButtons">
+    <button pButton type="button" label="Select & Add" class="pContainerSelectButton pContainerButton" (click) = "addContainer()"></button>
+    <button pButton type="button" label="Partial Container" style="margin-left:10px" class="pContainerNoButton pContainerButton"></button>
+    <button pButton type="button" label="No Container" class="pContainerPartialButton pContainerButton"></button>
+</div>
+
+<div class="VgmBlock">
+    <div class="VgmBlanck">&nbsp;</div>
+    <div class="VgmText">VGM INFORMATION</div>
+</div>
+
+<div class="containerTableMainBlock">
+    <div class="containerTableLeftDiv">
+        <table class="containerTable">
+
+            <tr class="containerTableRow">
+                <td class="containerTableData"><b>Total</b></td>
+                <td class="containerTableData">xxx</td>
+            </tr>
+            <tr class="containerTableRow">
+                <th class="containerTableDataHeading">S/N</th>
+                <th class="containerTableDataHeading">Export N</th>
+                <!--<th class="containerTableDataHeading">Seal No</th>-->
+            </tr>
+            <tr class="containerTableRow" *ngFor="let i of dummyData">
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <!--<td class="containerTableData">xxx</td>-->
+            </tr>
+        </table>
+    </div>
+
+    <div class="containerTableRightDiv">
+        <table class="containerTable">
+            <tr class="containerTableRow">
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+            </tr>
+
+            <tr class="containerTableRow">
+                <th class="containerTableDataHeading">Cont No</th>    
+                <th class="containerTableDataHeading">Seal No</th>
+                <th class="containerTableDataHeading">Cont Type</th>
+                <th class="containerTableDataHeading">Size</th>
+                <th class="containerTableDataHeading">TEU</th>
+                <th class="containerTableDataHeading">No of Package</th>
+                <th class="containerTableDataHeading">Gross Wt.</th>
+                <th class="containerTableDataHeading">Net Wt.</th>
+                <th class="containerTableDataHeading">Tare Wt</th>
+                <th class="containerTableDataHeading">Pkg Mat Gross Wt</th>
+                <th class="containerTableDataHeading">Lot No</th>
+                <th class="containerTableDataHeading">M3</th>
+                <th class="containerTableDataHeading">VGM</th>
+                <th class="containerTableDataHeading">UOM</th>
+                <th class="containerTableDataHeading">Verified Dt</th>
+                <th class="containerTableDataHeading">VGM Method</th>
+                <th class="containerTableDataHeading">Capacity</th>
+                <th class="containerTableDataHeading">Depot</th>
+                <th class="containerTableDataHeading">Batch Number</th>
+                <th class="containerTableDataHeading">No of Palette</th>
+                <th class="containerTableDataHeading">Empty Release Date</th>
+                <th class="containerTableDataHeading">Empty Pickup</th>
+                <th class="containerTableDataHeading">Gate In</th>
+                <th class="containerTableDataHeading">Vessel Load</th>
+                <th class="containerTableDataHeading">Vessel Departure</th>
+                <th class="containerTableDataHeading">Vessel Arrival</th>
+                <th class="containerTableDataHeading">Unloaded From Vessel</th>
+                <th class="containerTableDataHeading">Gated Out</th>
+                <th class="containerTableDataHeading">Returned</th>
+            </tr>
+
+            <tr class="containerTableRow" *ngFor="let i of dummyData" >
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+                <td class="containerTableData">xxx</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<div class="containerTableDataDetails">
+    <div class="containerTableDataCounts">
+        <div style="padding-bottom: 6px;color: #5f5f5f;font-size: 10px;">NO OF CONT</div>
+        <div>
+            <div style="width: 5%;float: left;"><span class="containerCount">20'</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">0</span></div>
+            <div style="width: 5%;float: left;"><span class="containerCount">40'</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">2</span></div>
+            <div style="width: 14%;float: left;"><span class="containerCount">40 HI-CUBE</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">0</span></div>
+            <div style="width: 5%;float: left;"><span class="containerCount">ISO</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">0</span></div>
+            <div style="width: 6%;float: left;"><span class="containerCount">TEU</span></div><div style="width: 7%;float: left;"><span class="containerCountBlock">0</span></div>
+        </div>
+    </div>
+    <div class="containerTablePaginator"><p-paginator rows="10" totalRecords="120" class="containerPaginator" [rowsPerPageOptions]="[10,20,30]"></p-paginator></div>
+</div>
+
+<div class="BottomBlockContainer">
+    <div class="containerBottomSubBlock1">
+        <div class="containerBottomBtnBlock"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Save All</div>
+    </div>
+    <div class="containerBottomSubBlock2">
+        <div class="containerBottomBtnMainBlock">
+            <div class="containerBottomBtnBlock"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Save</div>
+        </div>
+        <div class="containerBottomBtnMainBlock">
+            <div class="containerBottomBtnBlock">Cancel</div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="containerDialogDiv">
+    <p-dialog header="Edit Container Details" [(visible)]="displayDialog" class="containerDialogHeader" [responsive]="true" height="540" showEffect="fade" [modal]="true">
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">S/N </div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.NetWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Export N</div>
+                <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.GrossWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Cont No</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.M3"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Seal No</div>
+                <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.UOM"/></div>
+            </div>
+        </div>
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Cont Type</div>
+                <div class="pcInputText"><p-dropdown [options]="dropdownArrayDemo" [(ngModel)]="selectedContType" [autoWidth]="false"></p-dropdown></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Size</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.GrossWt" [disabled]="disabled"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">TEU</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.M3" [disabled]="disabled"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">No of Package</div>
+                <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.UOM"/></div>
+            </div>
+        </div>
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Gross Wt</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.NetWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Net Wt</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.GrossWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Tare Wt</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.M3"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Pkg Mat Gross Wt</div>
+                <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.UOM"/></div>
+            </div>
+        </div>
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Lot No</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.NetWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">M3</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.GrossWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">VGM</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.M3"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">UOM</div>
+                <div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.UOM"/></div>
+            </div>
+        </div>
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Verified Dt </div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">VGM Method</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.GrossWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Capacity</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.M3"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Depot</div>
+                <div class="pcInputText"><p-dropdown [options]="dropdownArrayDemo" [(ngModel)]="selectedContType" [autoWidth]="false"></p-dropdown></div>
+            </div>
+        </div>
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Batch Number</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.NetWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">No of Palette</div>
+                <div class="pcInputText"><input type="text" pInputText  [(ngModel)]="productContainerData.GrossWt"/></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Empty Release Date</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Empty Pickup</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+        </div>
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Gate In</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Vessel Load</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Vessel Departure</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Vessel Arrival</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+        </div>
+
+        <div class="pcDataRow">
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Unloaded From Vessel</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Gated Out</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <div class="pcInputLabel">Returned</div>
+                <div class="pcInputText"><p-calendar [(ngModel)]="productContainerData.UOM" [style]="{'width': '100%'}"></p-calendar><i class="fa fa-calendar blSearchIcon" aria-hidden="true"></i></div>
+            </div>
+            <div class="pcExtraSpace">&nbsp;</div>
+            <div class="pcDataBlock">
+                <!--<div class="pcInputLabel">Weight UOM (KG)</div>-->
+                <!--<div class="pcInputText"><input type="text" pInputText [(ngModel)]="productContainerData.UOM"/></div>-->
+            </div>
+        </div>
+        <!-- <footer> -->
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <div class="containerBottomSubBlock2">
+                <div class="containerBottomBtnMainBlock">
+                    <div class="containerBottomBtnBlock"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Save</div>
+                </div>
+                <div class="containerBottomBtnMainBlock">
+                    <div class="containerBottomBtnBlock">Cancel</div>
+                </div>
+            </div>
+        </div>
+        <!-- </footer> -->
+    </p-dialog>
+</div>

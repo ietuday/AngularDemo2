@@ -1,0 +1,20 @@
+import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NcComponent } from './nc/nc.component';
+import { MarkingComponent } from './marking/marking.component';
+import { DocsRepoComponent } from './docs-repo/docs-repo.component';
+import { ProductContainerComponent } from './product-container/product-container.component';
+import { MappingDashboardComponent } from './mapping-dashboard/mapping-dashboard.component';
+export var routes = [
+    { path: '', component: DashboardComponent },
+    { path: 'mappingDashboard', component: MappingDashboardComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'marking', component: MarkingComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'nc', component: NcComponent },
+    { path: 'docsrepo', component: DocsRepoComponent },
+    { path: 'container', component: ProductContainerComponent }
+];
+export var AppRoutes = RouterModule.forRoot(routes);
+//# sourceMappingURL=../../../src/app/app.routes.js.map

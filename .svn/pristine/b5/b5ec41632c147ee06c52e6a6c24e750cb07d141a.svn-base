@@ -1,0 +1,157 @@
+import {Component, OnInit, OnChanges, ViewEncapsulation, Input} from '@angular/core';
+import {UploadService} from '../services/upload.service';
+import {WebSocketService} from '../services/web-socket.service';
+
+@Component({
+    selector: 'docs-repo',
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './docs-repo.component.html',
+    styleUrls: ['./docs-repo.component.scss']
+})
+export class DocsRepoComponent implements OnInit, OnChanges {
+
+    @Input() salesOrderNo: number;
+    @Input() tabActive: boolean;
+
+    private docs: {
+        docName: string;
+        webFlag: boolean;
+        inDocSetFlag: boolean;
+        user: string;
+        dateUploaded: string;
+    }[] = [];
+    selectedDoc: {
+        docName: string;
+        webFlag: boolean;
+        inDocSetFlag: boolean;
+        user: string;
+        dateUploaded: string;
+    } = {
+        docName: '',
+        webFlag: true,
+        inDocSetFlag: true,
+        user: '',
+        dateUploaded: ''
+    };
+    private disabled: boolean = true;
+    showUploadDialog: boolean = false;
+    selectedDocName: string = "--Please Select";
+    docNames: any[] = [];
+    private fileToUpload: any;
+
+    constructor(private uploadService: UploadService) {
+
+        //        this.addDummyDocs();
+        this.addDummyDocNames();
+        this.getDocsRepo();
+
+        WebSocketService.getInstance().docsRepoBehaviorSubject.subscribe(data => this.setDocsRepo(data));
+        WebSocketService.getInstance().salesOrderDataBehaviorSubject.subscribe(data => this.showDocsData(data));
+    }
+
+    ngOnInit() {
+    }
+
+    ngOnChanges(changes: any) {
+        console.log("DocsRepoComponent: ngOnChanges: changes.tabActive", changes.tabActive);
+        if (changes.tabActive) {
+            if (changes.tabActive.currentValue) {
+                this.getDocsRepo();
+            }
+        }
+    }
+
+    setDocsRepo(data) {
+        console.log("DocsRepoComponent: getDocsRepo: ", data);
+        if (data.message) if (data.message.docs) {
+            this.showUploadDialog = false;
+            this.docs = data.message.docs;
+        }
+    }
+
+    addDummyDocs() {
+        let doc: any = {
+            docName: 'TRANSMITAL LETTER 2',
+            webFlag: true,
+            inDocSetFlag: true,
+            user: sessionStorage.getItem('userName'),
+            dateUploaded: new Date()
+        };
+        this.docs.push(doc);
+    }
+
+    addDummyDocNames() {
+        this.docNames.push({label: '--Please Select', value: null});
+        this.docNames.push({label: '1st Leg - Packing List', value: {id: 1, name: '1st Leg - Packing List', code: '1LPL'}});
+        this.docNames.push({label: 'ANNEX 4E', value: {id: 2, name: 'ANNEX 4E', code: 'A4E'}});
+        this.docNames.push({label: 'BANK DRAFT - BOA', value: {id: 3, name: 'BANK DRAFT - BOA', code: 'BDBOA'}});
+        this.docNames.push({label: "Beneficiary's Certificate", value: {id: 4, name: "Beneficiary's Certificate", code: 'BC'}});
+        this.docNames.push({label: 'Bill of Lading', value: {id: 5, name: 'Bill of Lading', code: 'BL'}});
+    }
+
+    changed() {
+        alert(this.selectedDocName);
+    }
+
+    fileChange($event) {
+        this.fileToUpload = $event.target.files[0];
+    }
+
+    save() {
+        var docDate = new Date().toISOString();
+        var dbFileName = sessionStorage.getItem('userName') + "-" + docDate + '-' + this.salesOrderNo + '-' + this.fileToUpload.name;
+        var data = JSON.stringify({
+            'user': sessionStorage.getItem('userName'),
+            'docName': this.selectedDocName['name'],
+            'webFlag': true,
+            'inDocSetFlag': true,
+            'dateUploaded': new Date(),
+            'salesOrderNo': this.salesOrderNo,
+            'fileName': this.fileToUpload.name,
+            'dbFileName': dbFileName
+        });
+
+        this.uploadService.upload('saveSalesOrderDocument', data, this.fileToUpload, dbFileName).then(
+            (data: string) => {
+                // Success
+                console.log("Success: File upload successful", data);
+                this.getDocsRepo();
+            },
+            function (err) {
+                // Error
+                console.log("Error: File upload returned error", err);
+            });
+    }
+
+    download() {
+        console.log("Downloading...");
+        this.uploadService.download().then(
+            (data: string) => {
+                // Success
+                console.log("Success: File upload successful", data);
+            },
+            function (err) {
+                // Error
+                console.log("Error: File upload returned error", err);
+            });
+    }
+
+    getDocsRepo() {
+        console.log(" getDocsRepo", this.salesOrderNo);
+        WebSocketService.getInstance().sendMessage({
+            'action': 'getDocsRepo',
+            'message': {
+                "salesOrderNo": this.salesOrderNo
+            }
+        });
+    }
+
+    showDocsData(data) {
+        console.log("showDocsData: data", data.docs);
+        if (data == null || data == "" || data == undefined) {
+            console.log("Ignore");
+        } else {
+            this.docs = data.docs;
+        }
+    }
+}

@@ -1,0 +1,136 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import { Component, ViewEncapsulation } from '@angular/core';
+import { MappingService } from '../services/mappingService';
+import { SalesOrderData } from '../data-models/sales-order-data';
+var MappingDashboardComponent = (function () {
+    function MappingDashboardComponent(mappingService) {
+        this.mappingService = mappingService;
+        this.salesOrderData = new SalesOrderData();
+        this.salesOrderNo = -1;
+        this.disabled = false;
+        this.display = false;
+        this.key = '';
+        this.value = '';
+        this.input1 = '';
+        this.input2 = '';
+        this.selectedSource = { key: "", value: "" };
+        this.selectedTarget = { key: "", value: "" };
+        this.selectedClient = { key: "", value: "" };
+        this.selectedInterface = { key: "", value: "" };
+        this.selectedInputpConfigurationRules = { key: "", value: "" };
+        this.selectedmicroservice = { key: "", value: "" };
+        this.selectedInputType = { key: "", value: "" };
+        this.selectedinputPayload = { key: "", value: "" };
+        console.log("MappingDashboardComponent constructor");
+        this.client = [];
+        this.client.push({ label: 'Select Client', value: null });
+        this.client.push({ label: 'Exxon', value: 'Exxon' });
+        this.client.push({ label: 'Tasnee', value: 'Tasnee' });
+        this.interface = [];
+        this.interface.push({ label: 'Select Interface', value: null });
+        this.interface.push({ label: 'SalesOrder', value: 'Sales Order' });
+        this.interface.push({ label: 'BookingConfirmation', value: 'Booking confirmation' });
+        this.inputpConfigurationRules = [];
+        this.inputpConfigurationRules.push({ label: 'Select Rules', value: null });
+        this.inputpConfigurationRules.push({ label: 'sourceKeys', value: 'sourceKeys' });
+        this.inputpConfigurationRules.push({ label: 'paymentTerms', value: 'paymentTerms' });
+        this.inputpConfigurationRules.push({ label: 'jobType', value: 'jobType' });
+        this.inputpConfigurationRules.push({ label: 'mode', value: 'mode' });
+        this.microservice = [];
+        this.microservice.push({ label: 'Select Microservice', value: null });
+        this.microservice.push({ label: 'Move File', value: 'moveFiles' });
+        this.microservice.push({ label: 'Read File and Archive', value: 'readFileAndArchive' });
+        this.microservice.push({ label: 'Stream to String', value: 'streamToString' });
+        this.microservice.push({ label: 'Create JSON', value: 'xmlToJson' });
+        this.microservice.push({ label: 'XML keys', value: 'xmlKeys' });
+        this.microservice.push({ label: 'Send Notification', value: 'notificationEmail' });
+        this.inputType = [];
+        this.inputType.push({ label: 'Select Input Type', value: null });
+        this.inputType.push({ label: 'Service', value: 'service' });
+        this.inputType.push({ label: 'Storage', value: 'storage' });
+        this.inputPayload = [];
+        this.inputPayload.push({ label: 'Select Input Payload ', value: null });
+        this.inputPayload.push({ label: 'inputPayload 1', value: 'inputPayload1' });
+        this.inputPayload.push({ label: 'inputPayload 2', value: 'inputPayload2' });
+    }
+    MappingDashboardComponent.prototype.ngOnInit = function () {
+        this.selectedSourceKeys = [];
+        this.selectedTargetKeys = [];
+    };
+    MappingDashboardComponent.prototype.showClient = function () {
+        console.log("showClient() ");
+    };
+    MappingDashboardComponent.prototype.showCInterface = function () {
+    };
+    MappingDashboardComponent.prototype.showimicroservice = function () {
+    };
+    MappingDashboardComponent.prototype.rulesSeq = function () {
+        this.rules = [];
+        var i = 0;
+        this.rules.push({ seqNo: i + 10, microServiceName: this.selectedmicroservice.value, inputType: this.selectedInputType.value,
+            inputPayload: this.selectedinputPayload.value, input1: this.input1, input2: this.input2 });
+    };
+    MappingDashboardComponent.prototype.showinputpConfigurationRules = function () {
+        if (this.selectedInputpConfigurationRules.value == 'paymentTerms') {
+        }
+    };
+    MappingDashboardComponent.prototype.store = function () {
+        var count = 0;
+        this.rulesSeq();
+        console.log("store()");
+        this.jsonObject = [];
+        this.jsonObject.push({ clientName: this.selectedClient.value, externalInterfaceName: this.selectedInterface.value, inputpConfigurationRules: { ruleName: this.selectedInputpConfigurationRules.value, rules: this.rules } });
+        console.log("jsonObject", this.jsonObject);
+        var myJSON = JSON.stringify(this.jsonObject);
+        console.log("myJSON", myJSON);
+    };
+    MappingDashboardComponent.prototype.dragStart = function (event, keyArray) {
+        this.draggedSourceKeys = keyArray;
+        console.log("dragStart", this.draggedSourceKeys);
+    };
+    MappingDashboardComponent.prototype.drop = function (event) {
+        console.log("Dragged", this.draggedSourceKeys);
+        if (this.draggedSourceKeys) {
+            this.selectedTargetKeys.push(this.draggedTargetKeys);
+            this.selectedSourceKeys.push(this.draggedSourceKeys);
+            this.availableSourceKeys.splice(this.findIndex(this.draggedSourceKeys), 1);
+            this.availableTargetKeys.splice(this.findIndex(this.draggedSourceKeys), 1);
+            this.draggedSourceKeys = null;
+        }
+    };
+    MappingDashboardComponent.prototype.dragEnd = function (event) {
+        console.log("dragEnd", this.draggedSourceKeys);
+        this.draggedSourceKeys = null;
+    };
+    MappingDashboardComponent.prototype.findIndex = function (keyArray) {
+        var index = -1;
+        for (var i = 0; i < this.availableSourceKeys.length; i++) {
+            if (keyArray.key === this.availableSourceKeys[i].key) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    };
+    return MappingDashboardComponent;
+}());
+MappingDashboardComponent = __decorate([
+    Component({
+        selector: 'mapping-dashboard',
+        templateUrl: './mapping-dashboard.component.html',
+        providers: [MappingService],
+        encapsulation: ViewEncapsulation.None,
+        styleUrls: ['./mapping-dashboard.component.scss']
+    }),
+    __metadata("design:paramtypes", [MappingService])
+], MappingDashboardComponent);
+export { MappingDashboardComponent };
+//# sourceMappingURL=../../../../src/app/mapping-dashboard/mapping-dashboard.component.js.map

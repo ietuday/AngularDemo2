@@ -1,0 +1,107 @@
+@import '../../styles.scss';
+
+// Applying 100% width to inputText
+.ui-inputtext {
+  width: 100% !important;
+}
+
+//Applying 100% width to dropdown widget
+.ui-dropdown {
+  width: 100%;
+}
+
+//Applying font-size to dropdown items
+.ui-dropdown-panel .ui-dropdown-item {
+    font-size: 12px;
+}
+
+// Applying background color if input is disabled
+input[type="text"]:disabled {
+  // background-color: $egrayfield;
+  background-color: $egraydisabledfield;
+  // border: 1px solid $egrayborder;
+  border: 1px solid $egraydisabledborder;
+  color: black;
+}
+
+.blDataRow {
+  // border: 1px solid black;
+  height: 68px;
+}
+
+.blDataBlock {
+  float: left;
+  width: 20%;
+}
+
+.blInputLabel {
+  color: $egrayfieldlabel;
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.blInputText {
+  width: 100%;
+}
+
+.blInputInfo {
+  font-size: 10px;
+  margin-top: 5px;
+  color: rgb(170, 170, 170);
+}
+
+.blExtraSpace {
+  float: left;
+  width: 6.66%;
+}
+
+.blSearchIcon {
+  float: right;
+  margin-right: 10px;
+  margin-top: -21px;
+  position: relative;
+  font-size: 13px;
+}
+
+.blBottomBlock {
+  margin-top: 18px;
+  height: 30px;
+}
+
+.blBottomSubBlock1 {
+  float: left;
+  // border: 1px solid $emaroon;
+  // border-radius: 25px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.blBottomSubBlock2 {
+  float: right;
+  height: 30px;
+}
+
+.blBottomBtnBlock {
+  float: left;
+  padding: 5px;
+  font-size: 15px;
+  color: $emaroon;
+}
+
+.blBottomBtnMainBlock {
+  float: left;
+  // border: 1px solid $emaroon;
+  // border-radius: 25px;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.applyBlButtonStyle .ui-button, .applyBlButtonStyle button.ui-button.ui-state-default, .applyBlButtonStyle .ui-button.ui-state-default{
+    background: $ewhite;
+    color: $emaroon;
+    border: 1px solid $emaroon;
+    border-radius: 25px;
+    padding: 2px !important;
+}

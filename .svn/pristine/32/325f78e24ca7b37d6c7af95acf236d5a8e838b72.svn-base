@@ -1,0 +1,139 @@
+<div style="height: 20px;"></div>
+<div class="docsDataRow">
+  <div class="docsDataBlock">
+    <div class="docsInputLabel">Shipper Ref No</div>
+    <div class="docsInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.shipperRef" [disabled]="disabled"/></div>
+  </div>
+  <div class="docsExtraSpace">&nbsp;</div>
+  <div class="docsDataBlock">
+    <div class="docsInputLabel">Export Job No</div>
+    <div class="docsInputText"><input type="text" pInputText [(ngModel)]="salesOrderData.jobNo" [disabled]="disabled"/></div>
+  </div>
+  <div class="docsExtraSpace">&nbsp;</div>
+  <div class="docsDataBlock">
+    <div class="docsInputLabel">System</div>
+    <div class="docsInputText"><input type="text" pInputText [(ngModel)]="docsDetails.system" [disabled]="disabled"/></div>
+  </div>
+  <div class="docsExtraSpace">&nbsp;</div>
+  <div class="docsDataBlock">
+    <div class="docsInputLabel">Last Web Release</div>
+    <div class="docsInputText"><input type="text" pInputText [(ngModel)]="docsDetails.lastWebRelease" [disabled]="disabled"/></div>
+  </div>
+</div>
+
+<div style="height: 50px; border-bottom: 1px solid rgb(216, 216, 216);">
+  <div class="docsLeftBtnBlock docsButtonStyle">
+    <button pButton type="button" label="View Web Doc. Set" class="docsBtnStyle"></button>
+  </div>
+  <div class="docsLeftBtnBlock docsButtonStyle">
+    <button pButton type="button" label="Save Doc. Settings" class="docsBtnStyle"></button>
+  </div>
+  <div class="docsLeftBtnBlock docsButtonStyle">
+    <button pButton type="button" (click)="uploadDialogDisplay()" label="Upload Add Doc." class="docsBtnStyle" [disabled]="!uploadDocsBtn"></button>
+  </div>
+  <div class="docsLeftBtnBlock docsButtonStyle">
+    <button pButton type="button" icon="fa-angle-down" iconPos="right" label="More" class="docsBtnStyle"></button>
+  </div>
+  <div class="docsRightBtnBlock">
+    <div class="docsBtnSubBlock docsButtonStyle">
+      <button pButton type="button" label="Preview" class="docsBtnStyle" (click)="previewDoc()" [disabled]="selectedIndex == -1"></button>
+      <!-- <button pButton type="button" label="Preview" class="docsBtnStyle" [disabled]="selectedIndex == -1"></button> -->
+    </div>
+    <div class="docsBtnSubBlock docsButtonStyle">
+      <button pButton type="button" label="Print" class="docsBtnStyle"></button>
+    </div>
+  </div>
+</div>
+
+<div class="docsDataRow" style="margin-top: 18px;">
+  <div class="docsDataBlock">
+    <div class="docsInputLabel" style="color: black">CSP Email</div>
+    <div class="docsInputText"><input type="text" pInputText [(ngModel)]="docsDetails.cspEmail"/></div>
+  </div>
+  <div class="docsExtraSpace">&nbsp;</div>
+  <div class="docsDataBlock">
+    <div class="docsInputLabel" style="color: black">CC Email</div>
+    <div class="docsInputText"><input type="text" pInputText [(ngModel)]="docsDetails.ccEmail"/></div>
+  </div>
+  <div class="docsExtraSpace">&nbsp;</div>
+  <div class="docsDataBlock">
+    <div class="docsInputLabel" style="color: black">Email Remarks</div>
+    <div class="docsInputText"><input type="text" pInputText [(ngModel)]="docsDetails.emailRemarks"/></div>
+  </div>
+</div>
+
+<div class="docsTableBlock">
+  <div class="docsTableHeaderBlock" style="border-top: 1px solid rgb(216, 216, 216)">
+    <div class="docsTableRowBlock">
+      <div class="docsTableHeaderContent">Doc Name</div>
+    </div>
+    <div class="docsTableRowBlock">
+      <div class="docsTableHeaderContent">User</div>
+    </div>
+    <div class="docsTableRowBlock">
+      <div class="docsTableHeaderContent">Date Uploaded</div>
+    </div>
+    <div class="docsTableRowBlock">
+      <div class="docsTableHeaderContent">Settings</div>
+    </div>
+    <div class="docsTableRowBlock" style="border-right: 1px solid rgb(216, 216, 216)">
+      <div class="docsTableHeaderContent">Upload Overwrite</div>
+    </div>
+  </div>
+  <div *ngFor="let doc of docs; let index = index" (click)="onRowSelect(index, doc.dbFileName)">
+    <div class="docsTableHeaderBlock" [ngStyle]="{'background-color': (selectedIndex == index ? 'rgb(245, 245, 245)' : 'white')}">
+      <div class="docsTableRowBlock"><div class="docsTableRowContent">{{doc.docName}}</div></div>
+      <div class="docsTableRowBlock"><div class="docsTableRowContent">{{doc.user}}</div></div>
+      <div class="docsTableRowBlock"><div class="docsTableRowContent">{{doc.dateUploaded}}</div></div>
+      <div class="docsTableRowBlock">
+        <div class="docsTableRowSettingsContent">
+          <p-selectButton [options]="docSettings" [(ngModel)]="doc.settings"></p-selectButton>
+        </div>
+      </div>
+      <div class="docsTableRowBlock" style="border-right: 1px solid rgb(216, 216, 216)">
+        <div class="docsTableRowContent"><span style="color: rgb(146, 27, 49); cursor: pointer">UPLOAD</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="height: 10px"></div>
+<div style="text-align: center" id="viewNode"></div>
+<div style="height: 10px"></div>
+<div style="padding-top: 13px; border-top: 1px solid rgb(216, 216, 216);">
+  <div class="docsLeftBtnBlock docsButtonStyle">
+    <button pButton type="button" icon="fa-floppy-o" label="Save All" (click)="save()" class="docsBtnStyle"></button>
+  </div>
+  <div class="docsRightBtnBlock">
+    <div class="docsBtnSubBlock docsButtonStyle">
+      <button pButton type="button" icon="fa-floppy-o" label="Save" (click)="save()" class="docsBtnStyle"></button>
+    </div>
+    <div class="docsBtnSubBlock docsButtonStyle">
+      <button pButton type="button" label="Cancel" (click)="cancel(true)" class="docsBtnStyle"></button>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Upload Doc" [(visible)]="showUploadDialog" [width]="600" [height]="300" [modal]=true>
+  <div class="docDialogRow">
+    <div class="docDialogBlock">
+      <div class="docDialogLabel">Document Name</div>
+      <div class="docInputText"><p-dropdown [options]="docNames" [style]="{'width':'100%'}" [(ngModel)]="selectedDocName"></p-dropdown></div>
+    </div>
+    <div class="docExtraSpace">&nbsp;</div>
+    <div class="docDialogBlock">
+      <div class="docDialogLabel">File Name</div>
+      <div class="docInputText"><input type="file" *ngIf="selectedDocName != 'Please Select'" (change)="fileChange($event)" placeholder="Select file to be uploaded" name="BLDoc" accept=".pptx,.ppt,.doc,.docx,.xls,.xlsx,.xml,.txt,.pdf" [(ngModel)]="fileToUploadName"/></div>
+    </div>
+    <div class="docSaveButton">
+    <button class="docButtonFile" (click)="uploadFile()" *ngIf="fileToUpload">Save</button>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog header="Success" [(visible)]="displaySalesOrderSuccess" height="200" width="400" responsive="true" modal="false">
+  <div style="margin-top: 7px;margin-bottom: 7px">
+    <span *ngIf="salesOrderNo != -1">
+      Docs Repo: Order {{salesOrderData.salesOrderNo}} saved successfully.
+    </span>
+  </div>
+</p-dialog>

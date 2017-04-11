@@ -1,0 +1,359 @@
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { SelectItem } from 'primeng/primeng';
+import { WebSocketService } from '../services/web-socket.service';
+import { SalesOrderData } from '../data-models/sales-order-data';
+import {CustomerData} from '../data-models/customer-data';
+
+@Component({
+    selector: 'export-ref',
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './export-ref.component.html',
+    styleUrls: ['./export-ref.component.scss'],
+    providers: [WebSocketService]
+})
+export class ExportRefComponent implements OnInit {
+    //    @Input() tabActive: boolean;
+
+    private disabled: boolean = true;
+    private disabled1:boolean = true;
+    private dropdownArray: SelectItem[];
+    private sendAs: SelectItem[];
+    private selectedData: string;
+    private displayApproverBlock: boolean = false;
+    private displayEventBlock: boolean = true;
+    private displayGTNBlock: boolean = false;
+    private salesOrderData: SalesOrderData = new SalesOrderData();
+    private salesOrderNo: number = -1;
+    private agentName: string = "";
+    private carrierBLName: string = "";
+    private portLoadName: string = "";
+    private portDischargeName: string = "";
+    private placeOfReceiptName: string = "";
+    private placeOfDeliveryName: string = "";
+    private carrierAgentName: string = "";
+    private transportMode: any[] = [];
+    private jobType: any[] = [];
+    private vendorData: any[] = [];
+    private portData: any[] = [];
+    private routes: any[] = [];
+    private schTypeInd: any[] = [];
+    private blArray: any[] = [];
+    private currency: any[] = [];
+    private gencodeData: any[] = [];
+    private notLoaded: boolean = true;
+    private customerName: string = '';
+    private customerId: number = -1;
+    private customers: SelectItem[];
+    private selectCustomer:string = '';
+    private validations: any[] = [];
+    private validationFailed: boolean = false;
+    private displayValidationDialog: boolean = false;
+    private displaySalesOrderSuccess: boolean = false;
+    private displaySalesOrderFailure: boolean = false;
+    private getCustomerPopUp:boolean = false;
+
+    private getDeptC: string;
+    constructor() {
+        console.log("ExportRefComponent: constructor");
+        this.setDropDowns();
+        this.setRefYM();
+        this.startSubscribe();
+        WebSocketService.getInstance().customerDataBehaviorSubject.subscribe(data => this.customerDataBehaviorSubjectSubscribe(data));
+        this.getCustomerPopUp=true;
+    }
+
+    ngOnInit() {
+    }
+
+   customerDataBehaviorSubjectSubscribe(data){
+     this.customers = [];
+     this.customers.push({ label: 'Select Customer', value: null });
+     for (let i in data) {
+       this.customers.push({ label: data[i].customerName, value: {customerId: data[i].customerId, customerName: data[i].customerName, deptId: data[i].deptId}});
+     }
+
+   }
+    setDropDowns() {
+        this.dropdownArray = [];
+        this.dropdownArray.push({ label: 'Yes', value: 'Yes' });
+        this.dropdownArray.push({ label: 'No', value: 'No' });
+        this.routes = [];
+        this.routes.push({ label: 'Select Route', value: '' });
+        this.routes.push({ label: 'East Coast', value: 'East Coast' });
+        this.routes.push({ label: 'West Coast', value: 'West Coast' });
+        this.schTypeInd = [];
+        this.schTypeInd.push({ label: 'Select', value: '' });
+        this.schTypeInd.push({ label: 'Direct', value: 'Direct' });
+        this.schTypeInd.push({ label: 'Console', value: 'Console' });
+        this.blArray = [];
+        this.blArray.push({ label: 'Select BL', value: '' });
+        this.blArray.push({ label: 'ORIGINAL', value: 'ORIGINAL' });
+        this.blArray.push({ label: 'SEAWAY BILL', value: 'SEAWAY BILL' });
+        this.sendAs = [];
+        this.sendAs.push({ label: 'Original', value: 'Original' });
+        this.sendAs.push({ label: 'Amendment', value: 'Amendment' });
+        this.transportMode = [];
+        this.transportMode.push({ label: 'Select Mode', value: '' });
+        this.transportMode.push({ label: 'SEA', value: 'SEA' });
+        this.transportMode.push({ label: 'AIR', value: 'AIR' });
+        this.transportMode.push({ label: 'LAND', value: 'LAND' });
+        this.transportMode.push({ label: 'RAIL', value: 'RAIL' });
+    }
+
+    showCustomers(){
+      if(this.selectCustomer==null){
+          // this.disabled=true;
+          console.log("selected value",this.selectCustomer);
+      }
+      else{
+        this.disabled1=false;
+      }
+    }
+
+    //    ngOnChanges(changes: any) {
+    //        if (changes.tabActive.currentValue) {
+    //            console.log("ExportRefComponent: ngOnChanges: changes.tabActive.currentValue", changes.tabActive.currentValue);
+    //            if (changes.tabActive.currentValue) {
+    //                if (this.notLoaded) {
+    //                    this.notLoaded = false;
+    //                    this.startSubscribe();
+    //                }
+    //            }
+    //        } else {
+    //            //            console.log("ExportRefComponent: changes.tabActive.currentValue", changes.tabActive.currentValue);
+    //            //            WebSocketService.getInstance().salesOrderDataBehaviorSubject.next(this.salesOrderData);
+    //        }
+    //    }
+
+    startSubscribe() {
+        WebSocketService.getInstance().salesOrderSaveBehaviorSubject.subscribe(data => this.salesOrderSaveHandler(data));
+        WebSocketService.getInstance().jobTypeDataBehaviorSubject.subscribe(data => this.showJobTypedropdown(data));
+        WebSocketService.getInstance().vendorDataBehaviorSubject.subscribe(data => this.vendorDatadropdown(data));
+        //        WebSocketService.getInstance().customerDataBehaviorSubject.subscribe(data => this.customerDataBehaviorSubjectSubscribe(data));
+        WebSocketService.getInstance().portDataBehaviorSubject.subscribe(data => this.portDataBehaviorSubjectSubscribe(data));
+        WebSocketService.getInstance().salesOrderDataBehaviorSubject.subscribe(data => this.showSalesOrderData(data));
+        WebSocketService.getInstance().currencyDataBehaviorSubject.subscribe(data => this.showCurrencydropdown(data));
+        WebSocketService.getInstance().gencodeDataBehaviorSubject.subscribe(data => this.gencodeDataHandler(data));
+        WebSocketService.getInstance().customerIdBehaviorSubject.subscribe(data => this.selectedCustomerDataHandler(data));
+    }
+
+    salesOrderSaveHandler(data) {
+        if (data.status == 'Success') {
+            console.log("ExportRefComponent: salesOrderSaveHandler: Success");
+            this.salesOrderNo = parseInt(data.message.salesOrderNo);
+            this.salesOrderData.salesOrderNo = this.salesOrderNo;
+            WebSocketService.getInstance().salesOrderDataBehaviorSubject.next(this.salesOrderData);
+            setTimeout(() => {
+                data.status = "";
+                WebSocketService.getInstance().salesOrderSaveBehaviorSubject.next(data);
+            }, 10)
+        } else if (data.status == 'Error') {
+            console.log("ExportRefComponent: salesOrderSaveHandler: Error");
+            this.displaySalesOrderFailure = true;
+        }
+    }
+
+    showJobTypedropdown(data) {
+        this.jobType = [];
+        this.jobType.push({ label: 'Job Code', value: '' });
+        for (let i in data) {
+            this.jobType.push({ label: data[i].job_description, value: data[i].job_id });
+        }
+    }
+
+    vendorDatadropdown(data) {
+        this.vendorData = [];
+        this.vendorData.push({ label: 'vendor ID', value: '' });
+        for (let i in data) {
+            this.vendorData.push({ label: data[i].VENDOR_ID, value: data[i].VENDOR_NAME });
+        }
+    }
+
+    clickOk(){
+      this.getCustomerPopUp=false;
+    }
+
+    //    customerDataBehaviorSubjectSubscribe(data) {
+    //        //        console.log("SalesOrderComponent: customerDataBehaviorSubjectSubscribe: data", data);
+    //        for (let i in data) {
+    //            if (data[i].customerId == parseInt(sessionStorage.getItem('selectCustomer'))) {
+    //                this.customerName = data[i].customerName;
+    //            }
+    //        }
+    //    }
+
+    portDataBehaviorSubjectSubscribe(data) {
+        if (data != undefined) {
+            if (data.length > 0) {
+                this.portData = [];
+                this.portData.push({ label: 'Port ID', value: '' });
+                for (let i in data) {
+                    this.portData.push({ label: data[i].portId, value: data[i].portName });
+                }
+            }
+        }
+    }
+
+    showSalesOrderData(data) {
+        if (data == null || data == "" || data == undefined) {
+            this.salesOrderData = new SalesOrderData();
+            this.salesOrderData.portCutOffDate = new Date();
+            this.salesOrderData.etaDest = new Date();
+        } else {
+            // this is for displaying search (find) data....!!
+            this.salesOrderData = data;
+            this.salesOrderData.portCutOffDate = this.getNewDate(data.portCutOffDate);
+            this.salesOrderData.etaPortnet = this.getNewDate(data.etaPortnet);
+            this.salesOrderData.etdPortLoad = this.getNewDate(data.etdPortLoad);
+            this.salesOrderData.etd = this.getNewDate(data.etd);
+            this.salesOrderData.etaDest = this.getNewDate(data.etaDest);
+            this.salesOrderData.etaPlaceOfDel = this.getNewDate(data.etaPlaceOfDel);
+            this.salesOrderData.oblCollectDate = this.getNewDate(data.oblCollectDate);
+            this.salesOrderData.origBookedVslETA = this.getNewDate(data.origBookedVslETA);
+            this.salesOrderData.firstBookedETAPOL = this.getNewDate(data.firstBookedETAPOL);
+            this.salesOrderData.firstBookedETD = this.getNewDate(data.firstBookedETD);
+            this.salesOrderData.firstBookedETADest = this.getNewDate(data.firstBookedETADest);
+            this.salesOrderData.revisedRDD = this.getNewDate(data.revisedRDD);
+            this.salesOrderData.approveDate = this.getNewDate(data.approveDate);
+        }
+        if (this.salesOrderData['refYM'] == undefined) {
+            this.setRefYM();
+        } else if (this.salesOrderData['refYM'] == "") {
+            this.setRefYM();
+        }
+    }
+
+    getNewDate(d: string) {
+        var timestamp = Date.parse(d)
+        if (timestamp == 0) {
+            return null;
+        } else if (isNaN(timestamp) == false) {
+            return new Date(timestamp);
+        } else {
+            return null;
+        }
+    }
+
+    showCurrencydropdown(data) {
+        this.currency = [];
+        this.currency.push({ label: 'Currency', value: '' });
+        for (let i in data) {
+            this.currency.push({ value: data[i].CURRENCY_ID, label: data[i].CURRENCY_NAME });
+        }
+    }
+
+    gencodeDataHandler(data) {
+        this.gencodeData = [];
+        this.gencodeData.push({ label: 'Select Gencode', value: '' });
+        for (let i in data) {
+            this.gencodeData.push({ label: data[i].GENCODE_DES, value: data[i].GENCODE_ID });
+        }
+    }
+
+    save() {
+        this.displaySalesOrderSuccess = true;
+        WebSocketService.getInstance().sendMessage({
+            'action': 'saveSalesOrder',
+            'message': this.salesOrderData
+        });
+        this.salesOrderData.customerId = this.customerId;
+    }
+
+    cancel() {
+        console.log("ExportRefComponent: cancel");
+        this.showSalesOrderData("");
+        // this.salesOrderData = new SalesOrderData();
+    }
+
+    setRefYM() {
+        let currentDate = new Date();
+        let str = "" + (currentDate.getMonth() + 1)
+        let pad = "00"
+        let month = pad.substring(0, pad.length - str.length) + str
+        this.salesOrderData['refYM'] = currentDate.getFullYear() + "" + month;
+    }
+
+    calculateTransitDays() {
+        if (this.salesOrderData.etaDest != undefined && this.salesOrderData.etd != undefined)
+            this.salesOrderData.transitDays = Math.ceil((new Date(this.salesOrderData.etaDest).getTime() - new Date(this.salesOrderData.etd).getTime()) / 1000 / 60 / 60 / 24);
+    }
+
+    approverIndHandler(e) {
+        if (e) {
+            this.salesOrderData.approver = sessionStorage.getItem("userName");
+            this.salesOrderData.approveDate = new Date();
+        } else {
+            this.salesOrderData.approver = "";
+            this.salesOrderData.approveDate = null;
+        }
+    }
+
+    selectedCustomerDataHandler(data) {
+        this.customerName = data.customerName;
+        this.salesOrderData.deptId = data.deptId;
+        this.getDeptC = this.salesOrderData.deptId;
+        this.customerId = data.customerId;
+    }
+
+    sectionClick(data) {
+      console.log(data);
+        if (data == 'displayApproverBlock') {
+            this.displayApproverBlock = !this.displayApproverBlock;
+            // if (this.displayApproverBlock) {
+            //     console.log("Clicked");
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("170vh");
+            // } else {
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("150vh");
+            // }
+        } else if (data == 'displayApproverBlock') {
+            this.displayApproverBlock = !this.displayApproverBlock;
+            // if (this.displayApproverBlock) {
+            //     console.log("Clicked");
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("170vh");
+            // } else {
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("150vh");
+            // }
+        } if (data == 'displayEventBlock') {
+            this.displayEventBlock = !this.displayEventBlock;
+            // if (this.displayApproverBlock) {
+            //     console.log("Clicked");
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("170vh");
+            // } else {
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("150vh");
+            // }
+        } if (data == 'displayGTNBlock') {
+            this.displayGTNBlock = !this.displayGTNBlock;
+            // if (this.displayApproverBlock) {
+            //     console.log("Clicked");
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("170vh");
+            // } else {
+            //     WebSocketService.getInstance().sideMenuBarHeightBehaviorSubject.next("150vh");
+            // }
+        }
+
+        if (this.displayApproverBlock && this.displayApproverBlock && this.displayApproverBlock) {
+
+        }
+
+        if (!this.displayApproverBlock && !this.displayApproverBlock && !this.displayApproverBlock) {
+
+        }
+    }
+    testCal(el) {
+        console.log(el);
+        console.log(el.el.nativeElement);
+        
+        for (var i in el.el.nativeElement.childNodes) {
+            if (el.el.nativeElement.childNodes[i].nodeName == 'SPAN') {
+                for (var j in el.el.nativeElement.childNodes[i].childNodes) {
+                    if (el.el.nativeElement.childNodes[i].childNodes[j].nodeName == 'INPUT') {
+                        el.el.nativeElement.childNodes[i].childNodes[j].focus();
+                        el.onFocus();
+                    }
+                }
+            }
+        }
+
+    }
+
+}

@@ -1,0 +1,122 @@
+<div class="dashboardBody">
+  <div class="dashboardMainBlock">
+    <div class="subToolbar">
+      <div class="subToolbarBlock1Ref" *ngIf="displayExportRef">
+        <span class="subToolbarMenuBox" style="border-radius: 0px 25px 25px 0px;">Template</span>
+        <span class="subToolbarMenuBox" style="border-radius: 24px 0px 0px 24px; width: 58px" (click)="op1.toggle($event)">Toolbox</span>
+      </div>
+      <div class="subToolbarBlock1" *ngIf="displayExportRef == false">
+        <span class="subToolbarMenuBox" style="border-radius: 0px 25px 25px 0px; width: 48px;" (click)="op2.toggle($event)">MSG</span>
+        <span class="subToolbarMenuBox">Print</span>
+        <span class="subToolbarMenuBox">Export</span>
+        <span class="subToolbarMenuBox" style="border-radius: 25px 0px 0px 25px" (click)="op1.toggle($event)">Toolbox</span>
+      </div>
+
+     <div class="dashboardOverlayData">
+      <p-overlayPanel #op1>
+        <div class="daschBoardIcon"></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Invoice</div></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Hauller Ins.Sheet</div></div>
+        <div class="subOverlayBlank" (click)="displayDialogOfMarkings(); op1.hide($event)" ><div class="overlayLableDiv">Markings</div></div>
+        <div class="subOverlayBlank" (click)="displayDialogOfNc();  op1.hide($event)" ><div class="overlayLableDiv">NC Report</div></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Other Details</div></div>
+        <div class="subOverlayBlank"><div class="overlayLableDiv">Freight Prepaid</div></div>
+      </p-overlayPanel>
+      </div>
+
+      <div class="dashboardOverlayDataMsg">
+       <p-overlayPanel #op2>
+         <div class="daschBoardIcon"></div>
+         <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send E-SI</div></div>
+         <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send VGM</div></div>
+         <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send Outward Declaration</div></div>
+         <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send Export Instruction</div></div>
+         <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send Shipping Advice</div></div>
+         <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send Sailing Ad Advice</div></div>
+        <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send to Elite Trax</div></div>
+        <div class="subOverlayBlankMsg"><div class="overlayLableDivMsg">Send to IWMS</div></div>
+       </p-overlayPanel>
+       </div>
+
+      <div class="subToolbarBlock2">
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef">
+          <button pButton type="button" icon="fa-pencil-square-o" label="Change Customer" (click)="displayGetCustomerDialog('changeCustomer')"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef == false">
+          <button pButton type="button" icon="fa-pencil-square-o" label="Change Reference"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock">
+          <button pButton type="button" icon="fa-check" label="Spell Check (F7)"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef">
+          <button pButton type="button" icon="fa-plus" label="Add New Ref" (click)="displayGetCustomerDialog('addNewRef')"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef == false">
+          <button pButton type="button" icon="fa-plus" label="Add New Job"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef">
+          <button pButton type="button" icon="fa-files-o" label="Copy to New Ref"></button>
+        </div>
+        <div class="changeBtnStyle subToolbarBtnBlock" *ngIf="displayExportRef == false">
+          <button pButton type="button" icon="fa-files-o" label="Copy to New Job"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs block below subheader -->
+    <div class="dashboardTabBlock">
+      <p-tabView *ngIf="displayExportRef">
+        <p-tabPanel header="Export Ref"><export-ref></export-ref></p-tabPanel>
+        <p-tabPanel header="Shipper"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Product / Container"><product-container *ngIf="displayTabs"></product-container></p-tabPanel>
+        <p-tabPanel header="Transshipment"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Direct Shipment"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Others"><under-construction></under-construction></p-tabPanel>
+      </p-tabView>
+
+      <p-tabView *ngIf="displayExportRef == false">
+        <p-tabPanel header="Export Job"><export-bl></export-bl></p-tabPanel>
+        <p-tabPanel header="Print Config"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Events"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Product / Container"><product-container></product-container></p-tabPanel>
+        <p-tabPanel header="Shipper"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Docs Repo"><docs-repo></docs-repo></p-tabPanel>
+        <p-tabPanel header="Others"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Alerts"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Carrier EDI Log"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Invoices"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Voucher"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Dr Note"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Cr Note"><under-construction></under-construction></p-tabPanel>
+        <p-tabPanel header="Payable"><under-construction></under-construction></p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="MARKINGS" [(visible)]="displayMarkingDialog" class="dashboardDialog" height="625" width="800"responsive="true" modal="false">
+  <marking></marking>
+</p-dialog>
+
+<p-dialog header="NC Details" [(visible)]="displayNcDialog" class="dashboardDialog" height="625" width="800" responsive="true" modal="false" (onAfterHide)="closeNCDialog()">
+  <nc-report></nc-report>
+</p-dialog>
+
+<p-dialog header="Get Customer" class="customerPopUp" [(visible)]="getCustomerPopUp" height="350" width="400" responsive="true" modal="false" closeOnEscape="false">
+  <div class="customerPopUp">
+    <div class="customerTextBox1">
+      <p-dropdown [options]="customers" [(ngModel)]="selectedCustomer" (click)="showCustomers()" name="selectCustomer" [style]="{'width': '82%','font-size':'12px','margin-top':'9.5px','color':'$egrayfieldlabel'}"></p-dropdown>
+    </div>
+    <div class="customerTextBox2">
+         <input type="text" pInputText  disabled="disabled" [(ngModel)]="selectedCustomer.customerName" name="refer"/>
+    </div>
+  </div>
+
+  <div class="customerPopUpButtonSection" >
+    <div class="customerPopUpCancelButton">
+         <div class="customerPopUpOklabel changeBtnStyle">
+          <button pButton type="button" label="Ok" class="customerokButton" [disabled]="selectedCustomer.customerName == ''" (click)="selectCustomerHandler()"></button>
+         </div>
+    </div>
+  </div>
+</p-dialog>

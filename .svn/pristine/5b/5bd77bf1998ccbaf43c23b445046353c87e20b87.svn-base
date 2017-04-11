@@ -1,0 +1,511 @@
+var WebSocket = require('ws')
+, startServer = true
+, production = false;
+
+var mongo = require('./serverModules/mongo.js');
+var container = require('./serverModules/container.js');
+var masters = require('./serverModules/masters.js');
+var application = require('./serverModules/app.js');
+var salesOrder = require('./serverModules/salesOrder.js');
+var upload = require('./serverModules/upload.js');
+var externalMapping = require('./serverModules/externalMapping.js');
+
+var tempSessions = {}, connections = {};
+var openSessions = {};
+
+function onWsConnection(connection) {
+  var location = url.parse(connection.upgradeReq.url, true);
+  // you might use location.query.access_token to authenticate or share sessions
+  // or ws.upgradeReq.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
+  connections[connection._ultron.id] = {
+    connection: connection,
+    timestamp: new Date(),
+    sessionId: null
+  };
+  console.log("On open connection added to connections. Count:", Object.keys(connections).length);
+
+  connection.on("close", function () {
+    console.log("Closing connection");
+    console.log("Closing connection", this._ultron.id);
+    delete openSessions[this._ultron.id];
+    console.log("OpenSession count: ", Object.keys(openSessions).length);
+    if (Object.keys(connections).length === 0) {
+      clearInterval(sendPingTimer);
+    }
+    delete connections[connection._ultron.id];
+    console.log("On close connection removed from connections. Count:", Object.keys(connections).length)
+  });
+
+  connection.on('message', function (encodedMessage) {
+    onMessage(connection, encodedMessage);
+  });
+}
+
+function atob(s) {
+  return new Buffer(s, 'base64').toString();
+}
+
+function btoa(s) {
+  return new Buffer(s).toString('base64');
+}
+
+if (startServer) {
+  console.log('Starting ws Server');
+  var server = require('http').createServer()
+  , url = require('url')
+  , uuid = require('uuid')
+  , ejs = require('ejs')
+  , bodyParser = require('body-parser')
+  , express = require('express')
+  , multiparty = require('multiparty')
+  , util = require('util')
+  , app = express()
+  , timer = null
+  , port = 80;
+  var WebSocketServer = WebSocket.Server;
+  var wss = new WebSocketServer({server: server});
+  wss.on('connection', function (ws) {
+    console.log("On connection");
+    onWsConnection(ws);
+  });
+
+    app.use(express.static(__dirname + '/dist'));
+    app.use("/", express.static(__dirname + '/dist'));
+    app.use("/d", express.static(__dirname + '/wwwd'));
+    app.use("/m", express.static(__dirname + '/wwwm'));
+    app.set('views', [__dirname + '/dist', __dirname + '/wwwd', __dirname + '/wwwm']);
+//    app.set('views', __dirname + '/dist');  // Set views (index.html) to root directory
+    app.engine('html', ejs.renderFile);     // Default for express is Jade as the rendering engine. Change that to EJS for HTML over JADE
+//  app.use(express.static(__dirname + '/dist'));
+//  app.set('views', __dirname + '/dist');  // Set views (index.html) to root directory
+  app.engine('html', ejs.renderFile);     // Default for express is Jade as the rendering engine. Change that to EJS for HTML over JADE
+
+  app.use(bodyParser.json());             // to support JSON-encoded bodies
+  app.use(bodyParser.urlencoded({// to support URL-encoded bodies
+    extended: true
+  }));
+
+  app.use(function (req, res, next) {
+    var oneof = false;
+    if (req.headers.origin) {
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
+      oneof = true;
+    }
+    if (req.headers['access-control-request-method']) {
+      res.header('Access-Control-Allow-Methods', req.headers['access-control-request-method']);
+      oneof = true;
+    }
+    if (req.headers['access-control-request-headers']) {
+      res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
+      oneof = true;
+    }
+    if (oneof) {
+      res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+    }
+
+    // intercept OPTIONS method
+    if (oneof && req.method == 'OPTIONS') {
+      res.sendStatus(200);
+    } else {
+      next();
+    }
+  });
+  app.get('/', (req, res) => res.render('/dist/index.html'));
+  app.post('/uploadFile', (req, res) => upload.uploadFile(req, res));
+  // app.get('/downloadFile', (req, res) => upload.downloadFile(req, res));
+  app.get('/downloadFile/:fileName', (req, res) => upload.downloadFile(req, res));
+  app.post('/insertExternalInterfaceMapping/:message', (req, res) => externalMapping.insertExternalMapping(req, res));
+  app.get('/getExternalInterfaceMapping/:message', (req, res) => externalMapping.getExternalMapping(req, res));
+  app.get('/webresources/auth', (req, res) => auth(req, res));
+  app.get('/ncDetails', (req, res) => ncDetails(req, res));
+
+  server.on('request', app);
+  server.listen(port, function () {
+    console.log('Listening on ' + server.address().port)
+  });
+
+} else {
+  setTimeout(function () {
+    startClient();
+  }, 5000);
+}
+
+function ncDetails(req, res) {
+  console.log("Inside ncDetails");
+  salesOrder.saveNcDetailsSchedular(openSessions);
+  res.write("");
+  res.end();
+}
+
+function startClient() {
+  console.log('Creating ws client');
+  if (production) {
+    var wss = new WebSocket('wss://elitejava.herokuapp.com/wsendpoint');
+    console.log("wss", wss);
+  } else {
+    var wss = new WebSocket('ws://localhost:80/wsendpoint');
+    console.log("wss", wss);
+  }
+
+  wss.on('open', function open() {
+    var msg = {
+      'action': 'registerMongoClient',
+      'source': 'mongoClient',
+      'sessionId': ''
+    };
+    console.log("Sending registerMongoClient");
+    mongo.sendWsMessage(wss, msg);
+  });
+
+  wss.on('message', function (data, flags) {
+    onMessage(wss, data);
+    // flags.binary will be set if a binary data is received.
+    // flags.masked will be set if the data was masked.
+  });
+
+  wss.on('error', function () {
+    try {
+      wss.close();
+      setTimeout(function () {
+        startClient();
+      }, 5000);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
+  wss.on('close', function () {
+    try {
+      setTimeout(function () {
+        startClient();
+      }, 5000);
+    } catch (e) {
+      console.log(e);
+    }
+  });
+}
+
+function onMessage(connection, encodedMessage) {
+  var response = '';
+  var decodedMessage = atob(encodedMessage + "");
+  message = JSON.parse(decodedMessage);
+  connectionId = connection._ultron.id;
+
+  if (message.action === 'confirmAuth') {
+    confirmAuthHandler(connection, message);
+    console.log("connectionId: ", connectionId);
+  } else {
+    if (!checkSession(connectionId, connection, message.sessionId)) {
+      connection.close();
+    } else {
+      messageHandler(connection, response, message);
+    }
+  }
+}
+
+function messageHandler(connection, response, message) {
+  switch (message.action) {
+    case 'login':
+    application.login(message, function (result) {
+      if (connection != null) {
+        if (result.status == "Success") {
+          openSessions[connection._ultron.id] = {
+            "connection": connection,
+            "userName": message.message.userName
+          }
+        }
+        connectionHandler(connection, result);
+      } else {
+        responseHandler(response, result);
+      }
+    });
+    break;
+
+    case 'getSOnumbers':
+    salesOrder.getSOnumbers(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'saveSalesOrder':
+    salesOrder.saveSalesOrder(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getSalesOrder':
+    salesOrder.getSalesOrder(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'saveNcDetails':
+    salesOrder.saveNcDetails(message, function (result) {
+      // resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'deleteNCDetails':
+    salesOrder.deleteNCDetails(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'saveTransNo':
+    console.log("In server.js", message);
+    salesOrder.saveTransNo(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'saveSalesOrderNCs':
+    console.log("In server.js", message);
+    salesOrder.saveSalesOrderNCs(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'saveMarkingsDetails':
+    salesOrder.saveMarkingsDetails(message, function (result) {
+      // resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getContainerDetails':
+    salesOrder.getContainerDetails(message, function(result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getAllContainerDetails':
+    console.log("In server.js:getAllContainerDetails",message);
+    salesOrder.getAllContainerDetails(message, function(result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+    
+    case 'getDocsRepo':
+    salesOrder.getDocsRepo(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'saveDocsDetails':
+    salesOrder.saveDocsDetails(message, function (result) {
+      // resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getCustomers':
+    masters.getCustomers(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'findContainer':
+    salesOrder.findContainerHandler(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'addContainer':
+    salesOrder.addContainerHandler(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'updateContainer':
+    salesOrder.updateContainerHandler(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'deleteContainer':
+    salesOrder.deleteContainerHandler(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'saveContainer':
+    salesOrder.saveContainerHandler(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getContactInfo':
+    masters.getContactHandler(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getContainerTypes':
+    masters.getContainerTypes(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getNCParties':
+    masters.getNCParties(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getCurrencies':
+    masters.getCurrencies(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getNCTypes':
+    console.log("In server.js getNCTypes", message);
+    masters.getNCTypes(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getJobTypes':
+    masters.getJobTypes(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getVendors':
+    masters.getVendors(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getPorts':
+    masters.getPorts(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getGencodes':
+    masters.getGencodes(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getCountries':
+    masters.getCountries(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'schedulerStatus':
+    externalMapping.schedulerStatus(message, function (result) {
+      console.log("Inside Server.js :schedulerStatus Case ", result);
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getPayments':
+    masters.getPayments(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+
+    case 'getProducts':
+    masters.getProducts(message, function (result) {
+      resultHandler(connection, response, result);
+    });
+    break;
+  }
+}
+
+// MessageHandlers
+function resultHandler(connection, response, message) {
+  if (connection != null) {
+    connectionHandler(connection, message);
+  } else {
+    responseHandler(response, message);
+  }
+}
+
+function connectionHandler(connection, message) {
+  //    console.log("connectionHandler", message);
+  mongo.sendWsMessage(connection, message);
+}
+
+function responseHandler() {
+  console.log("Inside responseHandler");
+}
+
+function auth(req, res) {
+  var sessionId = uuid.v4();
+  tempSessions[sessionId] = new Date();
+  console.log("New auth came. count:", Object.keys(tempSessions).length);
+  if (Object.keys(tempSessions).length === 1) {
+    checkAuthTimer = startCheckAuthTimer();
+  }
+  res.write(sessionId);
+  res.end();
+}
+
+function startCheckAuthTimer() {
+  return setInterval(function () {
+    for (sessionId in tempSessions) {
+      if ((new Date() - tempSessions[sessionId]) > 15000) {
+        delete tempSessions[sessionId];
+        console.log("temp auth removed because of timeout. count:", Object.keys(tempSessions).length);
+      }
+    }
+    for (connectionId in connections) {
+      if (connections[connectionId].sessionId == null) {
+        if (new Date() - connections[connectionId].timestamp > 10000) {
+          connections[connectionId].connection.close();
+          delete connections[connectionId];
+          console.log("conenction removed because of timeout. count:", Object.keys(connections).length);
+        }
+      }
+    }
+  }, 5000);
+}
+
+function startSendPingTimer() {
+  return setInterval(function () {
+    for (id in connections) {
+      mongo.sendWsMessage(connections[id].connection, {action: 'ping'});
+    }
+  }, 5000);
+}
+
+function confirmAuthHandler(connection, message) {
+  console.log("Inside confirmAuthHandler");
+  if (tempSessions[message.sessionId]) {
+    connections[connection._ultron.id].sessionId = message.sessionId;
+    message.status = "Success";
+    message.error = "";
+    mongo.sendWsMessage(connection, message);
+    if (Object.keys(connections).length === 1) {
+      sendPingTimer = startSendPingTimer();
+    }
+    delete tempSessions[message.sessionId];
+    console.log("temp auth removed as new connection authenticated. count:", Object.keys(tempSessions).length);
+  } else {
+    message.status = "Error";
+    message.error = "Session not found.";
+    connection.close();
+  }
+}
+
+function checkSession(connectionId, connection, sessionId) {
+  // console.log("connectionId", connectionId);
+  if (startServer) {
+    if (connections[connectionId].sessionId === sessionId) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
+}
+
+
+//openSessions[connection._ultron.id] = {
+//         "connection" : connection,
+//         "email" : emailId,
+//         "userType" : result[0].signup.userType
+//       }
